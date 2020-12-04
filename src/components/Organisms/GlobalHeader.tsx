@@ -5,7 +5,7 @@ import GlobalStyled from 'style/GlobalStyled';
 const Styled = {
 	Wrapper: styled(GlobalStyled.CenterRow)`
 		font-size: 2rem;
-		color: ${props => props.theme.blue.logo};
+		color: ${props => props.theme.sky};
 		font-weight: bold;
 		cursor: default;
 	`,

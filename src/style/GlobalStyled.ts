@@ -7,9 +7,9 @@ const Parent = {
         display : flex;
         width : 100%;
         padding : 1rem;
-        background-color : ${props => props.theme.white.card};
+        background-color : ${props => props.theme.white};
         border-radius : 0.5rem;
-        box-shadow : ${props => props.theme.shadow.card};
+        box-shadow : ${props => props.theme.shadow}  0px 0px 10px 0px;
         ${typography}
         ${space}
         ${color}
@@ -22,30 +22,27 @@ const Parent = {
         ${space}
         ${color}
     `,
-    // Button: styled.button`
-    //     display : flex;
-    //     padding : 0.25rem 0.5rem;
-    //     border-radius : 0.25rem;
-    //     align-items : center;
-    //     justify-content : center;
-    //     outline : none;
-    //     color : ${props => props.theme.color.white.text};
-    //     background-color : ${props => props.theme.color.blue};
-    //     :hover {
-    //         background-color : ${props => props.theme.color.deepBlue};
-    //     }
-    //     :active {
-    //         background-color : ${props => props.theme.color.darkBlue};
-    //     }
-    //     ${typography}
-    //     ${space}
-    //     ${color}
-    //     ${layout}
-    // `,
+    Button: styled.button`
+        display : flex;
+        align-items : center;
+        justify-content : center;
+        outline : none;
+        color : ${props => props.theme.white};
+        border : 0px;
+        border-radius : 0.25rem;
+        padding : 0;
+        ${typography}
+        ${space}
+        ${color}
+        ${layout}
+    `,
     Row: styled.div<{ bottom?: number }>`
         display : flex;
         width : 100%;
         margin-bottom : ${props => props.bottom}rem;
+        ${typography}
+        ${space}
+        ${color}
     `
 }
 
@@ -58,7 +55,7 @@ const Parent = {
 //             backgroundColor: theme.color.deepBlue
 //         },
 //         active: {
-//             backgroundColor: theme.color.darkBlue
+//             backgroundColor: theme.color.blackBlue
 //         }
 //     },
 //     indigo: {
@@ -78,7 +75,7 @@ const Parent = {
 //             backgroundColor: theme.color.realBlueGray
 //         },
 //         active: {
-//             backgroundColor: theme.color.darkGray
+//             backgroundColor: theme.color.blackGray
 //         }
 //     }
 // }
@@ -88,9 +85,6 @@ const GlobalStyled = {
     Card: styled(Parent.Card)`
 
     `,
-    BorderRow: styled(Parent.Row)`
-        border-bottom : 1px solid ${props => props.theme.gray.border};
-    `,
     Body: styled.div`
         display : flex;
         flex-direction : column;
@@ -98,7 +92,8 @@ const GlobalStyled = {
     `,
 
     Container: styled.div`
-        width : 720px;
+        width : 100%;
+        max-width : 720px;
         margin : 0 auto;
         ${typography}
         ${space}
@@ -106,14 +101,20 @@ const GlobalStyled = {
     `,
 
     Row: styled(Parent.Row)`
-        ${typography}
-        ${space}
-        ${color}
+        
+    `,
+
+    Section: styled(Parent.Row)`
+        flex-direction : column;
     `,
 
     ContentRow: styled(Parent.Row)`
-        padding : 1rem 0;
-        border-bottom : 1px solid ${props => props.theme.gray.border};
+        padding : 1rem ;
+        flex-direction : column;
+        border-bottom : 1px solid ${props => props.theme.lightGray};
+        :nth-child(even){
+            background-color : ${props =>props.theme.ivory};
+        }
     `,
 
     CenterRow: styled(Parent.Row)`
@@ -151,6 +152,8 @@ const GlobalStyled = {
     //         border : 0.175rem solid ${props => props.theme.color.sky};
     //     }
     // `,
+
+    Button : styled(Parent.Button)``
 
     // Button: styled(Parent.Button)`
     //     width : ${props=>props.width}

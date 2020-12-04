@@ -1,5 +1,5 @@
-import { createGlobalStyle } from "styled-components";
-import theme from "./theme";
+import { createGlobalStyle } from 'styled-components';
+import theme from './theme';
 
 const GlobalStyle = () => {
 	return <Body />;
@@ -11,11 +11,11 @@ const Body = createGlobalStyle`
         font-size : 12px;
     }
     body{
-        color : ${theme.dark.text};
+        color : ${theme.black};
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         font-family: 'Noto Sans KR', sans-serif ;
-        background-color : ${theme.white.background};
+        background-color : ${theme.white};
         margin : 0;
     }
     img{
