@@ -24,7 +24,7 @@ interface ValueLabelContentInterface {
 	label: string;
 }
 
-const ValueLabelContent = (props: ValueLabelContentInterface) => {
+const PlantTimeContent = (props: ValueLabelContentInterface) => {
 	const { value, label } = props;
 	return (
 		<Styled.Wrapper>
@@ -33,9 +33,9 @@ const ValueLabelContent = (props: ValueLabelContentInterface) => {
 		</Styled.Wrapper>
 	);
 };
-ValueLabelContent.defaultProps = {
+PlantTimeContent.defaultProps = {
 	value: '-',
 	label: '-',
 };
 
-export default ValueLabelContent;
+export default PlantTimeContent;

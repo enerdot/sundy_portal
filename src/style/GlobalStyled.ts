@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { typography, space, color, layout } from 'styled-system'
-// import theme from './theme'
+import {Link} from 'react-router-dom'
 
 const Parent = {
     Card: styled.div`
@@ -31,6 +31,7 @@ const Parent = {
         border : 0px;
         border-radius : 0.25rem;
         padding : 0;
+        cursor : pointer;
         ${typography}
         ${space}
         ${color}
@@ -43,7 +44,16 @@ const Parent = {
         ${typography}
         ${space}
         ${color}
-    `
+        ${layout}
+    `,
+    Link : styled(Link)`
+        display : flex;
+        width : 100%;
+        ${typography}
+        ${space}
+        ${color}
+        ${layout}
+    `,
 }
 
 
@@ -136,7 +146,8 @@ const GlobalStyled = {
         align-items : center;
         justify-content : flex-end;
     `,
-
+    Button : styled(Parent.Button)``,
+    Link : styled(Parent.Link)``
     // ButtonCard: styled(Parent.Card)`
     //     width : 100%;
     //     padding : 2rem 0;
@@ -153,7 +164,6 @@ const GlobalStyled = {
     //     }
     // `,
 
-    Button : styled(Parent.Button)``
 
     // Button: styled(Parent.Button)`
     //     width : ${props=>props.width}

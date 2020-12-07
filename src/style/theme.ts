@@ -14,7 +14,7 @@ interface DefaultTheme {
 
 const theme : DefaultTheme = {
     white: '#ffffff',
-    ivory : '#F6F6F6',
+    ivory : '#F9F9F9',
     black: '#000000',
     sky : '#0098FF',
     darkSky : '#0B82DC',

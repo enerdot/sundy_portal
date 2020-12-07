@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import GlobalStyled from 'style/GlobalStyled';
-import ValueLabelContent from 'components/Atoms/ValueLabelContent';
+import PlantTimeContent from 'components/Atoms/PlantTimeContent';
 
 const Styled = {
 	Wrapper: styled(GlobalStyled.Row)`
@@ -14,21 +14,21 @@ interface SwitchButtonInterface {
 	infos: Array<object>;
 }
 
-const ValueLabelContentList = (props: SwitchButtonInterface) => {
+const PlantTimeContentList = (props: SwitchButtonInterface) => {
 	const { infos } = props;
 
 	const list = infos.map((res, i) => {
 		return (
 			<GlobalStyled.Col key={i} width={100 / infos.length}>
-				<ValueLabelContent {...res} />
+				<PlantTimeContent {...res} />
 			</GlobalStyled.Col>
 		);
 	});
 
 	return <Styled.Wrapper>{list}</Styled.Wrapper>;
 };
-ValueLabelContentList.defaultProps = {
+PlantTimeContentList.defaultProps = {
 	infos: [],
 };
 
-export default ValueLabelContentList;
+export default PlantTimeContentList;

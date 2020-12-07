@@ -7,8 +7,9 @@ import SwitchButton from 'components/Atoms/SwitchButton';
 
 import Calendar from 'components/Atoms/Calendar';
 import GradationBar from 'components/Atoms/GradationBar';
-import ValueLabelContentList from 'components/Molecules/ValueLabelContentList';
+import PlantTimeContentList from 'components/Molecules/PlantTimeContentList';
 import CompanyLinkCards from 'components/Molecules/CompanyLinkCards';
+import RegionPlantMap from 'components/Molecules/RegionPlantMap';
 // import useCurrentUser from 'hooks/useCurrentUser';
 // import useAPI from 'hooks/useAPI';
 
@@ -23,6 +24,11 @@ const Styled = {
 const MainPage = (): JSX.Element => {
 	const [isViewTypeAvg, setIsViewTypeAvg] = useState(false);
 
+	const [calendarInfo, setCalendarInfo] = useState({
+		startDate: new Date(),
+		endDate: new Date(),
+	});
+
 	const [plantTimeInfos] = useState([
 		{
 			value: '-',
@@ -34,12 +40,27 @@ const MainPage = (): JSX.Element => {
 		},
 	]);
 
+	const [regionPlantTimeInfo] = useState({
+		seoulAndGyeonggiDo: 0,
+		chungnam: 0,
+		jeonbuk: 0,
+		jeonnam: 0,
+		gangwon: 0,
+		chungbuk: 0,
+		gyeongbuk: 0,
+		gyeongnam: 0,
+		jeju: 0,
+	});
+
 	return (
 		<GlobalStyled.Body>
 			<GlobalStyled.Container>
 				<GlobalStyled.ContentRow>
 					<GlobalStyled.Row>
-						<Calendar>
+						<Calendar
+							info={calendarInfo}
+							onChange={setCalendarInfo}
+						>
 							<Styled.CalendarSmallInfo>
 								지역 별 발전소들을 구경해보세요
 							</Styled.CalendarSmallInfo>
@@ -57,7 +78,7 @@ const MainPage = (): JSX.Element => {
 						</GlobalStyled.RightCol>
 					</GlobalStyled.Row>
 
-					<GlobalStyled.Row>
+					<GlobalStyled.Row bottom={2}>
 						<GlobalStyled.RightCol width={100}>
 							<GradationBar width={'15rem'}>
 								<GlobalStyled.Row>
@@ -71,10 +92,14 @@ const MainPage = (): JSX.Element => {
 							</GradationBar>
 						</GlobalStyled.RightCol>
 					</GlobalStyled.Row>
+
+					<GlobalStyled.Row>
+						<RegionPlantMap info={regionPlantTimeInfo} />
+					</GlobalStyled.Row>
 				</GlobalStyled.ContentRow>
 				<GlobalStyled.ContentRow>
 					<GlobalStyled.Row>
-						<ValueLabelContentList infos={plantTimeInfos} />
+						<PlantTimeContentList infos={plantTimeInfos} />
 					</GlobalStyled.Row>
 				</GlobalStyled.ContentRow>
 				<GlobalStyled.ContentRow>
