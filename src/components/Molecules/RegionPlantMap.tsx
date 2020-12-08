@@ -2,10 +2,9 @@ import React from 'react';
 import styled, { keyframes } from 'styled-components';
 
 import GlobalStyled from 'style/GlobalStyled';
-import theme from 'style/theme';
 
-import Svg from 'components/Atoms/Svg';
 import RegionPlantTimeCard from '../Atoms/RegionPlantTimeCard';
+import PlantMap from '../Atoms/PlantMap';
 
 import {
 	SeoulAndGyeonggiDo,
@@ -16,17 +15,8 @@ import {
 	Gyeongnam,
 	Jeonbuk,
 	Jeonnam,
-	PlantMap,
 	Jeju,
 } from 'images/PlantMap';
-
-const regionLevelTheme = {
-	1: '',
-	2: '',
-	3: '',
-	4: '',
-	5: '',
-};
 
 const Animation = {
 	line: ({ strokeDashoffset }: { strokeDashoffset: any }) => keyframes`
@@ -50,6 +40,24 @@ const Animation = {
 const Styled = {
 	Body: styled(GlobalStyled.Row)`
 		#region_plant_map {
+			#seoulAndGyeonggiDo {
+			}
+			#chungnam {
+			}
+			#jeonbuk {
+			}
+			#jeonnam {
+			}
+			#gangwon {
+			}
+			#chungbuk {
+			}
+			#gyeongbuk {
+			}
+			#gyeongnam {
+			}
+			#jeju {
+			}
 		}
 	`,
 	MapContainer: styled.div`

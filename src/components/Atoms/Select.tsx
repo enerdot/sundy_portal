@@ -2,10 +2,20 @@ import React from 'react';
 import styled from 'styled-components';
 import ReactSelect from 'react-select';
 
-import theme from '../../style/theme';
+const levelSize: any = {
+	3: '1rem',
+	2: '1.5rem',
+	1: '3rem',
+};
+
+interface BodyInterface {
+	width: number | string;
+	level: number;
+}
 
 const Styled = {
-	Body: styled.div<{ width: number | string }>`
+	Body: styled.div<BodyInterface>`
+		font-size: ${props => levelSize[props.level]};
 		width: ${props => props.width};
 		.css-tlfecz-indicatorContainer {
 		}
@@ -22,6 +32,8 @@ interface propsType {
 	};
 	onChange: any;
 	isActive: boolean;
+	customStyles: any;
+	level: number;
 }
 
 interface selectType {
@@ -30,21 +42,19 @@ interface selectType {
 }
 
 const Select = (props: propsType) => {
-	const { isDisabled, width, options, value, onChange, isActive } = props;
-
-	const customStyles: object = {
-		control: (provided: selectType, state: selectType) => ({
-			...provided,
-			// border: `1px solid ${theme.color.realWhiteBlue}`,
-		}),
-		indicatorContainer: (provided: selectType, state: selectType) => ({
-			...provided,
-			// color: theme.color.whiteBlue,
-		}),
-	};
+	const {
+		isDisabled,
+		width,
+		options,
+		value,
+		onChange,
+		isActive,
+		customStyles,
+		level,
+	} = props;
 
 	return (
-		<Styled.Body width={width}>
+		<Styled.Body level={level} width={width}>
 			{isActive ? (
 				<ReactSelect
 					styles={customStyles}
@@ -83,6 +93,17 @@ Select.defaultProps = {
 	isActive: true,
 	isDisabled: false,
 	onChange: function () {},
+	customStyles: {
+		control: (provided: selectType, state: selectType) => ({
+			...provided,
+			// border: `1px solid ${theme.color.realWhiteBlue}`,
+		}),
+		indicatorContainer: (provided: selectType, state: selectType) => ({
+			...provided,
+			// color: theme.color.whiteBlue,
+		}),
+	},
+	level: 2,
 };
 
 export default Select;

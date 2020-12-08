@@ -114,7 +114,7 @@ const GlobalStyled = {
         
     `,
 
-    Section: styled(Parent.Row)`
+    HeightRow: styled(Parent.Row)`
         flex-direction : column;
     `,
 
@@ -147,7 +147,12 @@ const GlobalStyled = {
         justify-content : flex-end;
     `,
     Button : styled(Parent.Button)``,
-    Link : styled(Parent.Link)``
+    Link : styled(Parent.Link)``,
+    Title : styled(Parent.Row)`
+        font-size : 1rem;
+        font-weight: bold;
+        color : ${props => props.theme.lightBlack};
+    `
     // ButtonCard: styled(Parent.Card)`
     //     width : 100%;
     //     padding : 2rem 0;

@@ -18,13 +18,9 @@ const Styled = {
 	`,
 };
 
-interface SwitchButtonInterface {
-	children: any;
-}
+interface SwitchButtonInterface {}
 
 const CompanyLinkCards = (props: SwitchButtonInterface) => {
-	const { children } = props;
-
 	const infos = [
 		{
 			url: 'https://enerdot.co.kr/',

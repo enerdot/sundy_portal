@@ -11,6 +11,7 @@ import GlobalHeader from 'components/Organisms/GlobalHeader';
 import GlobalFooter from 'components/Organisms/GlobalFooter';
 
 const MainPage = lazy(() => import('./pages/MainPage'));
+const RegionPage = lazy(() => import('./pages/RegionPage'));
 
 const swrConfig: object = {
 	onErrorRetry: (
@@ -36,6 +37,10 @@ function App() {
 					<Suspense fallback={<div>Loading</div>}>
 						<Switch>
 							<Route exact path="/" component={MainPage} />
+							<Route
+								path="/region/:region?"
+								component={RegionPage}
+							/>
 							<Route
 								component={() => {
 									return <div>Err</div>;
