@@ -8,6 +8,7 @@ const Styled = {
 		color: ${props => props.theme.sky};
 		font-weight: bold;
 		cursor: default;
+		text-align: center;
 	`,
 };
 
@@ -15,7 +16,9 @@ const GlobalHeader = () => (
 	<GlobalStyled.Body>
 		<GlobalStyled.Container>
 			<GlobalStyled.ContentRow>
-				<Styled.Wrapper>SUNDY PORTAL</Styled.Wrapper>
+				<Styled.Wrapper>
+					<GlobalStyled.Link to="/">SUNDY PORTAL</GlobalStyled.Link>
+				</Styled.Wrapper>
 			</GlobalStyled.ContentRow>
 		</GlobalStyled.Container>
 	</GlobalStyled.Body>

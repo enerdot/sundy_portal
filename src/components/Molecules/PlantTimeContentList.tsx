@@ -7,6 +7,7 @@ import PlantTimeContent from 'components/Atoms/PlantTimeContent';
 const Styled = {
 	Wrapper: styled(GlobalStyled.Row)`
 		font-size: 1rem;
+		margin: 1rem 0;
 	`,
 };
 

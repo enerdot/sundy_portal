@@ -11,11 +11,7 @@ interface DefaultTheme {
     ivory : any,
     darkGray : any,
 
-    levelOneBlue : any,
-    levelTwoBlue : any,
-    levelThreeBlue : any,
-    levelFourBlue : any,
-    levelFiveBlue : any,
+    levelBlue : any,
 }
 
 const theme : DefaultTheme = {
@@ -37,12 +33,13 @@ const theme : DefaultTheme = {
     darkGray : '#575757',
     gray : '#747474',
 
-    levelOneBlue : '#E5F2FB',
-    levelTwoBlue : '#B0D7F4',
-    levelThreeBlue : '#78BAEC',
-    levelFourBlue : '#419EE3',
-    levelFiveBlue : '#0B82DC',
-
+    levelBlue : {
+        1: '#E5F2FB',
+        2: '#B0D7F4',
+        3: '#78BAEC',
+        4: '#419EE3',
+        5: '#0B82DC',
+    }
 };
 
 export default theme

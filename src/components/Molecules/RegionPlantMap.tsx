@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
+import moment from 'moment';
 
 import GlobalStyled from 'style/GlobalStyled';
 
-import RegionPlantTimeCard from '../Atoms/RegionPlantTimeCard';
-import PlantMap from '../Atoms/PlantMap';
+import RegionPlantTimeCard from 'components/Atoms/RegionPlantTimeCard';
+import PlantMap from 'components/Atoms/PlantMap';
+
+import { regionLinkUrl } from 'config/region';
 
 import {
 	SeoulAndGyeonggiDo,
@@ -38,28 +41,7 @@ const Animation = {
 };
 
 const Styled = {
-	Body: styled(GlobalStyled.Row)`
-		#region_plant_map {
-			#seoulAndGyeonggiDo {
-			}
-			#chungnam {
-			}
-			#jeonbuk {
-			}
-			#jeonnam {
-			}
-			#gangwon {
-			}
-			#chungbuk {
-			}
-			#gyeongbuk {
-			}
-			#gyeongnam {
-			}
-			#jeju {
-			}
-		}
-	`,
+	Body: styled(GlobalStyled.Row)``,
 	MapContainer: styled.div`
 		display: flex;
 		width: 100%;
@@ -238,9 +220,12 @@ const jejuCardView = {
 };
 interface MiniMapInterface {
 	info: any;
+	selectDate: any;
 }
 
 const RegionPlantMap = (props: MiniMapInterface) => {
+	const { info, selectDate } = props;
+
 	const {
 		seoulAndGyeonggiDo,
 		chungnam,
@@ -251,7 +236,45 @@ const RegionPlantMap = (props: MiniMapInterface) => {
 		gyeongbuk,
 		gyeongnam,
 		jeju,
-	} = props.info;
+	} = info;
+
+	const [levelInfo, setLevelInfo] = useState({
+		seoulAndGyeonggiDo: 1,
+		chungnam: 1,
+		jeonbuk: 1,
+		jeonnam: 1,
+		gangwon: 1,
+		chungbuk: 1,
+		gyeongbuk: 1,
+		gyeongnam: 1,
+		jeju: 1,
+	});
+
+	useEffect(() => {
+		const maxPlantTime = 6;
+		const minPlantTime = 0;
+		let result: any = {
+			seoulAndGyeonggiDo: 1,
+			chungnam: 1,
+			jeonbuk: 1,
+			jeonnam: 1,
+			gangwon: 1,
+			chungbuk: 1,
+			gyeongbuk: 1,
+			gyeongnam: 1,
+			jeju: 1,
+		};
+		Object.keys(info).map((res: string) => {
+			result[res] =
+				Math.round(info[res]) <= minPlantTime
+					? 1
+					: Math.round(info[res]) > maxPlantTime
+					? 5
+					: Math.round(info[res]);
+			return res;
+		});
+		setLevelInfo(result);
+	}, [info]);
 
 	return (
 		<Styled.Body>
@@ -261,6 +284,9 @@ const RegionPlantMap = (props: MiniMapInterface) => {
 						<RegionPlantTimeCard
 							value={seoulAndGyeonggiDo}
 							label="서울 경기"
+							to={`/region/${
+								regionLinkUrl.seoulAndGyeonggiDo
+							}/${moment(selectDate).format('YYYYMMDD')}`}
 						/>
 					</GlobalStyled.Row>
 
@@ -268,6 +294,9 @@ const RegionPlantMap = (props: MiniMapInterface) => {
 						<RegionPlantTimeCard
 							value={chungnam}
 							label="충청 남도"
+							to={`/region/${regionLinkUrl.chungnam}/${moment(
+								selectDate,
+							).format('YYYYMMDD')}`}
 						/>
 					</GlobalStyled.Row>
 
@@ -275,6 +304,9 @@ const RegionPlantMap = (props: MiniMapInterface) => {
 						<RegionPlantTimeCard
 							value={jeonbuk}
 							label="전라 북도"
+							to={`/region/${regionLinkUrl.jeonbuk}/${moment(
+								selectDate,
+							).format('YYYYMMDD')}`}
 						/>
 					</GlobalStyled.Row>
 
@@ -282,13 +314,16 @@ const RegionPlantMap = (props: MiniMapInterface) => {
 						<RegionPlantTimeCard
 							value={jeonnam}
 							label="전라 남도"
+							to={`/region/${regionLinkUrl.jeonnam}/${moment(
+								selectDate,
+							).format('YYYYMMDD')}`}
 						/>
 					</GlobalStyled.Row>
 				</Styled.Col>
 
 				<Styled.MapCol>
 					<Styled.MapBox>
-						<PlantMap />
+						<PlantMap info={levelInfo} />
 					</Styled.MapBox>
 
 					<Styled.MarkerSection
@@ -307,7 +342,13 @@ const RegionPlantMap = (props: MiniMapInterface) => {
 					</Styled.MarkerSection>
 
 					<Styled.CustomCardView info={jejuCardView}>
-						<RegionPlantTimeCard value={jeju} label="제주도" />
+						<RegionPlantTimeCard
+							value={jeju}
+							label="제주도"
+							to={`/region/${regionLinkUrl.jeju}/${moment(
+								selectDate,
+							).format('YYYYMMDD')}`}
+						/>
 					</Styled.CustomCardView>
 
 					<Styled.JejuMarkerSection info={positionLocation.jeju}>
@@ -317,7 +358,13 @@ const RegionPlantMap = (props: MiniMapInterface) => {
 
 				<Styled.Col width={35}>
 					<GlobalStyled.Row bottom={2}>
-						<RegionPlantTimeCard value={gangwon} label="강원도" />
+						<RegionPlantTimeCard
+							value={gangwon}
+							label="강원도"
+							to={`/region/${regionLinkUrl.gangwon}/${moment(
+								selectDate,
+							).format('YYYYMMDD')}`}
+						/>
 					</GlobalStyled.Row>
 
 					<Styled.MarkerSection info={positionLocation.gangwon}>
@@ -328,6 +375,9 @@ const RegionPlantMap = (props: MiniMapInterface) => {
 						<RegionPlantTimeCard
 							value={chungbuk}
 							label="충청 북도"
+							to={`/region/${regionLinkUrl.chungbuk}/${moment(
+								selectDate,
+							).format('YYYYMMDD')}`}
 						/>
 					</GlobalStyled.Row>
 
@@ -339,6 +389,9 @@ const RegionPlantMap = (props: MiniMapInterface) => {
 						<RegionPlantTimeCard
 							value={gyeongbuk}
 							label="경상 북도"
+							to={`/region/${regionLinkUrl.gyeongbuk}/${moment(
+								selectDate,
+							).format('YYYYMMDD')}`}
 						/>
 					</GlobalStyled.Row>
 
@@ -350,6 +403,9 @@ const RegionPlantMap = (props: MiniMapInterface) => {
 						<RegionPlantTimeCard
 							value={gyeongnam}
 							label="경상 남도"
+							to={`/region/${regionLinkUrl.gyeongnam}/${moment(
+								selectDate,
+							).format('YYYYMMDD')}`}
 						/>
 					</GlobalStyled.Row>
 

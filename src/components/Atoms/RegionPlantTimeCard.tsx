@@ -25,12 +25,13 @@ const Styled = {
 interface RegionPlantTimeCardInterface {
 	label: string;
 	value: number;
+	to: string;
 }
 
 const RegionPlantTimeCard = (props: RegionPlantTimeCardInterface) => {
-	const { label, value } = props;
+	const { label, value, to } = props;
 	return (
-		<GlobalStyled.Link to="/">
+		<GlobalStyled.RowLink to={to}>
 			<Styled.Wrapper>
 				<GlobalStyled.Row>
 					<GlobalStyled.Col width={90}>{label}</GlobalStyled.Col>
@@ -48,12 +49,13 @@ const RegionPlantTimeCard = (props: RegionPlantTimeCardInterface) => {
 					<span>시간</span>
 				</Styled.BottomContentRow>
 			</Styled.Wrapper>
-		</GlobalStyled.Link>
+		</GlobalStyled.RowLink>
 	);
 };
 RegionPlantTimeCard.defaultProps = {
 	label: '-',
 	value: 0,
+	to: '/',
 };
 
 export default RegionPlantTimeCard;

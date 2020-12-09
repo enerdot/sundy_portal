@@ -35,11 +35,11 @@ const Styled = {
 	`,
 };
 
-interface GrayTableInterface {
+interface PlantStatusTableInterface {
 	infos: any;
 }
 
-const GrayTable = (props: GrayTableInterface) => {
+const PlantStatusTable = (props: PlantStatusTableInterface) => {
 	const { infos } = props;
 
 	const list = infos.map((res: any, i: number) => {
@@ -65,7 +65,7 @@ const GrayTable = (props: GrayTableInterface) => {
 		</Styled.Wrapper>
 	);
 };
-GrayTable.defaultProps = {
+PlantStatusTable.defaultProps = {
 	infos: [
 		{
 			제목1: '내용1',
@@ -80,4 +80,4 @@ GrayTable.defaultProps = {
 	],
 };
 
-export default GrayTable;
+export default PlantStatusTable;

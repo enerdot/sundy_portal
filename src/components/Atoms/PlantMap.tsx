@@ -1,42 +1,48 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import GlobalStyled from 'style/GlobalStyled';
-
 import { PlantMap as PlantMapSvg } from 'images/PlantMap';
 
 const Styled = {
-	Wrapper: styled.div`
-		#region_plant_map {
-			#seoulAndGyeonggiDo {
-			}
-			#chungnam {
-			}
-			#jeonbuk {
-			}
-			#jeonnam {
-			}
-			#gangwon {
-			}
-			#chungbuk {
-			}
-			#gyeongbuk {
-			}
-			#gyeongnam {
-			}
-			#jeju {
+	Wrapper: styled.div<{ info: any }>`
+		svg {
+			#region_plant_map {
+				#seoulAndGyeonggiDo {
+					fill: ${props =>
+						props.theme.levelBlue[props.info.seoulAndGyeonggiDo]};
+				}
+				#chungnam {
+					fill: ${props =>
+						props.theme.levelBlue[props.info.chungnam]};
+				}
+				#jeonbuk {
+					fill: ${props => props.theme.levelBlue[props.info.jeonbuk]};
+				}
+				#jeonnam {
+					fill: ${props => props.theme.levelBlue[props.info.jeonnam]};
+				}
+				#gangwon {
+					fill: ${props => props.theme.levelBlue[props.info.gangwon]};
+				}
+				#chungbuk {
+					fill: ${props =>
+						props.theme.levelBlue[props.info.chungbuk]};
+				}
+				#gyeongbuk {
+					fill: ${props =>
+						props.theme.levelBlue[props.info.gyeongbuk]};
+				}
+				#gyeongnam {
+					fill: ${props =>
+						props.theme.levelBlue[props.info.gyeongnam]};
+				}
+				#jeju {
+					fill: ${props => props.theme.levelBlue[props.info.jeju]};
+				}
 			}
 		}
 	`,
 };
-
-// const regionLevelTheme = {
-// 	1: '',
-// 	2: '',
-// 	3: '',
-// 	4: '',
-// 	5: '',
-// };
 
 interface PlantMapInterface {
 	info: any;
@@ -44,8 +50,9 @@ interface PlantMapInterface {
 
 const PlantMap = (props: PlantMapInterface) => {
 	const { info } = props;
+
 	return (
-		<Styled.Wrapper>
+		<Styled.Wrapper info={info}>
 			<PlantMapSvg />
 		</Styled.Wrapper>
 	);

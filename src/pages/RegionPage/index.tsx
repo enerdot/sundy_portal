@@ -1,28 +1,21 @@
-import React, { useState, useMemo, useEffect } from 'react';
-import styled from 'styled-components';
-import useSWR from 'swr';
+import React, { useState, useEffect } from 'react';
+// import useSWR from 'swr';
+import moment from 'moment';
 
 import GlobalStyled from 'style/GlobalStyled';
 
-import useCurrentUser from 'hooks/useCurrentUser';
-import useAPI from 'hooks/useAPI';
+// import useCurrentUser from 'hooks/useCurrentUser';
+// import useAPI from 'hooks/useAPI';
 import Select from 'components/Atoms/Select';
 
 import { regionOptions } from 'config/region';
 import PlantMap from 'components/Atoms/PlantMap';
-import PlantOpacityTable from 'components/Molecules/PlantOpacityTable';
+import PlantStatusTable from 'components/Molecules/PlantStatusTable';
 import PlantTimeContentList from 'components/Molecules/PlantTimeContentList';
 import PlantRankingInfo from 'components/Atoms/PlantRankingInfo';
-
-const Styled = {
-	Wrapper: styled(GlobalStyled.Row)``,
-	GrayText: styled.span`
-		color: ${props => props.theme.gray};
-	`,
-	TableWrapper: styled(GlobalStyled.RightCol)`
-		align-items: flex-start;
-	`,
-};
+import BarChart from 'components/Atoms/BarChart';
+import InquiryDate from 'components/Atoms/InquiryDate';
+import { isRegionUrl, isDateUrl } from 'utils/url';
 
 interface RegionPageInterface {
 	match: any;
@@ -50,63 +43,71 @@ const RegionPage = ({
 		},
 	]);
 
-	const { currentUser } = useCurrentUser();
+	const [inquiryDate, setInquiryDate] = useState(moment());
 
-	const [API] = useMemo(useAPI, []);
+	// const { currentUser } = useCurrentUser();
 
-	const { data: customName, error } = useSWR('/get/all');
+	// const [API] = useMemo(useAPI, []);
+
+	// const { data: customName, error } = useSWR('/get/all');
 
 	useEffect(() => {
-		const urlRegion = match.params.region;
-		let resultSelectValue = regionOptions[0];
-		let isValue = false;
-		if (urlRegion) {
-			regionOptions.map(res => {
-				if (res.value === urlRegion) {
-					resultSelectValue = res;
-					isValue = true;
-				}
-				return res;
-			});
-			if (isValue) {
-				setPlantTimeInfos([
-					{
-						value: '-',
-						label: `${resultSelectValue.label} 평균 발전시간`,
-					},
-					{
-						value: '-',
-						label: `${resultSelectValue.label} 최고 발전시간`,
-					},
-				]);
-				setSelectRegionValue(resultSelectValue);
-			} else {
-				history.push(`/region/${regionOptions[0].value}`);
-			}
+		const urlRegion = isRegionUrl(match);
+		const urlDate = isDateUrl(match);
+
+		if (urlRegion.isUrl && urlDate.isUrl) {
+			setPlantTimeInfos([
+				{
+					value: '-',
+					label: `${urlRegion.value.label} 평균 발전시간`,
+				},
+				{
+					value: '-',
+					label: `${urlRegion.value.label} 최고 발전시간`,
+				},
+			]);
+			setSelectRegionValue(urlRegion.value);
+			setInquiryDate(urlDate.value);
 		} else {
-			history.push(`/region/${regionOptions[0].value}`);
+			console.log(urlDate, urlRegion);
+			history.push(
+				`/region/${
+					urlRegion.isUrl
+						? urlRegion.value.value
+						: regionOptions[0].value
+				}/${
+					urlDate.isUrl
+						? moment(urlDate.value).format('YYYYMMDD')
+						: moment().format('YYYYMMDD')
+				}}`,
+			);
 		}
-	}, [match, location, history]);
+	}, [match, history]);
 
 	const handleOnChangeSelect = (e: any) => {
+		const urlDate = match.params.date;
 		regionOptions.some(res => {
 			if (res.value === e.value) {
 				setSelectRegionValue(res);
 				console.log(location, match);
-				history.push(`/region/${res.value}`);
+				history.push(
+					`/region/${res.value}/${moment(urlDate).format(
+						'YYYYMMDD',
+					)}`,
+				);
 			}
 			return res.value === e.value;
 		});
 	};
 
-	const handleSubmit = async (): Promise<void> => {
-		try {
-			await API.APIs.getAll();
-			console.log(API);
-		} catch (err: any) {
-			console.log('err : ', err);
-		}
-	};
+	// const handleSubmit = async (): Promise<void> => {
+	// 	try {
+	// 		await API.APIs.getAll();
+	// 		console.log(API);
+	// 	} catch (err: any) {
+	// 		console.log('err : ', err);
+	// 	}
+	// };
 
 	return (
 		<GlobalStyled.Body>
@@ -122,9 +123,7 @@ const RegionPage = ({
 							/>
 						</GlobalStyled.Col>
 						<GlobalStyled.RightCol width={50}>
-							<Styled.GrayText>
-								조회일 2020년 11월 26일
-							</Styled.GrayText>
+							<InquiryDate date={inquiryDate} />
 						</GlobalStyled.RightCol>
 					</GlobalStyled.Row>
 					<GlobalStyled.Row>
@@ -132,7 +131,7 @@ const RegionPage = ({
 							<PlantMap />
 						</GlobalStyled.CenterCol>
 						<GlobalStyled.Col width={50}>
-							<PlantOpacityTable />
+							<PlantStatusTable />
 						</GlobalStyled.Col>
 					</GlobalStyled.Row>
 				</GlobalStyled.ContentRow>
@@ -143,22 +142,24 @@ const RegionPage = ({
 					<GlobalStyled.Title>
 						최근 일주일 {selectRegionValue.label} 발전시간 그래프
 					</GlobalStyled.Title>
+					<BarChart leftTickFormat="시간" />
 				</GlobalStyled.ContentRow>
 				<GlobalStyled.ContentRow>
 					<GlobalStyled.Title bottom={1}>
 						이웃 발전소 구경
 					</GlobalStyled.Title>
-					<GlobalStyled.Link to="/">
-						<PlantRankingInfo
-							info={{
-								region: `${selectRegionValue.label}`,
-								ranking: '상위 1~10위',
-								plantName: '** 발전소',
-								address: '',
-								plantTime: '구경하기',
-							}}
-						/>
-					</GlobalStyled.Link>
+					<PlantRankingInfo
+						info={{
+							region: `${selectRegionValue.label}`,
+							ranking: '상위 1~10위',
+							plantName: '** 발전소',
+							address: '',
+							plantTime: '구경하기',
+							to: `/ranking/${selectRegionValue.value}/${moment(
+								inquiryDate,
+							).format('YYYYMMDD')}`,
+						}}
+					/>
 				</GlobalStyled.ContentRow>
 			</GlobalStyled.Container>
 		</GlobalStyled.Body>

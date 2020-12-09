@@ -10,6 +10,18 @@ const regionLabel = {
     jeju: '제주',
 }
 
+const regionLinkUrl = {
+    seoulAndGyeonggiDo: 'seoul',
+    chungnam: 'chungnam',
+    jeonbuk: 'jeonbuk',
+    jeonnam: 'jeonnam',
+    gangwon: 'gangwon',
+    chungbuk: 'chungbuk',
+    gyeongbuk: 'gyeongbuk',
+    gyeongnam: 'gyeongnam',
+    jeju: 'jeju',
+}
+
 const regionOptions = [
     {label: "서울경기", value: "seoul"},
     {label: "충남", value: "chungnam"},
@@ -48,4 +60,4 @@ const reverseRegionLabel = {
     제주: 'jeju',
 }
 
-export {regionLabel, apiRegionLabel, regionOptions, reverseRegionLabel}
+export {regionLabel, apiRegionLabel, regionOptions, reverseRegionLabel, regionLinkUrl}

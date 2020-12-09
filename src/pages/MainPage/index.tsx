@@ -94,7 +94,10 @@ const MainPage = (): JSX.Element => {
 					</GlobalStyled.Row>
 
 					<GlobalStyled.Row>
-						<RegionPlantMap info={regionPlantTimeInfo} />
+						<RegionPlantMap
+							info={regionPlantTimeInfo}
+							selectDate={calendarInfo.startDate}
+						/>
 					</GlobalStyled.Row>
 				</GlobalStyled.ContentRow>
 				<GlobalStyled.ContentRow>

@@ -1,9 +1,9 @@
 import styled from 'styled-components'
-import { typography, space, color, layout } from 'styled-system'
+import { typography, TypographyProps, space, SpaceProps,color, ColorProps, layout } from 'styled-system'
 import {Link} from 'react-router-dom'
 
 const Parent = {
-    Card: styled.div`
+    Card: styled.div<ColorProps & TypographyProps & SpaceProps>`
         display : flex;
         width : 100%;
         padding : 1rem;
@@ -15,14 +15,14 @@ const Parent = {
         ${color}
         ${layout}
     `,
-    Col: styled.div<{ width?: number }>`
+    Col: styled.div<{ width?: number} & ColorProps & TypographyProps & SpaceProps>`
         display : flex;
         width : ${props => props.width}%;
         ${typography}
         ${space}
         ${color}
     `,
-    Button: styled.button`
+    Button: styled.button<ColorProps & TypographyProps & SpaceProps>`
         display : flex;
         align-items : center;
         justify-content : center;
@@ -37,7 +37,7 @@ const Parent = {
         ${color}
         ${layout}
     `,
-    Row: styled.div<{ bottom?: number }>`
+    Row: styled.div<{ bottom?: number } & ColorProps & TypographyProps & SpaceProps>`
         display : flex;
         width : 100%;
         margin-bottom : ${props => props.bottom}rem;
@@ -46,9 +46,9 @@ const Parent = {
         ${color}
         ${layout}
     `,
-    Link : styled(Link)`
+    Link : styled(Link)<ColorProps & TypographyProps & SpaceProps>`
         display : flex;
-        width : 100%;
+        color : inherit;
         ${typography}
         ${space}
         ${color}
@@ -119,20 +119,21 @@ const GlobalStyled = {
     `,
 
     ContentRow: styled(Parent.Row)`
-        padding : 1rem ;
+        padding : 1rem;
         flex-direction : column;
         border-bottom : 1px solid ${props => props.theme.lightGray};
         :nth-child(even){
             background-color : ${props =>props.theme.ivory};
         }
+        ${typography}
+        ${space}
+        ${color}
     `,
 
     CenterRow: styled(Parent.Row)`
         align-items : center;
         justify-content : center;
-        ${typography}
-        ${space}
-        ${color}
+        
     `,
 
     Col: styled(Parent.Col)``,
@@ -147,6 +148,9 @@ const GlobalStyled = {
         justify-content : flex-end;
     `,
     Button : styled(Parent.Button)``,
+    RowLink : styled(Parent.Link)`
+        width : 100%;
+    `,
     Link : styled(Parent.Link)``,
     Title : styled(Parent.Row)`
         font-size : 1rem;

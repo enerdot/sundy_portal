@@ -12,6 +12,7 @@ import GlobalFooter from 'components/Organisms/GlobalFooter';
 
 const MainPage = lazy(() => import('./pages/MainPage'));
 const RegionPage = lazy(() => import('./pages/RegionPage'));
+const RankingPage = lazy(() => import('./pages/RankingPage'));
 
 const swrConfig: object = {
 	onErrorRetry: (
@@ -38,8 +39,12 @@ function App() {
 						<Switch>
 							<Route exact path="/" component={MainPage} />
 							<Route
-								path="/region/:region?"
+								path="/region/:region?/:date?"
 								component={RegionPage}
+							/>
+							<Route
+								path="/ranking/:region?/:date?"
+								component={RankingPage}
 							/>
 							<Route
 								component={() => {

@@ -30,7 +30,7 @@ interface ValueLabelContentInterface {
 const CompanyLink = (props: ValueLabelContentInterface) => {
 	const { img, label, width, url } = props;
 	return (
-		<Styled.Wrapper href={url}>
+		<Styled.Wrapper href={url} target="_blank">
 			<Styled.Img width={width} alt="company" src={img} />
 			<Styled.Label>{label}</Styled.Label>
 		</Styled.Wrapper>
