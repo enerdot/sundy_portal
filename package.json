@@ -25,6 +25,7 @@
     "styled-components": "^5.2.1",
     "styled-system": "^5.1.5",
     "styled-system-ts": "^0.3.1",
+    "sweetalert2": "^10.12.4",
     "swr": "^0.3.9",
     "typescript": "^4.0.3",
     "web-vitals": "^0.2.4"

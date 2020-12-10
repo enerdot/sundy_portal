@@ -41,7 +41,7 @@ const MainPage = (): JSX.Element => {
 	]);
 
 	const [regionPlantTimeInfo] = useState({
-		seoulAndGyeonggiDo: 0,
+		seoul: 0,
 		chungnam: 0,
 		jeonbuk: 0,
 		jeonnam: 0,

@@ -31,6 +31,11 @@ const isDateUrl = (match : any) =>{
         result = moment(urlDate)   
         isUrl = true
     }
+
+    if(urlDate.length !== 8) {
+        isUrl = false
+    }
+
     return {
         isUrl : isUrl,
         value : moment(result)

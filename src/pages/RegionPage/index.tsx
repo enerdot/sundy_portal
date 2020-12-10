@@ -43,6 +43,18 @@ const RegionPage = ({
 		},
 	]);
 
+	const [mapInfo, setMapInfo] = useState({
+		seoul: 1,
+		chungnam: 1,
+		jeonbuk: 1,
+		jeonnam: 1,
+		gangwon: 1,
+		chungbuk: 1,
+		gyeongbuk: 1,
+		gyeongnam: 1,
+		jeju: 1,
+	});
+
 	const [inquiryDate, setInquiryDate] = useState(moment());
 
 	// const { currentUser } = useCurrentUser();
@@ -68,6 +80,13 @@ const RegionPage = ({
 			]);
 			setSelectRegionValue(urlRegion.value);
 			setInquiryDate(urlDate.value);
+			setMapInfo((prevState: any) => {
+				let formatState = prevState;
+				formatState[urlRegion.value.value] = 5;
+				console.log('formatState : ', formatState);
+				return formatState;
+				// prevState[urlRegion.value.value] = 1
+			});
 		} else {
 			console.log(urlDate, urlRegion);
 			history.push(
@@ -128,7 +147,7 @@ const RegionPage = ({
 					</GlobalStyled.Row>
 					<GlobalStyled.Row>
 						<GlobalStyled.CenterCol width={50}>
-							<PlantMap />
+							<PlantMap info={mapInfo} />
 						</GlobalStyled.CenterCol>
 						<GlobalStyled.Col width={50}>
 							<PlantStatusTable />

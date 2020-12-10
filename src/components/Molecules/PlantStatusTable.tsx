@@ -18,15 +18,15 @@ const Styled = {
 	TableRow: styled(GlobalStyled.Row)`
 		padding: 0.5rem 0;
 		${GlobalStyled.Col}:nth-child(1) {
-			width: 35%;
+			width: 37.5%;
 			justify-content: center;
 		}
 		${GlobalStyled.Col}:nth-child(2) {
-			width: 40%;
+			width: 35%;
 			justify-content: flex-start;
 		}
 		${GlobalStyled.Col}:nth-child(3) {
-			width: 25%;
+			width: 27.5%;
 			justify-content: center;
 		}
 	`,
@@ -53,12 +53,12 @@ const PlantStatusTable = (props: PlantStatusTableInterface) => {
 	return (
 		<Styled.Wrapper>
 			<Styled.Header>
-				<GlobalStyled.CenterCol width={35}>
+				<GlobalStyled.CenterCol width={37.5}>
 					발전소명
 				</GlobalStyled.CenterCol>
-				<GlobalStyled.Col width={40}>위치</GlobalStyled.Col>
-				<GlobalStyled.CenterCol width={25}>
-					가동률
+				<GlobalStyled.Col width={35}>위치</GlobalStyled.Col>
+				<GlobalStyled.CenterCol width={27.5}>
+					발전시간
 				</GlobalStyled.CenterCol>
 			</Styled.Header>
 			<Styled.TableWrapper>{list}</Styled.TableWrapper>

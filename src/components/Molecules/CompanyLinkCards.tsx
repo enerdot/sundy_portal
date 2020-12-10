@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import GlobalStyled from 'style/GlobalStyled';
-import CompanyLink from 'components/Atoms/CompanyLink';
+import CompanyLinkCard from 'components/Atoms/CompanyLinkCard';
 
 const Styled = {
 	Wrapper: styled(GlobalStyled.Card)`
@@ -18,9 +18,9 @@ const Styled = {
 	`,
 };
 
-interface SwitchButtonInterface {}
+interface CompanyLinkCardCardsInterface {}
 
-const CompanyLinkCards = (props: SwitchButtonInterface) => {
+const CompanyLinkCardCards = (props: CompanyLinkCardCardsInterface) => {
 	const infos = [
 		{
 			url: 'https://enerdot.co.kr/',
@@ -38,15 +38,15 @@ const CompanyLinkCards = (props: SwitchButtonInterface) => {
 	const list = infos.map((res, i) => {
 		return (
 			<GlobalStyled.Col width={50} key={i}>
-				<CompanyLink {...res} />
+				<CompanyLinkCard {...res} />
 			</GlobalStyled.Col>
 		);
 	});
 
 	return <Styled.Wrapper>{list}</Styled.Wrapper>;
 };
-CompanyLinkCards.defaultProps = {
+CompanyLinkCardCards.defaultProps = {
 	children: '',
 };
 
-export default CompanyLinkCards;
+export default CompanyLinkCardCards;

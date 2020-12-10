@@ -11,7 +11,7 @@ const regionLabel = {
 }
 
 const regionLinkUrl = {
-    seoulAndGyeonggiDo: 'seoul',
+    seoul: 'seoul',
     chungnam: 'chungnam',
     jeonbuk: 'jeonbuk',
     jeonnam: 'jeonnam',

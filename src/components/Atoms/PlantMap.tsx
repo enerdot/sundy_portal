@@ -7,9 +7,8 @@ const Styled = {
 	Wrapper: styled.div<{ info: any }>`
 		svg {
 			#region_plant_map {
-				#seoulAndGyeonggiDo {
-					fill: ${props =>
-						props.theme.levelBlue[props.info.seoulAndGyeonggiDo]};
+				#seoul {
+					fill: ${props => props.theme.levelBlue[props.info.seoul]};
 				}
 				#chungnam {
 					fill: ${props =>
@@ -59,7 +58,7 @@ const PlantMap = (props: PlantMapInterface) => {
 };
 PlantMap.defaultProps = {
 	info: {
-		seoulAndGyeonggiDo: 0,
+		seoul: 0,
 		chungnam: 0,
 		jeonbuk: 0,
 		jeonnam: 0,

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
+import styled from 'styled-components';
 // import useSWR from 'swr';
 
 import GlobalStyled from 'style/GlobalStyled';
@@ -17,6 +18,18 @@ interface RankingPageInterface {
 	location: any;
 	history: any;
 }
+
+const Styled = {
+	Wrapper: styled(GlobalStyled.HeightRow)`
+		padding: 0.5rem 0;
+		border-bottom: 1px solid ${props => props.theme.gray};
+		margin-bottom: 1rem;
+	`,
+	Header: styled(GlobalStyled.Row)`
+		font-size: 1.5rem;
+		color: ${props => props.theme.lightBlack};
+	`,
+};
 
 const RankingPage = ({
 	match,
@@ -49,6 +62,7 @@ const RankingPage = ({
 			plantName: '-',
 			address: '-',
 			plantTime: '-',
+			to: '/',
 		},
 	]);
 
@@ -68,6 +82,9 @@ const RankingPage = ({
 						plantName: '-',
 						address: urlRegion.value.label,
 						plantTime: '-',
+						to: `/info/${i}/${moment(urlDate.value).format(
+							'YYYYMMDD',
+						)}`,
 					};
 				}),
 			);
@@ -89,10 +106,15 @@ const RankingPage = ({
 	return (
 		<GlobalStyled.Body>
 			<GlobalStyled.Container>
-				<GlobalStyled.Row bottom={1}>
-					<InquiryDate date={inquiryDate} />
-				</GlobalStyled.Row>
-				<PlantRankingList region={region} infos={rankingInfos} />
+				<Styled.Wrapper>
+					<GlobalStyled.Row bottom={1}>
+						<GlobalStyled.RightCol width={100}>
+							<InquiryDate date={inquiryDate} />
+						</GlobalStyled.RightCol>
+					</GlobalStyled.Row>
+					<Styled.Header>{region} 발전량 상위 10위</Styled.Header>
+				</Styled.Wrapper>
+				<PlantRankingList infos={rankingInfos} />
 			</GlobalStyled.Container>
 		</GlobalStyled.Body>
 	);

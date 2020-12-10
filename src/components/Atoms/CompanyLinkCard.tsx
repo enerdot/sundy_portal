@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import GlobalStyled from 'style/GlobalStyled';
-
 const Styled = {
 	Wrapper: styled.a`
 		display: flex;
@@ -14,9 +12,11 @@ const Styled = {
 		width: ${props => props.width};
 		height: 3rem;
 	`,
-	Label: styled(GlobalStyled.Row)`
+	Label: styled.div`
+		display: inline-block;
 		font-size: 1rem;
 		color: ${props => props.theme.gray};
+		word-break: keep-all;
 	`,
 };
 
@@ -27,8 +27,9 @@ interface ValueLabelContentInterface {
 	url: string;
 }
 
-const CompanyLink = (props: ValueLabelContentInterface) => {
+const CompanyLinkCard = (props: ValueLabelContentInterface) => {
 	const { img, label, width, url } = props;
+
 	return (
 		<Styled.Wrapper href={url} target="_blank">
 			<Styled.Img width={width} alt="company" src={img} />
@@ -36,11 +37,11 @@ const CompanyLink = (props: ValueLabelContentInterface) => {
 		</Styled.Wrapper>
 	);
 };
-CompanyLink.defaultProps = {
+CompanyLinkCard.defaultProps = {
 	width: '11rem',
 	img: require('images/logo-enerdot.svg').default,
 	label: '-',
 	url: '/',
 };
 
-export default CompanyLink;
+export default CompanyLinkCard;

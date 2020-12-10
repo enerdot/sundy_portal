@@ -12,6 +12,7 @@ import GlobalFooter from 'components/Organisms/GlobalFooter';
 
 const MainPage = lazy(() => import('./pages/MainPage'));
 const RegionPage = lazy(() => import('./pages/RegionPage'));
+const InfoPage = lazy(() => import('./pages/InfoPage'));
 const RankingPage = lazy(() => import('./pages/RankingPage'));
 
 const swrConfig: object = {
@@ -45,6 +46,10 @@ function App() {
 							<Route
 								path="/ranking/:region?/:date?"
 								component={RankingPage}
+							/>
+							<Route
+								path="/info/:id?/:date?"
+								component={InfoPage}
 							/>
 							<Route
 								component={() => {

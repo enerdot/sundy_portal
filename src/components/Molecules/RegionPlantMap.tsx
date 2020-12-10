@@ -147,7 +147,7 @@ const topPosition = 38;
 const defaultWidth = 100;
 
 const positionLocation = {
-	seoulAndGyeonggiDo: {
+	seoul: {
 		width: defaultWidth,
 		height: '58px',
 		top: topPosition,
@@ -227,7 +227,7 @@ const RegionPlantMap = (props: MiniMapInterface) => {
 	const { info, selectDate } = props;
 
 	const {
-		seoulAndGyeonggiDo,
+		seoul,
 		chungnam,
 		jeonbuk,
 		jeonnam,
@@ -239,7 +239,7 @@ const RegionPlantMap = (props: MiniMapInterface) => {
 	} = info;
 
 	const [levelInfo, setLevelInfo] = useState({
-		seoulAndGyeonggiDo: 1,
+		seoul: 1,
 		chungnam: 1,
 		jeonbuk: 1,
 		jeonnam: 1,
@@ -254,7 +254,7 @@ const RegionPlantMap = (props: MiniMapInterface) => {
 		const maxPlantTime = 6;
 		const minPlantTime = 0;
 		let result: any = {
-			seoulAndGyeonggiDo: 1,
+			seoul: 1,
 			chungnam: 1,
 			jeonbuk: 1,
 			jeonnam: 1,
@@ -282,11 +282,11 @@ const RegionPlantMap = (props: MiniMapInterface) => {
 				<Styled.Col width={35}>
 					<GlobalStyled.Row bottom={2}>
 						<RegionPlantTimeCard
-							value={seoulAndGyeonggiDo}
+							value={seoul}
 							label="서울 경기"
-							to={`/region/${
-								regionLinkUrl.seoulAndGyeonggiDo
-							}/${moment(selectDate).format('YYYYMMDD')}`}
+							to={`/region/${regionLinkUrl.seoul}/${moment(
+								selectDate,
+							).format('YYYYMMDD')}`}
 						/>
 					</GlobalStyled.Row>
 
@@ -326,9 +326,7 @@ const RegionPlantMap = (props: MiniMapInterface) => {
 						<PlantMap info={levelInfo} />
 					</Styled.MapBox>
 
-					<Styled.MarkerSection
-						info={positionLocation.seoulAndGyeonggiDo}
-					>
+					<Styled.MarkerSection info={positionLocation.seoul}>
 						<SeoulAndGyeonggiDo />
 					</Styled.MarkerSection>
 					<Styled.MarkerSection info={positionLocation.chungnam}>
@@ -420,7 +418,7 @@ const RegionPlantMap = (props: MiniMapInterface) => {
 
 RegionPlantMap.defaultProps = {
 	info: {
-		seoulAndGyeonggiDo: 0,
+		seoul: 0,
 		chungnam: 0,
 		jeonbuk: 0,
 		jeonnam: 0,
