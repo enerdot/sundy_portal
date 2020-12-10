@@ -23,6 +23,7 @@ const swrConfig: object = {
 		revalidate: any,
 		{ retryCount }: any,
 	) => {
+		console.log('err');
 		if (retryCount >= 3) return;
 		if (error.response && error.response.status === 404) return;
 		setTimeout(() => revalidate({ retryCount: retryCount + 1 }), 5000);

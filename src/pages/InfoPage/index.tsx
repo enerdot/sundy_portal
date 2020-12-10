@@ -40,7 +40,7 @@ const InfoPage = ({
 	// 	}
 	// };
 
-	const [plantTimeInfos, setPlantTimeInfos] = useState([
+	const [plantTimeInfos] = useState([
 		{
 			value: '-',
 			label: '오늘 총 누적 발전시간',
@@ -51,7 +51,7 @@ const InfoPage = ({
 		},
 	]);
 
-	const [plantInfo, setPlantInfo] = useState({
+	const [plantInfo] = useState({
 		plantName: '-',
 		address: '-',
 		capacity: '-',

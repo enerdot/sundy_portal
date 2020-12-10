@@ -17,8 +17,9 @@ const Styled = {
 		font-size: 1.5rem;
 		flex-direction: column;
 		padding: 0.5rem;
+
 		.react-date-picker__calendar {
-			z-index: 2;
+			z-index: 20;
 		}
 		.react-date-picker__calendar-button {
 			padding: 0;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-// import useSWR from 'swr';
+import useSWR from 'swr';
 import moment from 'moment';
 
 import GlobalStyled from 'style/GlobalStyled';
@@ -8,7 +8,7 @@ import GlobalStyled from 'style/GlobalStyled';
 // import useAPI from 'hooks/useAPI';
 import Select from 'components/Atoms/Select';
 
-import { regionOptions } from 'config/region';
+import { reverseApiRegionLabel, regionOptions } from 'config/region';
 import PlantMap from 'components/Atoms/PlantMap';
 import PlantStatusTable from 'components/Molecules/PlantStatusTable';
 import PlantTimeContentList from 'components/Molecules/PlantTimeContentList';
@@ -23,6 +23,17 @@ interface RegionPageInterface {
 	history: any;
 }
 
+type regionType =
+	| '서울경기'
+	| '강원'
+	| '충북'
+	| '충남'
+	| '전북'
+	| '전남'
+	| '경북'
+	| '경남'
+	| '제주';
+
 const RegionPage = ({
 	match,
 	location,
@@ -31,17 +42,6 @@ const RegionPage = ({
 	const [selectRegionValue, setSelectRegionValue] = useState(
 		regionOptions[0],
 	);
-
-	const [plantTimeInfos, setPlantTimeInfos] = useState([
-		{
-			value: '-',
-			label: '- 평균 발전시간',
-		},
-		{
-			value: '-',
-			label: '- 최고 발전시간',
-		},
-	]);
 
 	const [mapInfo, setMapInfo] = useState({
 		seoul: 1,
@@ -61,7 +61,25 @@ const RegionPage = ({
 
 	// const [API] = useMemo(useAPI, []);
 
-	// const { data: customName, error } = useSWR('/get/all');
+	const selectApiRegionId =
+		reverseApiRegionLabel[selectRegionValue.label as regionType];
+
+	const { data: apiPlantTimeInfo, error } = useSWR(
+		`/region/kwhtime?regionGroupId=${selectApiRegionId}&date=${moment(
+			inquiryDate,
+		).format('YYYY-MM-DD')}`,
+	);
+
+	const [plantTimeInfos, setPlantTimeInfos] = useState([
+		{
+			value: '-',
+			label: `- 평균 발전시간`,
+		},
+		{
+			value: '-',
+			label: `- 최고 발전시간`,
+		},
+	]);
 
 	useEffect(() => {
 		const urlRegion = isRegionUrl(match);
@@ -70,11 +88,11 @@ const RegionPage = ({
 		if (urlRegion.isUrl && urlDate.isUrl) {
 			setPlantTimeInfos([
 				{
-					value: '-',
+					value: `${apiPlantTimeInfo.region_avg_time} 시간`,
 					label: `${urlRegion.value.label} 평균 발전시간`,
 				},
 				{
-					value: '-',
+					value: `${apiPlantTimeInfo.region_max_time} 시간`,
 					label: `${urlRegion.value.label} 최고 발전시간`,
 				},
 			]);
@@ -101,7 +119,7 @@ const RegionPage = ({
 				}}`,
 			);
 		}
-	}, [match, history]);
+	}, [match, history, apiPlantTimeInfo]);
 
 	const handleOnChangeSelect = (e: any) => {
 		const urlDate = match.params.date;

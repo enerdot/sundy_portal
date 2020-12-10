@@ -7,12 +7,12 @@ const Styled = {
 	Wrapper: styled(GlobalStyled.Row)`
 		font-size: 1rem;
 		flex-direction: column;
-		padding: 0.5rem;
+		padding: 0.5rem 1rem;
 	`,
 	Value: styled(GlobalStyled.Row)`
 		font-size: 1.5rem;
 		color: ${props => props.theme.blue};
-		margin-bottom: 1rem;
+		margin-bottom: 0.5rem;
 	`,
 	Label: styled(GlobalStyled.Row)`
 		font-size: 1rem;

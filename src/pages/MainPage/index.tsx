@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-// import useSWR from 'swr';
+import useSWR from 'swr';
+import moment from 'moment';
 
 import GlobalStyled from 'style/GlobalStyled';
 import SwitchButton from 'components/Atoms/SwitchButton';
@@ -22,6 +23,19 @@ const Styled = {
 };
 
 const MainPage = (): JSX.Element => {
+	// const { currentUser } = useCurrentUser();
+
+	// const [API] = useMemo(useAPI, []);
+
+	// const handleSubmit = async (): Promise<void> => {
+	// 	try {
+	// 		await API.APIs.getAll();
+	// 		console.log(API);
+	// 	} catch (err: any) {
+	// 		console.log('err : ', err);
+	// 	}
+	// };
+
 	const [isViewTypeAvg, setIsViewTypeAvg] = useState(false);
 
 	const [calendarInfo, setCalendarInfo] = useState({
@@ -29,28 +43,57 @@ const MainPage = (): JSX.Element => {
 		endDate: new Date(),
 	});
 
-	const [plantTimeInfos] = useState([
-		{
-			value: '-',
-			label: '전국 평균 발전시간',
-		},
-		{
-			value: '-',
-			label: '전국 최고 발전시간',
-		},
-	]);
+	const { data: avgData } = useSWR(
+		`/total/kwhtime?dataType=${
+			isViewTypeAvg ? 'average' : 'max'
+		}&date=${moment(calendarInfo.startDate).format('YYYY-MM-DD')}`,
+	);
 
-	const [regionPlantTimeInfo] = useState({
-		seoul: 0,
-		chungnam: 0,
-		jeonbuk: 0,
-		jeonnam: 0,
-		gangwon: 0,
-		chungbuk: 0,
-		gyeongbuk: 0,
-		gyeongnam: 0,
-		jeju: 0,
-	});
+	const plantTimeInfos = avgData
+		? [
+				{
+					value: `${avgData.total.total_avg_time} 시간`,
+					label: '전국 평균 발전시간',
+				},
+				{
+					value: `${avgData.total.total_max_time} 시간`,
+					label: '전국 최고 발전시간',
+				},
+		  ]
+		: [
+				{
+					value: '-',
+					label: '전국 평균 발전시간',
+				},
+				{
+					value: '-',
+					label: '전국 최고 발전시간',
+				},
+		  ];
+
+	const regionPlantTimeInfo = avgData
+		? {
+				seoul: avgData.region[0].energy_today_total,
+				chungnam: avgData.region[3].energy_today_total,
+				jeonbuk: avgData.region[4].energy_today_total,
+				jeonnam: avgData.region[5].energy_today_total,
+				gangwon: avgData.region[1].energy_today_total,
+				chungbuk: avgData.region[2].energy_today_total,
+				gyeongbuk: avgData.region[6].energy_today_total,
+				gyeongnam: avgData.region[7].energy_today_total,
+				jeju: avgData.region[8].energy_today_total,
+		  }
+		: {
+				seoul: 0,
+				chungnam: 0,
+				jeonbuk: 0,
+				jeonnam: 0,
+				gangwon: 0,
+				chungbuk: 0,
+				gyeongbuk: 0,
+				gyeongnam: 0,
+				jeju: 0,
+		  };
 
 	return (
 		<GlobalStyled.Body>
