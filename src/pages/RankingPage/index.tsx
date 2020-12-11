@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 import styled from 'styled-components';
-// import useSWR from 'swr';
+import useSWR from 'swr';
 
 import GlobalStyled from 'style/GlobalStyled';
 
 // import useCurrentUser from 'hooks/useCurrentUser';
 // import useAPI from 'hooks/useAPI';
-import { regionOptions } from 'config/region';
+import { regionOptions, reverseApiRegionLabel } from 'config/region';
 import { isRegionUrl, isDateUrl } from 'utils/url';
 
 import PlantRankingList from 'components/Molecules/PlantRankingList';
@@ -20,14 +20,17 @@ interface RankingPageInterface {
 }
 
 const Styled = {
-	Wrapper: styled(GlobalStyled.HeightRow)`
-		padding: 0.5rem 0;
+	Header: styled(GlobalStyled.HeightRow)`
+		padding: 0.5rem 1rem;
 		border-bottom: 1px solid ${props => props.theme.gray};
 		margin-bottom: 1rem;
 	`,
-	Header: styled(GlobalStyled.Row)`
+	Title: styled(GlobalStyled.Row)`
 		font-size: 1.5rem;
 		color: ${props => props.theme.lightBlack};
+	`,
+	ContentWrapper: styled(GlobalStyled.HeightRow)`
+		padding: 0 1rem;
 	`,
 };
 
@@ -40,7 +43,14 @@ const RankingPage = ({
 
 	// const [API] = useMemo(useAPI, []);
 
-	// const { data: customName, error } = useSWR('/get/all');
+	const region = isRegionUrl(match).value.label;
+	const inquiryDate = isRegionUrl(match).value;
+
+	const { data: apiPlantRankList = { list: [], total: {} } } = useSWR(
+		`/region/plants-ranking?regionGroupId=${
+			reverseApiRegionLabel[region as '서울경기']
+		}&date=${moment(inquiryDate as any).format('YYYY-MM-DD')}`,
+	);
 
 	// const handleSubmit = async (): Promise<void> => {
 	// 	try {
@@ -51,9 +61,9 @@ const RankingPage = ({
 	// 	}
 	// };
 
-	const [region, setRegion] = useState(regionOptions[0].label);
+	// const [region, setRegion] = useState(regionOptions[0].label);
 
-	const [inquiryDate, setInquiryDate] = useState(moment());
+	// const [inquiryDate, setInquiryDate] = useState(moment());
 
 	const [rankingInfos, setRankingInfos] = useState([
 		{
@@ -69,24 +79,38 @@ const RankingPage = ({
 	useEffect(() => {
 		const urlRegion = isRegionUrl(match);
 		const urlDate = isDateUrl(match);
-		const rankingNumber: any = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 		if (urlRegion.isUrl && urlDate.isUrl) {
-			setRegion(urlRegion.value.label);
-			setInquiryDate(urlDate.value);
 			setRankingInfos(
-				rankingNumber.map((res: any, i: number) => {
+				apiPlantRankList.list.map((res: any, i: number) => {
+					const {
+						kwh_time,
+						plant_address,
+						plant_id,
+						plant_name,
+					} = res;
+
 					return {
 						region: '',
-						ranking: i + 1,
-						plantName: '-',
-						address: urlRegion.value.label,
-						plantTime: '-',
-						to: `/info/${i}/${moment(urlDate.value).format(
+						ranking: `${i + 1}위`,
+						plantName: plant_name,
+						address: plant_address,
+						plantTime: `${kwh_time} 시간`,
+						to: `/info/${plant_id}/${moment(urlDate.value).format(
 							'YYYYMMDD',
 						)}`,
 					};
 				}),
+				// .sort((a: any, b: any) => {
+				// 	return b.plantTime - a.plantTime;
+				// })
+				// .map((res: any, i: number) => {
+				// 	return {
+				// 		...res,
+				// 		ranking: `${i + 1}위`,
+				// 		plantTime: res.plantTime + ' 시간',
+				// 	};
+				// }),
 			);
 		} else {
 			history.push(
@@ -101,20 +125,22 @@ const RankingPage = ({
 				}}`,
 			);
 		}
-	}, [match, history]);
+	}, [match, history, region, apiPlantRankList]);
 
 	return (
 		<GlobalStyled.Body>
 			<GlobalStyled.Container>
-				<Styled.Wrapper>
+				<Styled.Header>
 					<GlobalStyled.Row bottom={1}>
 						<GlobalStyled.RightCol width={100}>
 							<InquiryDate date={inquiryDate} />
 						</GlobalStyled.RightCol>
 					</GlobalStyled.Row>
-					<Styled.Header>{region} 발전량 상위 10위</Styled.Header>
-				</Styled.Wrapper>
-				<PlantRankingList infos={rankingInfos} />
+					<Styled.Title>{region} 발전량 상위 10위</Styled.Title>
+				</Styled.Header>
+				<Styled.ContentWrapper>
+					<PlantRankingList infos={rankingInfos} />
+				</Styled.ContentWrapper>
 			</GlobalStyled.Container>
 		</GlobalStyled.Body>
 	);

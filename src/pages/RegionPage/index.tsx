@@ -64,10 +64,41 @@ const RegionPage = ({
 	const selectApiRegionId =
 		reverseApiRegionLabel[selectRegionValue.label as regionType];
 
-	const { data: apiPlantTimeInfo, error } = useSWR(
+	const {
+		data: apiPlantTimeInfo = { region_avg_time: '-', region_max_time: '-' },
+	} = useSWR(
 		`/region/kwhtime?regionGroupId=${selectApiRegionId}&date=${moment(
 			inquiryDate,
 		).format('YYYY-MM-DD')}`,
+	);
+
+	const { data: apiPlantList = { list: [], total: {} } } = useSWR(
+		`/region/plants-list?regionGroupId=${selectApiRegionId}&date=${moment(
+			inquiryDate,
+		).format('YYYY-MM-DD')}`,
+	);
+
+	const { data: apiWeekPlantTimeChart = [] } = useSWR(
+		`region/kwhtime-graph?regionGroupId=${selectApiRegionId}&startDate=${moment(
+			inquiryDate,
+		)
+			.add(-7, 'days')
+			.format('YYYY-MM-DD')}&endDate=${moment(inquiryDate).format(
+			'YYYY-MM-DD',
+		)}`,
+	);
+
+	const weekPlantTimeChartInfos = apiWeekPlantTimeChart.map(
+		(res: any, i: number) => {
+			return {
+				id: [
+					moment(inquiryDate)
+						.add(-7 + i, 'days')
+						.format('MM-DD'),
+				],
+				발전시간: res,
+			};
+		},
 	);
 
 	const [plantTimeInfos, setPlantTimeInfos] = useState([
@@ -96,12 +127,22 @@ const RegionPage = ({
 					label: `${urlRegion.value.label} 최고 발전시간`,
 				},
 			]);
+
 			setSelectRegionValue(urlRegion.value);
 			setInquiryDate(urlDate.value);
 			setMapInfo((prevState: any) => {
-				let formatState = prevState;
-				formatState[urlRegion.value.value] = 5;
-				console.log('formatState : ', formatState);
+				let formatState: any = {
+					seoul: 1,
+					chungnam: 1,
+					jeonbuk: 1,
+					jeonnam: 1,
+					gangwon: 1,
+					chungbuk: 1,
+					gyeongbuk: 1,
+					gyeongnam: 1,
+					jeju: 1,
+				};
+				formatState[urlRegion.value.value as any] = 5;
 				return formatState;
 				// prevState[urlRegion.value.value] = 1
 			});
@@ -126,7 +167,6 @@ const RegionPage = ({
 		regionOptions.some(res => {
 			if (res.value === e.value) {
 				setSelectRegionValue(res);
-				console.log(location, match);
 				history.push(
 					`/region/${res.value}/${moment(urlDate).format(
 						'YYYYMMDD',
@@ -168,7 +208,13 @@ const RegionPage = ({
 							<PlantMap info={mapInfo} />
 						</GlobalStyled.CenterCol>
 						<GlobalStyled.Col width={50}>
-							<PlantStatusTable />
+							<PlantStatusTable
+								infos={apiPlantList.list.filter(
+									(res: any, i: number) => {
+										return i < 6;
+									},
+								)}
+							/>
 						</GlobalStyled.Col>
 					</GlobalStyled.Row>
 				</GlobalStyled.ContentRow>
@@ -179,7 +225,11 @@ const RegionPage = ({
 					<GlobalStyled.Title>
 						최근 일주일 {selectRegionValue.label} 발전시간 그래프
 					</GlobalStyled.Title>
-					<BarChart leftTickFormat="시간" />
+					<BarChart
+						infos={weekPlantTimeChartInfos}
+						leftTickFormat="시간"
+						keys={['발전시간']}
+					/>
 				</GlobalStyled.ContentRow>
 				<GlobalStyled.ContentRow>
 					<GlobalStyled.Title bottom={1}>

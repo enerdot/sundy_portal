@@ -12,7 +12,7 @@ const Styled = {
 };
 
 interface BarChartInterface {
-	data: any;
+	infos: any;
 	colors: any;
 	labelTextColor: string;
 	leftTickFormat: string;
@@ -22,17 +22,18 @@ interface BarChartInterface {
 
 const BarChart = (props: BarChartInterface) => {
 	const {
-		data,
+		infos,
 		colors,
 		labelTextColor,
 		leftTickFormat,
 		tickPadding,
 		keys,
 	} = props;
+
 	return (
 		<Styled.Wrapper>
 			<ResponsiveBar
-				data={data}
+				data={infos}
 				colors={colors}
 				keys={keys}
 				indexBy="id"
@@ -67,7 +68,7 @@ const BarChart = (props: BarChartInterface) => {
 	);
 };
 BarChart.defaultProps = {
-	data: [
+	infos: [
 		{
 			id: '11/14',
 			value: 0,

@@ -14,6 +14,8 @@ import RegionPlantMap from 'components/Molecules/RegionPlantMap';
 // import useCurrentUser from 'hooks/useCurrentUser';
 // import useAPI from 'hooks/useAPI';
 
+import { formatRegionPlantTimeDayInfo } from 'utils/api';
+
 const Styled = {
 	CalendarSmallInfo: styled.div`
 		font-size: 1rem;
@@ -71,29 +73,7 @@ const MainPage = (): JSX.Element => {
 				},
 		  ];
 
-	const regionPlantTimeInfo = avgData
-		? {
-				seoul: avgData.region[0].energy_today_total,
-				chungnam: avgData.region[3].energy_today_total,
-				jeonbuk: avgData.region[4].energy_today_total,
-				jeonnam: avgData.region[5].energy_today_total,
-				gangwon: avgData.region[1].energy_today_total,
-				chungbuk: avgData.region[2].energy_today_total,
-				gyeongbuk: avgData.region[6].energy_today_total,
-				gyeongnam: avgData.region[7].energy_today_total,
-				jeju: avgData.region[8].energy_today_total,
-		  }
-		: {
-				seoul: 0,
-				chungnam: 0,
-				jeonbuk: 0,
-				jeonnam: 0,
-				gangwon: 0,
-				chungbuk: 0,
-				gyeongbuk: 0,
-				gyeongnam: 0,
-				jeju: 0,
-		  };
+	const regionPlantTimeInfo = formatRegionPlantTimeDayInfo(avgData);
 
 	return (
 		<GlobalStyled.Body>

@@ -20,18 +20,19 @@ const Styled = {
 
 interface WeatherInterface {
 	info: any;
+	stroke: string;
 }
 
 const Weather = (props: WeatherInterface) => {
-	const { info } = props;
+	const { info, stroke } = props;
 
 	const { name, imgSrc, temperature } = formatWeather(info);
 
 	return (
 		<Styled.Wrapper>
-			<Styled.WeatherName>{name}</Styled.WeatherName>
-			<GlobalStyled.CenterRow>
-				<Svg name={imgSrc} size="5rem" />
+			<Styled.WeatherName bottom={1}>{name}</Styled.WeatherName>
+			<GlobalStyled.CenterRow bottom={1}>
+				<Svg name={imgSrc} size="4rem" stroke={stroke} />
 			</GlobalStyled.CenterRow>
 			<Styled.Temperature>{temperature}</Styled.Temperature>
 		</Styled.Wrapper>
@@ -39,6 +40,7 @@ const Weather = (props: WeatherInterface) => {
 };
 Weather.defaultProps = {
 	info: '',
+	stroke: '#000000',
 };
 
 export default Weather;

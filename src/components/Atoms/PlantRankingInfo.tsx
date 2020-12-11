@@ -20,7 +20,7 @@ const Styled = {
 	PlantRegion: styled(GlobalStyled.Row)`
 		color: ${props => props.theme.sky};
 	`,
-	PlantRanking: styled(GlobalStyled.Row)`
+	PlantRanking: styled(GlobalStyled.CenterRow)`
 		font-size: 1.25rem;
 		font-weight: bold;
 		color: ${props => props.theme.sky};
@@ -53,7 +53,7 @@ const PlantRankingInfo = (props: PlantRankingInfoInterface) => {
 	return (
 		<GlobalStyled.RowLink to={to}>
 			<Styled.Wrapper>
-				<GlobalStyled.Col width={80}>
+				<GlobalStyled.Col width={75}>
 					<Styled.Section>
 						<Styled.PlantRankingImg
 							alt="plant-ranking"
@@ -73,7 +73,7 @@ const PlantRankingInfo = (props: PlantRankingInfoInterface) => {
 						</GlobalStyled.HeightRow>
 					</Styled.Section>
 				</GlobalStyled.Col>
-				<GlobalStyled.CenterCol width={20}>
+				<GlobalStyled.CenterCol width={25}>
 					<GlobalStyled.CenterCol width={90}>
 						<Styled.PlantTime>{plantTime}</Styled.PlantTime>
 					</GlobalStyled.CenterCol>

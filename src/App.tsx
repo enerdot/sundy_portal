@@ -9,6 +9,7 @@ import theme from 'style/theme';
 
 import GlobalHeader from 'components/Organisms/GlobalHeader';
 import GlobalFooter from 'components/Organisms/GlobalFooter';
+import Swal from 'sweetalert2';
 
 const MainPage = lazy(() => import('./pages/MainPage'));
 const RegionPage = lazy(() => import('./pages/RegionPage'));
@@ -25,7 +26,10 @@ const swrConfig: object = {
 	) => {
 		console.log('err');
 		if (retryCount >= 3) return;
-		if (error.response && error.response.status === 404) return;
+		if (error.response && error.response.status === 404) {
+			console.log('err');
+			return;
+		}
 		setTimeout(() => revalidate({ retryCount: retryCount + 1 }), 5000);
 	},
 };
@@ -41,15 +45,15 @@ function App() {
 						<Switch>
 							<Route exact path="/" component={MainPage} />
 							<Route
-								path="/region/:region?/:date?"
+								path="/region/:region/:date"
 								component={RegionPage}
 							/>
 							<Route
-								path="/ranking/:region?/:date?"
+								path="/ranking/:region/:date"
 								component={RankingPage}
 							/>
 							<Route
-								path="/info/:id?/:date?"
+								path="/info/:id/:date"
 								component={InfoPage}
 							/>
 							<Route

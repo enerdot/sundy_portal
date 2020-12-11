@@ -35,4 +35,10 @@ function numberCommaFormat(value: string | number) {
 	return result;
 }
 
-export { kWhToMWh, numberCommaFormat };
+const makeJson = (value: any, key: string | number) => {
+	return {
+		[key]: value,
+	};
+};
+
+export { kWhToMWh, numberCommaFormat, makeJson };

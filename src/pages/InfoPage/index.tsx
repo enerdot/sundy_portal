@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 import Swal from 'sweetalert2';
-// import useSWR from 'swr';
+import useSWR from 'swr';
 
 import GlobalStyled from 'style/GlobalStyled';
 
@@ -29,7 +29,60 @@ const InfoPage = ({
 
 	// const [API] = useMemo(useAPI, []);
 
-	// const { data: customName, error } = useSWR('/get/all');
+	const { data: apiPlantInfo = {} } = useSWR(
+		`plants/info?plantId=${match.params.id}`,
+	);
+
+	const { data: apiPlantWeatherInfo = {} } = useSWR(
+		`plants/weather/hourly?plantId=${match.params.id}`,
+	);
+
+	const { data: apiPlantTimeInfo = { total_kwh: 0, total_time: 0 } } = useSWR(
+		`/plants/kwhbydate?plantId=${match.params.id}&date=${moment(
+			match.params.date,
+		).format('YYYY-MM-DD')}`,
+	);
+
+	const { data: apiTodayPlantTimeChartInfos = [] } = useSWR(
+		`/plants/kwhbydate-graph?plantId=${match.params.id}&date=${moment(
+			match.params.date,
+		).format('YYYY-MM-DD')}`,
+	);
+
+	const todayPlantTimeChartInfos = apiTodayPlantTimeChartInfos.map(
+		(res: any, i: number) => {
+			const day = moment().set('hour', 0);
+			return {
+				id: [moment(day).add(-i, 'hour').format('HH')],
+				발전량: res,
+			};
+		},
+	);
+
+	const { data: apiWeekPlantTimeChartInfos = [] } = useSWR(
+		`/plants/kwhfordays-graph?plantId=${match.params.id}&startDate=${moment(
+			match.params.date,
+		)
+			.add(-7, 'days')
+			.format('YYYY-MM-DD')}&endDate=${moment(match.params.date).format(
+			'YYYY-MM-DD',
+		)}`,
+	);
+
+	const weekPlantTimeChartInfos = apiWeekPlantTimeChartInfos.map(
+		(res: any, i: number) => {
+			return {
+				id: [
+					moment(match.params.date)
+						.add(-7 + i, 'days')
+						.format('MM-DD'),
+				],
+				발전량: res,
+			};
+		},
+	);
+
+	console.log('apiTodayPlantTimeChartInfos : ', apiTodayPlantTimeChartInfos);
 
 	// const handleSubmit = async (): Promise<void> => {
 	// 	try {
@@ -40,18 +93,7 @@ const InfoPage = ({
 	// 	}
 	// };
 
-	const [plantTimeInfos] = useState([
-		{
-			value: '-',
-			label: '오늘 총 누적 발전시간',
-		},
-		{
-			value: '-',
-			label: '발전시간',
-		},
-	]);
-
-	const [plantInfo] = useState({
+	const [plantInfo, setPlantTimeInfos] = useState({
 		plantName: '-',
 		address: '-',
 		capacity: '-',
@@ -63,11 +105,29 @@ const InfoPage = ({
 	useEffect(() => {
 		const urlDate = isDateUrl(match);
 		if (urlDate.isUrl) {
+			const {
+				inverter,
+				module: moduleName,
+				module_bearing,
+				plant_kwatt,
+				plant_loc,
+				plant_name,
+			} = apiPlantInfo;
 			setInquiryDate(urlDate.value);
+			setPlantTimeInfos({
+				plantName: plant_name,
+				address: plant_loc,
+				capacity: plant_kwatt,
+				equipmentInfos: [
+					{ name: '인버터', value: inverter },
+					{ name: '모듈', value: moduleName },
+					{ name: '모듈방향', value: module_bearing },
+				],
+			});
 		} else {
 			Swal.fire(globalSwal.urlErr).then(res => history.push('/'));
 		}
-	}, [match, history]);
+	}, [match, history, apiPlantInfo]);
 
 	return (
 		<GlobalStyled.Body>
@@ -79,24 +139,44 @@ const InfoPage = ({
 						</GlobalStyled.RightCol>
 					</GlobalStyled.Row>
 					<GlobalStyled.Row>
-						<PlantDetailInfo info={plantInfo} />
+						<PlantDetailInfo
+							info={plantInfo}
+							weatherInfo={apiPlantWeatherInfo}
+						/>
 					</GlobalStyled.Row>
 				</GlobalStyled.ContentRow>
 				<GlobalStyled.ContentRow bottom={1}>
-					<PlantTimeContentList infos={plantTimeInfos} />
+					<PlantTimeContentList
+						infos={[
+							{
+								value: `${apiPlantTimeInfo.total_kwh} kWh`,
+								label: '오늘 총 누적 발전량',
+							},
+							{
+								value: `${apiPlantTimeInfo.total_time} 시간`,
+								label: '발전시간',
+							},
+						]}
+					/>
 				</GlobalStyled.ContentRow>
 				<GlobalStyled.ContentRow>
 					<GlobalStyled.HeightRow bottom={3}>
 						<GlobalStyled.Title bottom={1}>
 							오늘 발전 그래프
 						</GlobalStyled.Title>
-						<BarChart />
+						<BarChart
+							infos={todayPlantTimeChartInfos}
+							keys={['발전량']}
+						/>
 					</GlobalStyled.HeightRow>
 					<GlobalStyled.HeightRow>
 						<GlobalStyled.Title bottom={1}>
 							최근 7일 발전 그래프
 						</GlobalStyled.Title>
-						<BarChart />
+						<BarChart
+							infos={weekPlantTimeChartInfos}
+							keys={['발전량']}
+						/>
 					</GlobalStyled.HeightRow>
 				</GlobalStyled.ContentRow>
 			</GlobalStyled.Container>

@@ -18,7 +18,7 @@ const Styled = {
 		color: ${props => props.theme.gray};
 	`,
 	ContentCol: styled(GlobalStyled.Col)`
-		width: 30%;
+		width: 70%;
 		color: ${props => props.theme.lightBlack};
 	`,
 };
@@ -40,7 +40,7 @@ const PlantDetailInfo = (props: PlantDetailInfoInterface) => {
 
 	const equipmentList = equipmentInfos.map((res: any, i: number) => {
 		return (
-			<GlobalStyled.Row>
+			<GlobalStyled.Row bottom={0.5}>
 				<Styled.TitleCol>{i === 0 ? '설비정보' : ''}</Styled.TitleCol>
 				<Styled.ContentCol>{`${res.name} / ${res.value}`}</Styled.ContentCol>
 			</GlobalStyled.Row>
@@ -61,7 +61,9 @@ const PlantDetailInfo = (props: PlantDetailInfoInterface) => {
 							<Styled.TitleCol>용량</Styled.TitleCol>
 							<Styled.ContentCol>{capacity}</Styled.ContentCol>
 						</GlobalStyled.Row>
-						<GlobalStyled.Row>{equipmentList}</GlobalStyled.Row>
+						<GlobalStyled.HeightRow>
+							{equipmentList}
+						</GlobalStyled.HeightRow>
 					</GlobalStyled.HeightRow>
 				</GlobalStyled.Col>
 				<GlobalStyled.Col width={30}>

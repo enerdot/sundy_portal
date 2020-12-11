@@ -42,7 +42,16 @@ interface PlantStatusTableInterface {
 const PlantStatusTable = (props: PlantStatusTableInterface) => {
 	const { infos } = props;
 
-	const list = infos.map((res: any, i: number) => {
+	const formatInfos = infos.map((res: any) => {
+		const { plant_name, plant_address, kwh_time } = res;
+		return {
+			plant_name: plant_name,
+			plant_address: plant_address,
+			kwh_time: kwh_time,
+		};
+	});
+
+	const list = formatInfos.map((res: any, i: number) => {
 		return (
 			<Styled.TableRow key={i}>
 				<TableInfo info={res} />
@@ -68,14 +77,9 @@ const PlantStatusTable = (props: PlantStatusTableInterface) => {
 PlantStatusTable.defaultProps = {
 	infos: [
 		{
-			제목1: '내용1',
-			제목2: '내용1',
-			제목3: '내용1',
-		},
-		{
-			제목1: '내용2',
-			제목2: '내용2',
-			제목3: '내용2',
+			plant_name: '-',
+			plant_address: '-',
+			kwh_time: '-',
 		},
 	],
 };
