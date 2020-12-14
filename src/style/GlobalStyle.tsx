@@ -6,7 +6,6 @@ const GlobalStyle = () => {
 };
 
 const Body = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,500,700,900&display=swap&subset=korean');
     html {
         font-size : 12px;
     }

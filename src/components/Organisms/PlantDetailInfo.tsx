@@ -40,7 +40,7 @@ const PlantDetailInfo = (props: PlantDetailInfoInterface) => {
 
 	const equipmentList = equipmentInfos.map((res: any, i: number) => {
 		return (
-			<GlobalStyled.Row bottom={0.5}>
+			<GlobalStyled.Row bottom={0.5} key={i}>
 				<Styled.TitleCol>{i === 0 ? '설비정보' : ''}</Styled.TitleCol>
 				<Styled.ContentCol>{`${res.name} / ${res.value}`}</Styled.ContentCol>
 			</GlobalStyled.Row>

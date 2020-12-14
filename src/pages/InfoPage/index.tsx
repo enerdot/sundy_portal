@@ -8,7 +8,7 @@ import GlobalStyled from 'style/GlobalStyled';
 // import useCurrentUser from 'hooks/useCurrentUser';
 // import useAPI from 'hooks/useAPI';
 import { isDateUrl } from 'utils/url';
-import { globalSwal } from 'config/alert';
+import globalSwal from 'config/alert';
 import InquiryDate from 'components/Atoms/InquiryDate';
 import PlantDetailInfo from 'components/Organisms/PlantDetailInfo';
 import PlantTimeContentList from 'components/Molecules/PlantTimeContentList';
@@ -34,55 +34,55 @@ const InfoPage = ({
 	);
 
 	const { data: apiPlantWeatherInfo = {} } = useSWR(
-		`plants/weather/hourly?plantId=${match.params.id}`,
+		`plants/weather/hourly?plantId=${match.params.id}&date=${moment(
+			match.params.date,
+		).format('YYYY-MM-DD')}`,
 	);
 
-	const { data: apiPlantTimeInfo = { total_kwh: 0, total_time: 0 } } = useSWR(
+	const {
+		data: apiDayTotalPlantPowerInfo = { total_kwh: 0, total_time: 0 },
+	} = useSWR(
 		`/plants/kwhbydate?plantId=${match.params.id}&date=${moment(
 			match.params.date,
 		).format('YYYY-MM-DD')}`,
 	);
 
-	const { data: apiTodayPlantTimeChartInfos = [] } = useSWR(
+	const { data: apiDayPlantPowerChartInfos = [] } = useSWR(
 		`/plants/kwhbydate-graph?plantId=${match.params.id}&date=${moment(
 			match.params.date,
 		).format('YYYY-MM-DD')}`,
 	);
 
-	const todayPlantTimeChartInfos = apiTodayPlantTimeChartInfos.map(
+	const dayPlantPowerChartInfos = apiDayPlantPowerChartInfos.map(
 		(res: any, i: number) => {
 			const day = moment().set('hour', 0);
 			return {
-				id: [moment(day).add(-i, 'hour').format('HH')],
+				id: moment(day).add(i, 'hour').format('HH'),
 				발전량: res,
 			};
 		},
 	);
 
-	const { data: apiWeekPlantTimeChartInfos = [] } = useSWR(
+	const { data: apiWeekPlantPowerChartInfos = [] } = useSWR(
 		`/plants/kwhfordays-graph?plantId=${match.params.id}&startDate=${moment(
 			match.params.date,
 		)
-			.add(-7, 'days')
+			.add(-6, 'days')
 			.format('YYYY-MM-DD')}&endDate=${moment(match.params.date).format(
 			'YYYY-MM-DD',
 		)}`,
 	);
 
-	const weekPlantTimeChartInfos = apiWeekPlantTimeChartInfos.map(
+	const weekPlantPowerChartInfos = apiWeekPlantPowerChartInfos.map(
 		(res: any, i: number) => {
 			return {
-				id: [
-					moment(match.params.date)
-						.add(-7 + i, 'days')
-						.format('MM-DD'),
-				],
+				id: moment(match.params.date)
+					.add(-7 + i, 'days')
+					.format('MM-DD'),
 				발전량: res,
 			};
 		},
 	);
-
-	console.log('apiTodayPlantTimeChartInfos : ', apiTodayPlantTimeChartInfos);
 
 	// const handleSubmit = async (): Promise<void> => {
 	// 	try {
@@ -149,11 +149,11 @@ const InfoPage = ({
 					<PlantTimeContentList
 						infos={[
 							{
-								value: `${apiPlantTimeInfo.total_kwh} kWh`,
+								value: `${apiDayTotalPlantPowerInfo.total_kwh} kWh`,
 								label: '오늘 총 누적 발전량',
 							},
 							{
-								value: `${apiPlantTimeInfo.total_time} 시간`,
+								value: `${apiDayTotalPlantPowerInfo.total_time} 시간`,
 								label: '발전시간',
 							},
 						]}
@@ -165,8 +165,24 @@ const InfoPage = ({
 							오늘 발전 그래프
 						</GlobalStyled.Title>
 						<BarChart
-							infos={todayPlantTimeChartInfos}
+							infos={dayPlantPowerChartInfos}
 							keys={['발전량']}
+							leftTickFormat="kWh"
+							leftMargin={50}
+							axisBottomTickValues={[
+								'00',
+								'02',
+								'04',
+								'06',
+								'08',
+								'10',
+								'12',
+								'14',
+								'16',
+								'18',
+								'20',
+								'22',
+							]}
 						/>
 					</GlobalStyled.HeightRow>
 					<GlobalStyled.HeightRow>
@@ -174,8 +190,10 @@ const InfoPage = ({
 							최근 7일 발전 그래프
 						</GlobalStyled.Title>
 						<BarChart
-							infos={weekPlantTimeChartInfos}
+							infos={weekPlantPowerChartInfos}
 							keys={['발전량']}
+							leftTickFormat="kWh"
+							leftMargin={60}
 						/>
 					</GlobalStyled.HeightRow>
 				</GlobalStyled.ContentRow>

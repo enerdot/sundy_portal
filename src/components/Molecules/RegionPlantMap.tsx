@@ -226,8 +226,6 @@ interface MiniMapInterface {
 const RegionPlantMap = (props: MiniMapInterface) => {
 	const { info, selectDate } = props;
 
-	console.log('info : ', info);
-
 	const {
 		seoul,
 		chungnam,

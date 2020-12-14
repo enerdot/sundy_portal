@@ -9,7 +9,10 @@ import theme from 'style/theme';
 
 import GlobalHeader from 'components/Organisms/GlobalHeader';
 import GlobalFooter from 'components/Organisms/GlobalFooter';
+import Spinner from 'components/Atoms/Spinner';
 import Swal from 'sweetalert2';
+
+import globalSwal from 'config/alert';
 
 const MainPage = lazy(() => import('./pages/MainPage'));
 const RegionPage = lazy(() => import('./pages/RegionPage'));
@@ -27,7 +30,7 @@ const swrConfig: object = {
 		console.log('err');
 		if (retryCount >= 3) return;
 		if (error.response && error.response.status === 404) {
-			console.log('err');
+			Swal.fire(globalSwal.apiErr);
 			return;
 		}
 		setTimeout(() => revalidate({ retryCount: retryCount + 1 }), 5000);
@@ -41,7 +44,7 @@ function App() {
 			<SWRConfig value={{ ...swrConfig, fetcher }}>
 				<ThemeProvider theme={theme}>
 					<GlobalHeader />
-					<Suspense fallback={<div>Loading</div>}>
+					<Suspense fallback={<Spinner />}>
 						<Switch>
 							<Route exact path="/" component={MainPage} />
 							<Route

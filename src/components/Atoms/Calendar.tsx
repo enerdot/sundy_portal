@@ -265,7 +265,7 @@ Calendar.defaultProps = {
 	},
 	type: 'time',
 	required: false,
-	minDate: new Date(2019, 11, 4, 0, 0, 0, 0),
+	minDate: new Date(2020, 11, 1, 0, 0, 0, 0),
 	onChange: function () {},
 	children: '',
 	css: '',

@@ -18,6 +18,8 @@ interface BarChartInterface {
 	leftTickFormat: string;
 	tickPadding: number;
 	keys: any;
+	leftMargin: number;
+	axisBottomTickValues: any;
 }
 
 const BarChart = (props: BarChartInterface) => {
@@ -28,6 +30,8 @@ const BarChart = (props: BarChartInterface) => {
 		leftTickFormat,
 		tickPadding,
 		keys,
+		leftMargin,
+		axisBottomTickValues,
 	} = props;
 
 	return (
@@ -37,7 +41,7 @@ const BarChart = (props: BarChartInterface) => {
 				colors={colors}
 				keys={keys}
 				indexBy="id"
-				margin={{ top: 30, bottom: 35, left: 40 }}
+				margin={{ top: 30, bottom: 35, left: leftMargin }}
 				padding={0.6}
 				valueScale={{ type: 'linear' }}
 				indexScale={{ type: 'band', round: true }}
@@ -50,12 +54,15 @@ const BarChart = (props: BarChartInterface) => {
 					tickRotation: 0,
 					format: v => `${v}${leftTickFormat}`,
 				}}
+				axisBottom={{
+					tickValues: axisBottomTickValues,
+				}}
 				labelSkipWidth={12}
 				labelSkipHeight={12}
 				labelTextColor={labelTextColor}
 				labelFormat={labelValue =>
 					((
-						<tspan style={{ fontWeight: 'bold' }} y={12}>
+						<tspan style={{ fontWeight: 'bold' }} y={-12}>
 							{labelValue}
 						</tspan>
 					) as unknown) as string
@@ -99,10 +106,12 @@ BarChart.defaultProps = {
 		},
 	],
 	colors: [theme.sky],
-	labelTextColor: theme.white,
+	labelTextColor: theme.black,
 	leftTickFormat: '',
 	tickPadding: 10,
 	keys: ['value'],
+	leftMargin: 40,
+	axisBottomTickValues: 0,
 };
 
 export default BarChart;

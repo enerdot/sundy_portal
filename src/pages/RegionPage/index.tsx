@@ -82,7 +82,7 @@ const RegionPage = ({
 		`region/kwhtime-graph?regionGroupId=${selectApiRegionId}&startDate=${moment(
 			inquiryDate,
 		)
-			.add(-7, 'days')
+			.add(-6, 'days')
 			.format('YYYY-MM-DD')}&endDate=${moment(inquiryDate).format(
 			'YYYY-MM-DD',
 		)}`,
