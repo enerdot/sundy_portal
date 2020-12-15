@@ -5,17 +5,17 @@ import GlobalStyled from 'style/GlobalStyled';
 import TableInfo from 'components/Atoms/TableInfo';
 
 const Styled = {
-	Wrapper: styled(GlobalStyled.Row)`
+	Wrapper: styled(GlobalStyled.FadeInUpRow)`
 		font-size: 1rem;
 		color: ${props => props.theme.gray};
 		flex-direction: column;
 	`,
-	Header: styled(GlobalStyled.Row)`
+	Header: styled(GlobalStyled.FadeInUpRow)`
 		font-weight: bold;
 		padding: 0.5rem 0;
 		border-bottom: 1px solid ${props => props.theme.gray};
 	`,
-	TableRow: styled(GlobalStyled.Row)`
+	TableRow: styled(GlobalStyled.FadeInUpRow)`
 		padding: 0.5rem 0;
 		${GlobalStyled.Col}:nth-child(1) {
 			width: 37.5%;
@@ -30,7 +30,7 @@ const Styled = {
 			justify-content: center;
 		}
 	`,
-	TableWrapper: styled(GlobalStyled.Row)`
+	TableWrapper: styled(GlobalStyled.FadeInUpRow)`
 		flex-direction: column;
 	`,
 };

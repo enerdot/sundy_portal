@@ -6,7 +6,7 @@ import GlobalStyled from 'style/GlobalStyled';
 import theme from 'style/theme';
 
 const Styled = {
-	Wrapper: styled(GlobalStyled.Row)`
+	Wrapper: styled(GlobalStyled.FadeInUpRow)`
 		height: 20rem;
 	`,
 };

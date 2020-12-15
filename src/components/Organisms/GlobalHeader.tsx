@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import GlobalStyled from 'style/GlobalStyled';
+import UserProfile from 'components/Molecules/UserProfile';
 
 const Styled = {
 	Wrapper: styled(GlobalStyled.CenterRow)`
@@ -17,7 +18,15 @@ const GlobalHeader = () => (
 		<GlobalStyled.Container>
 			<GlobalStyled.ContentRow>
 				<Styled.Wrapper>
-					<GlobalStyled.Link to="/">SUNDY PORTAL</GlobalStyled.Link>
+					<GlobalStyled.Col width={10}></GlobalStyled.Col>
+					<GlobalStyled.CenterCol width={80}>
+						<GlobalStyled.Link to="/">
+							SUNDY PORTAL
+						</GlobalStyled.Link>
+					</GlobalStyled.CenterCol>
+					<GlobalStyled.Col width={10}>
+						<UserProfile />
+					</GlobalStyled.Col>
 				</Styled.Wrapper>
 			</GlobalStyled.ContentRow>
 		</GlobalStyled.Container>

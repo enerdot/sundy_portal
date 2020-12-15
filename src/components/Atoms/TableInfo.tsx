@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import GlobalStyled from 'style/GlobalStyled';
 
 const Styled = {
-	Wrapper: styled(GlobalStyled.Row)``,
+	Wrapper: styled(GlobalStyled.FadeInUpRow)``,
 };
 
 interface TableInfoInterface {

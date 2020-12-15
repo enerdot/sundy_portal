@@ -17,7 +17,7 @@ const Styled = {
 	PlantRankingImg: styled.img`
 		margin-right: 1rem;
 	`,
-	PlantRegion: styled(GlobalStyled.Row)`
+	PlantRegion: styled.div`
 		color: ${props => props.theme.sky};
 	`,
 	PlantRanking: styled(GlobalStyled.CenterRow)`
@@ -25,8 +25,8 @@ const Styled = {
 		font-weight: bold;
 		color: ${props => props.theme.sky};
 	`,
-	PlantName: styled(GlobalStyled.Row)``,
-	Address: styled(GlobalStyled.Row)`
+	PlantName: styled.div``,
+	Address: styled.div`
 		font-size: 0.875rem;
 		color: ${props => props.theme.gray};
 	`,

@@ -25,22 +25,23 @@ const Styled = {
 		animation: ${Keyframes.spinnerSpin} 1s ease-in-out infinite;
 	`,
 
-	Body: styled(GlobalStyled.CenterRow)`
+	Body: styled(GlobalStyled.CenterRow)<{ height: string }>`
 		width: 100%;
-		min-height: 80vh;
+		height: ${props => props.height};
 		margin: auto;
 	`,
 };
 
 interface CircleSpinnerInterface {
 	size: string;
+	height: string;
 }
 
 const CircleSpinner = (props: CircleSpinnerInterface) => {
-	const { size } = props;
+	const { size, height } = props;
 
 	return (
-		<Styled.Body>
+		<Styled.Body height={height}>
 			<Styled.LoadingCircle size={size} />
 		</Styled.Body>
 	);
@@ -48,6 +49,7 @@ const CircleSpinner = (props: CircleSpinnerInterface) => {
 
 CircleSpinner.defaultProps = {
 	size: '10rem',
+	height: '',
 };
 
 export default CircleSpinner;

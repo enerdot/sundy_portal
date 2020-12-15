@@ -131,11 +131,11 @@ const RankingPage = ({
 		<GlobalStyled.Body>
 			<GlobalStyled.Container>
 				<Styled.Header>
-					<GlobalStyled.Row bottom={1}>
+					<GlobalStyled.FadeInUpRow bottom={1}>
 						<GlobalStyled.RightCol width={100}>
 							<InquiryDate date={inquiryDate} />
 						</GlobalStyled.RightCol>
-					</GlobalStyled.Row>
+					</GlobalStyled.FadeInUpRow>
 					<Styled.Title>{region} 발전량 상위 10위</Styled.Title>
 				</Styled.Header>
 				<Styled.ContentWrapper>

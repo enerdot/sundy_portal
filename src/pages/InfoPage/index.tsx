@@ -132,20 +132,20 @@ const InfoPage = ({
 	return (
 		<GlobalStyled.Body>
 			<GlobalStyled.Container>
-				<GlobalStyled.ContentRow>
-					<GlobalStyled.Row>
+				<GlobalStyled.HeightRow padding="1rem">
+					<GlobalStyled.FadeInUpRow>
 						<GlobalStyled.RightCol width={100}>
 							<InquiryDate date={inquiryDate} />
 						</GlobalStyled.RightCol>
-					</GlobalStyled.Row>
-					<GlobalStyled.Row>
+					</GlobalStyled.FadeInUpRow>
+					<GlobalStyled.FadeInUpRow>
 						<PlantDetailInfo
 							info={plantInfo}
 							weatherInfo={apiPlantWeatherInfo}
 						/>
-					</GlobalStyled.Row>
-				</GlobalStyled.ContentRow>
-				<GlobalStyled.ContentRow bottom={1}>
+					</GlobalStyled.FadeInUpRow>
+				</GlobalStyled.HeightRow>
+				<GlobalStyled.HeightRow bottom={1}>
 					<PlantTimeContentList
 						infos={[
 							{
@@ -158,9 +158,9 @@ const InfoPage = ({
 							},
 						]}
 					/>
-				</GlobalStyled.ContentRow>
-				<GlobalStyled.ContentRow>
-					<GlobalStyled.HeightRow bottom={3}>
+				</GlobalStyled.HeightRow>
+				<GlobalStyled.HeightRow>
+					<GlobalStyled.HeightRow padding="1rem" bottom={1}>
 						<GlobalStyled.Title bottom={1}>
 							오늘 발전 그래프
 						</GlobalStyled.Title>
@@ -185,7 +185,7 @@ const InfoPage = ({
 							]}
 						/>
 					</GlobalStyled.HeightRow>
-					<GlobalStyled.HeightRow>
+					<GlobalStyled.HeightRow padding="1rem">
 						<GlobalStyled.Title bottom={1}>
 							최근 7일 발전 그래프
 						</GlobalStyled.Title>
@@ -196,7 +196,7 @@ const InfoPage = ({
 							leftMargin={60}
 						/>
 					</GlobalStyled.HeightRow>
-				</GlobalStyled.ContentRow>
+				</GlobalStyled.HeightRow>
 			</GlobalStyled.Container>
 		</GlobalStyled.Body>
 	);

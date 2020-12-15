@@ -189,8 +189,8 @@ const RegionPage = ({
 	return (
 		<GlobalStyled.Body>
 			<GlobalStyled.Container>
-				<GlobalStyled.ContentRow>
-					<GlobalStyled.Row bottom={5}>
+				<GlobalStyled.HeightRow padding="1rem">
+					<GlobalStyled.FadeInUpRow bottom={5}>
 						<GlobalStyled.Col width={50}>
 							<Select
 								width={'16rem'}
@@ -202,8 +202,8 @@ const RegionPage = ({
 						<GlobalStyled.RightCol width={50}>
 							<InquiryDate date={inquiryDate} />
 						</GlobalStyled.RightCol>
-					</GlobalStyled.Row>
-					<GlobalStyled.Row>
+					</GlobalStyled.FadeInUpRow>
+					<GlobalStyled.FadeInUpRow bottom={2}>
 						<GlobalStyled.CenterCol width={50}>
 							<PlantMap info={mapInfo} />
 						</GlobalStyled.CenterCol>
@@ -216,13 +216,13 @@ const RegionPage = ({
 								)}
 							/>
 						</GlobalStyled.Col>
-					</GlobalStyled.Row>
-				</GlobalStyled.ContentRow>
-				<GlobalStyled.ContentRow>
+					</GlobalStyled.FadeInUpRow>
+				</GlobalStyled.HeightRow>
+				<GlobalStyled.HeightRow bottom={2}>
 					<PlantTimeContentList infos={plantTimeInfos} />
-				</GlobalStyled.ContentRow>
-				<GlobalStyled.ContentRow>
-					<GlobalStyled.Title>
+				</GlobalStyled.HeightRow>
+				<GlobalStyled.HeightRow padding="1rem">
+					<GlobalStyled.Title bottom={1}>
 						최근 일주일 {selectRegionValue.label} 발전시간 그래프
 					</GlobalStyled.Title>
 					<BarChart
@@ -230,8 +230,8 @@ const RegionPage = ({
 						leftTickFormat="시간"
 						keys={['발전시간']}
 					/>
-				</GlobalStyled.ContentRow>
-				<GlobalStyled.ContentRow>
+				</GlobalStyled.HeightRow>
+				<GlobalStyled.HeightRow padding="1rem">
 					<GlobalStyled.Title bottom={1}>
 						이웃 발전소 구경
 					</GlobalStyled.Title>
@@ -247,7 +247,7 @@ const RegionPage = ({
 							).format('YYYYMMDD')}`,
 						}}
 					/>
-				</GlobalStyled.ContentRow>
+				</GlobalStyled.HeightRow>
 			</GlobalStyled.Container>
 		</GlobalStyled.Body>
 	);

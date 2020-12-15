@@ -1,20 +1,19 @@
 import axios from 'axios';
 // import { useCookies } from 'react-cookie'
 
-function useAPI() : any {
+function useAPI(): any {
 	//   const [cookies, setCookie] = useCookies()
 
-	const API : any = axios.create({
+	const API: any = axios.create({
 		baseURL: process.env.REACT_APP_API_URL,
 		headers: {
 			Authorization: '',
 		},
 	});
 
-	const APIs : any = {
-		getAll:() : any => API.get('/get'),
+	const APIs: any = {
+		getAll: () => API.get('/get'),
 	};
-
 
 	return [
 		{

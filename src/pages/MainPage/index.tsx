@@ -21,7 +21,7 @@ const Styled = {
 		font-size: 1rem;
 		color: ${props => props.theme.gray};
 	`,
-	CalendarContent: styled(GlobalStyled.Row)``,
+	CalendarContent: styled(GlobalStyled.FadeInUpRow)``,
 };
 
 const MainPage = (): JSX.Element => {
@@ -78,8 +78,8 @@ const MainPage = (): JSX.Element => {
 	return (
 		<GlobalStyled.Body>
 			<GlobalStyled.Container>
-				<GlobalStyled.ContentRow>
-					<GlobalStyled.Row>
+				<GlobalStyled.HeightRow padding="1rem">
+					<GlobalStyled.FadeInUpRow>
 						<Calendar
 							info={calendarInfo}
 							onChange={setCalendarInfo}
@@ -88,9 +88,9 @@ const MainPage = (): JSX.Element => {
 								지역 별 발전소들을 구경해보세요
 							</Styled.CalendarSmallInfo>
 						</Calendar>
-					</GlobalStyled.Row>
+					</GlobalStyled.FadeInUpRow>
 
-					<GlobalStyled.Row bottom={2}>
+					<GlobalStyled.FadeInUpRow bottom={2}>
 						<GlobalStyled.RightCol width={100}>
 							<SwitchButton
 								value={isViewTypeAvg}
@@ -99,38 +99,38 @@ const MainPage = (): JSX.Element => {
 								onChange={setIsViewTypeAvg}
 							/>
 						</GlobalStyled.RightCol>
-					</GlobalStyled.Row>
+					</GlobalStyled.FadeInUpRow>
 
-					<GlobalStyled.Row bottom={2}>
+					<GlobalStyled.FadeInUpRow bottom={2}>
 						<GlobalStyled.RightCol width={100}>
 							<GradationBar width={'15rem'}>
-								<GlobalStyled.Row>
+								<GlobalStyled.FadeInUpRow>
 									<GlobalStyled.Col width={50}>
 										0시간
 									</GlobalStyled.Col>
 									<GlobalStyled.RightCol width={50}>
 										6시간
 									</GlobalStyled.RightCol>
-								</GlobalStyled.Row>
+								</GlobalStyled.FadeInUpRow>
 							</GradationBar>
 						</GlobalStyled.RightCol>
-					</GlobalStyled.Row>
+					</GlobalStyled.FadeInUpRow>
 
-					<GlobalStyled.Row>
+					<GlobalStyled.FadeInUpRow>
 						<RegionPlantMap
 							info={regionPlantTimeInfo}
 							selectDate={calendarInfo.startDate}
 						/>
-					</GlobalStyled.Row>
-				</GlobalStyled.ContentRow>
-				<GlobalStyled.ContentRow>
-					<GlobalStyled.Row>
+					</GlobalStyled.FadeInUpRow>
+				</GlobalStyled.HeightRow>
+				<GlobalStyled.HeightRow bottom={1}>
+					<GlobalStyled.FadeInUpRow>
 						<PlantTimeContentList infos={plantTimeInfos} />
-					</GlobalStyled.Row>
-				</GlobalStyled.ContentRow>
-				<GlobalStyled.ContentRow>
+					</GlobalStyled.FadeInUpRow>
+				</GlobalStyled.HeightRow>
+				<GlobalStyled.HeightRow padding="1rem">
 					<CompanyLinkCards />
-				</GlobalStyled.ContentRow>
+				</GlobalStyled.HeightRow>
 			</GlobalStyled.Container>
 		</GlobalStyled.Body>
 	);

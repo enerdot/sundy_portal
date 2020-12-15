@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import {
 	typography,
 	TypographyProps,
@@ -9,6 +9,19 @@ import {
 	layout,
 } from 'styled-system';
 import { Link } from 'react-router-dom';
+
+const animation: any = {
+	fadeInUp: keyframes`
+		0%{
+			opacity: 0;
+			transform: translateY(20px);
+		}
+		100% {
+			opacity: 1;
+			transform: translateY(0px);
+		}
+		`,
+};
 
 const Parent = {
 	Card: styled.div<ColorProps & TypographyProps & SpaceProps>`
@@ -42,6 +55,9 @@ const Parent = {
 		border-radius: 0.25rem;
 		padding: 0;
 		cursor: pointer;
+		padding: 1rem;
+		font-weight: bold;
+		background-color: ${props => props.theme.blue};
 		${typography}
 		${space}
         ${color}
@@ -120,6 +136,10 @@ const GlobalStyled = {
 
 	Row: styled(Parent.Row)``,
 
+	FadeInUpRow: styled(Parent.Row)`
+		animation: ${animation.fadeInUp} 1s;
+	`,
+
 	HeightRow: styled(Parent.Row)`
 		flex-direction: column;
 	`,
@@ -152,7 +172,14 @@ const GlobalStyled = {
 		align-items: center;
 		justify-content: flex-end;
 	`,
-	Button: styled(Parent.Button)``,
+	Button: styled(Parent.Button)`
+		width: 100%;
+	`,
+	ActiveButton: styled(Parent.Button)<{ isActive: boolean }>`
+		width: 100%;
+		background-color: ${props =>
+			props.isActive ? props.theme.blue : props.theme.gray};
+	`,
 	RowLink: styled(Parent.Link)`
 		width: 100%;
 	`,

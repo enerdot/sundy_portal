@@ -41,7 +41,7 @@ const Animation = {
 };
 
 const Styled = {
-	Body: styled(GlobalStyled.Row)``,
+	Body: styled(GlobalStyled.FadeInUpRow)``,
 	MapContainer: styled.div`
 		display: flex;
 		width: 100%;
@@ -280,7 +280,7 @@ const RegionPlantMap = (props: MiniMapInterface) => {
 		<Styled.Body>
 			<Styled.MapContainer>
 				<Styled.Col width={35}>
-					<GlobalStyled.Row bottom={2}>
+					<GlobalStyled.FadeInUpRow bottom={2}>
 						<RegionPlantTimeCard
 							value={seoul}
 							label="서울 경기"
@@ -288,9 +288,9 @@ const RegionPlantMap = (props: MiniMapInterface) => {
 								selectDate,
 							).format('YYYYMMDD')}`}
 						/>
-					</GlobalStyled.Row>
+					</GlobalStyled.FadeInUpRow>
 
-					<GlobalStyled.Row bottom={2}>
+					<GlobalStyled.FadeInUpRow bottom={2}>
 						<RegionPlantTimeCard
 							value={chungnam}
 							label="충청 남도"
@@ -298,9 +298,9 @@ const RegionPlantMap = (props: MiniMapInterface) => {
 								selectDate,
 							).format('YYYYMMDD')}`}
 						/>
-					</GlobalStyled.Row>
+					</GlobalStyled.FadeInUpRow>
 
-					<GlobalStyled.Row bottom={2}>
+					<GlobalStyled.FadeInUpRow bottom={2}>
 						<RegionPlantTimeCard
 							value={jeonbuk}
 							label="전라 북도"
@@ -308,9 +308,9 @@ const RegionPlantMap = (props: MiniMapInterface) => {
 								selectDate,
 							).format('YYYYMMDD')}`}
 						/>
-					</GlobalStyled.Row>
+					</GlobalStyled.FadeInUpRow>
 
-					<GlobalStyled.Row bottom={0}>
+					<GlobalStyled.FadeInUpRow bottom={0}>
 						<RegionPlantTimeCard
 							value={jeonnam}
 							label="전라 남도"
@@ -318,7 +318,7 @@ const RegionPlantMap = (props: MiniMapInterface) => {
 								selectDate,
 							).format('YYYYMMDD')}`}
 						/>
-					</GlobalStyled.Row>
+					</GlobalStyled.FadeInUpRow>
 				</Styled.Col>
 
 				<Styled.MapCol>
@@ -355,7 +355,7 @@ const RegionPlantMap = (props: MiniMapInterface) => {
 				</Styled.MapCol>
 
 				<Styled.Col width={35}>
-					<GlobalStyled.Row bottom={2}>
+					<GlobalStyled.FadeInUpRow bottom={2}>
 						<RegionPlantTimeCard
 							value={gangwon}
 							label="강원도"
@@ -363,13 +363,13 @@ const RegionPlantMap = (props: MiniMapInterface) => {
 								selectDate,
 							).format('YYYYMMDD')}`}
 						/>
-					</GlobalStyled.Row>
+					</GlobalStyled.FadeInUpRow>
 
 					<Styled.MarkerSection info={positionLocation.gangwon}>
 						<Gangwon />
 					</Styled.MarkerSection>
 
-					<GlobalStyled.Row bottom={2}>
+					<GlobalStyled.FadeInUpRow bottom={2}>
 						<RegionPlantTimeCard
 							value={chungbuk}
 							label="충청 북도"
@@ -377,13 +377,13 @@ const RegionPlantMap = (props: MiniMapInterface) => {
 								selectDate,
 							).format('YYYYMMDD')}`}
 						/>
-					</GlobalStyled.Row>
+					</GlobalStyled.FadeInUpRow>
 
 					<Styled.MarkerSection info={positionLocation.chungbuk}>
 						<Chungbuk />
 					</Styled.MarkerSection>
 
-					<GlobalStyled.Row bottom={2}>
+					<GlobalStyled.FadeInUpRow bottom={2}>
 						<RegionPlantTimeCard
 							value={gyeongbuk}
 							label="경상 북도"
@@ -391,13 +391,13 @@ const RegionPlantMap = (props: MiniMapInterface) => {
 								selectDate,
 							).format('YYYYMMDD')}`}
 						/>
-					</GlobalStyled.Row>
+					</GlobalStyled.FadeInUpRow>
 
 					<Styled.MarkerSection info={positionLocation.gyeongbuk}>
 						<Gyeongbuk />
 					</Styled.MarkerSection>
 
-					<GlobalStyled.Row bottom={2}>
+					<GlobalStyled.FadeInUpRow bottom={2}>
 						<RegionPlantTimeCard
 							value={gyeongnam}
 							label="경상 남도"
@@ -405,7 +405,7 @@ const RegionPlantMap = (props: MiniMapInterface) => {
 								selectDate,
 							).format('YYYYMMDD')}`}
 						/>
-					</GlobalStyled.Row>
+					</GlobalStyled.FadeInUpRow>
 
 					<Styled.MarkerSection info={positionLocation.gyeongnam}>
 						<Gyeongnam />

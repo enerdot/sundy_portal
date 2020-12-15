@@ -8,7 +8,7 @@ const Styled = {
 	Wrapper: styled(GlobalStyled.HeightRow)`
 		font-size: 1rem;
 	`,
-	PlantName: styled(GlobalStyled.Row)`
+	PlantName: styled(GlobalStyled.FadeInUpRow)`
 		margin: 2rem 0;
 		font-size: 1.5rem;
 		font-weight: bold;
@@ -40,17 +40,17 @@ const PlantDetailInfo = (props: PlantDetailInfoInterface) => {
 
 	const equipmentList = equipmentInfos.map((res: any, i: number) => {
 		return (
-			<GlobalStyled.Row bottom={0.5} key={i}>
+			<GlobalStyled.FadeInUpRow bottom={0.5} key={i}>
 				<Styled.TitleCol>{i === 0 ? '설비정보' : ''}</Styled.TitleCol>
 				<Styled.ContentCol>{`${res.name} / ${res.value}`}</Styled.ContentCol>
-			</GlobalStyled.Row>
+			</GlobalStyled.FadeInUpRow>
 		);
 	});
 
 	return (
 		<Styled.Wrapper>
 			<Styled.PlantName>{plantName}</Styled.PlantName>
-			<GlobalStyled.Row>
+			<GlobalStyled.FadeInUpRow>
 				<GlobalStyled.Col width={70}>
 					<GlobalStyled.HeightRow>
 						<GlobalStyled.Row bottom={1}>
@@ -69,7 +69,7 @@ const PlantDetailInfo = (props: PlantDetailInfoInterface) => {
 				<GlobalStyled.Col width={30}>
 					<Weather info={weatherInfo} />
 				</GlobalStyled.Col>
-			</GlobalStyled.Row>
+			</GlobalStyled.FadeInUpRow>
 		</Styled.Wrapper>
 	);
 };

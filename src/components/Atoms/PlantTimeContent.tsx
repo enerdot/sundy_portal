@@ -1,20 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import GlobalStyled from 'style/GlobalStyled';
-
 const Styled = {
-	Wrapper: styled(GlobalStyled.Row)`
+	Wrapper: styled.div`
 		font-size: 1rem;
 		flex-direction: column;
 		padding: 0.5rem 1rem;
 	`,
-	Value: styled(GlobalStyled.Row)`
+	Value: styled.div`
 		font-size: 1.5rem;
 		color: ${props => props.theme.blue};
 		margin-bottom: 0.5rem;
 	`,
-	Label: styled(GlobalStyled.Row)`
+	Label: styled.div`
 		font-size: 1rem;
 		color: ${props => props.theme.darkGray};
 	`,

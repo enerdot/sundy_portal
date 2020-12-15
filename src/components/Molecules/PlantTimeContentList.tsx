@@ -5,8 +5,10 @@ import GlobalStyled from 'style/GlobalStyled';
 import PlantTimeContent from 'components/Atoms/PlantTimeContent';
 
 const Styled = {
-	Wrapper: styled(GlobalStyled.Row)`
+	Wrapper: styled(GlobalStyled.FadeInUpRow)`
 		font-size: 1rem;
+		padding: 1rem;
+		background-color: ${props => props.theme.ivory};
 	`,
 };
 

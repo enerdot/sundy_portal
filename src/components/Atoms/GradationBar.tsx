@@ -5,7 +5,7 @@ import GlobalStyled from 'style/GlobalStyled';
 import theme from 'style/theme';
 
 const Styled = {
-	Wrapper: styled(GlobalStyled.Row)<{ width: string }>`
+	Wrapper: styled(GlobalStyled.FadeInUpRow)<{ width: string }>`
 		font-size: 1rem;
 		flex-direction: column;
 		width: ${props => props.width};

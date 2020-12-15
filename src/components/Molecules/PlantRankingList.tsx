@@ -5,7 +5,7 @@ import GlobalStyled from 'style/GlobalStyled';
 import PlantRankingInfo from 'components/Atoms/PlantRankingInfo';
 
 const Styled = {
-	Wrapper: styled(GlobalStyled.Row)`
+	Wrapper: styled(GlobalStyled.FadeInUpRow)`
 		font-size: 1rem;
 		flex-direction: column;
 	`,
@@ -20,9 +20,9 @@ const PlantRankingList = (props: PlantRankingListInterface) => {
 
 	const list = infos.map((res: any, i: number) => {
 		return (
-			<GlobalStyled.Row bottom={1} key={i}>
+			<GlobalStyled.FadeInUpRow bottom={1} key={i}>
 				<PlantRankingInfo info={res} />
-			</GlobalStyled.Row>
+			</GlobalStyled.FadeInUpRow>
 		);
 	});
 

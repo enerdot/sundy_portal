@@ -18,6 +18,8 @@ const MainPage = lazy(() => import('./pages/MainPage'));
 const RegionPage = lazy(() => import('./pages/RegionPage'));
 const InfoPage = lazy(() => import('./pages/InfoPage'));
 const RankingPage = lazy(() => import('./pages/RankingPage'));
+const LoginPage = lazy(() => import('./pages/LoginPage'));
+const RegisterPage = lazy(() => import('./pages/RegisterPage'));
 
 const swrConfig: object = {
 	onErrorRetry: (
@@ -44,7 +46,7 @@ function App() {
 			<SWRConfig value={{ ...swrConfig, fetcher }}>
 				<ThemeProvider theme={theme}>
 					<GlobalHeader />
-					<Suspense fallback={<Spinner />}>
+					<Suspense fallback={<Spinner height="80vh" />}>
 						<Switch>
 							<Route exact path="/" component={MainPage} />
 							<Route
@@ -59,6 +61,8 @@ function App() {
 								path="/info/:id/:date"
 								component={InfoPage}
 							/>
+							<Route path="/login" component={LoginPage} />
+							<Route path="/register" component={RegisterPage} />
 							<Route
 								component={() => {
 									return <div>Err</div>;

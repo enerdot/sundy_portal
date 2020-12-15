@@ -17,7 +17,7 @@ const Styled = {
 		font-weight: bold;
 		margin-right: 0.5rem;
 	`,
-	BottomContentRow: styled(GlobalStyled.Row)`
+	BottomContentRow: styled(GlobalStyled.FadeInUpRow)`
 		align-items: center;
 	`,
 };
@@ -33,7 +33,7 @@ const RegionPlantTimeCard = (props: RegionPlantTimeCardInterface) => {
 	return (
 		<GlobalStyled.RowLink to={to}>
 			<Styled.Wrapper>
-				<GlobalStyled.Row>
+				<GlobalStyled.FadeInUpRow>
 					<GlobalStyled.Col width={90}>{label}</GlobalStyled.Col>
 					<GlobalStyled.Col width={10}>
 						<img
@@ -41,7 +41,7 @@ const RegionPlantTimeCard = (props: RegionPlantTimeCardInterface) => {
 							src={require('images/ic-right-cursor.svg').default}
 						/>
 					</GlobalStyled.Col>
-				</GlobalStyled.Row>
+				</GlobalStyled.FadeInUpRow>
 				<Styled.BottomContentRow>
 					<Styled.PlantTime>
 						<MotionCounter min={0} max={value} />
