@@ -1,14 +1,15 @@
 interface DefaultTheme {
-	sky: any;
 	white: any;
+	red: any;
+	ivory: any;
 	black: any;
 	lightBlack: any;
+	sky: any;
 	blue: any;
 	shadow: any;
 	gray: any;
 	lightGray: any;
 	darkSky: any;
-	ivory: any;
 	darkGray: any;
 
 	levelBlue: any;
@@ -16,6 +17,8 @@ interface DefaultTheme {
 
 const theme: DefaultTheme = {
 	white: '#ffffff',
+
+	red: '#EB4141',
 
 	ivory: '#F9F9F9',
 

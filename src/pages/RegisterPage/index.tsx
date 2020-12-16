@@ -1,23 +1,29 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState, Suspense, lazy, useEffect } from 'react';
 import styled from 'styled-components';
-import useSWR from 'swr';
+import { Route, Switch } from 'react-router-dom';
+// import useSWR from 'swr';
 
 import GlobalStyled from 'style/GlobalStyled';
 
-import useCurrentUser from 'hooks/useCurrentUser';
-import useAPI from 'hooks/useAPI';
+// import useCurrentUser from 'hooks/useCurrentUser';
+// import useAPI from 'hooks/useAPI';
+import Spinner from 'components/Atoms/Spinner';
+
 import ProcessHeader from 'components/Organisms/ProcessHeader';
+import AttributeSettingSection from './AttributeSettingSection';
+
+const TermSection = lazy(() => import('./TermSection'));
 
 const Styled = {
-	Wrapper: styled(GlobalStyled.Row)`
-		padding: 1rem;
-		min-height: 500px;
+	Wrapper: styled(GlobalStyled.HeightRow)`
+		height: 100%;
 	`,
-	NextButton: styled(GlobalStyled.ActiveButton)`
-		width: 100%;
-		padding: 2rem;
-		font-size: 1.5rem;
-		border-radius: 0;
+	HeaderProcessWrapper: styled(GlobalStyled.HeightRow)`
+		padding: 1rem;
+		height: 20%;
+	`,
+	ContentWrapper: styled(GlobalStyled.HeightRow)`
+		height: 80%;
 	`,
 };
 
@@ -32,11 +38,24 @@ const RegisterPage = ({
 	location,
 	history,
 }: RegisterPageInterface): JSX.Element => {
-	const { currentUser } = useCurrentUser();
+	// const { currentUser } = useCurrentUser();
 
-	const [API] = useMemo(useAPI, []);
+	// const [API] = useMemo(useAPI, []);
 
-	const { data: customName, error } = useSWR('/get/all');
+	// const { data: customName, error } = useSWR('/get/all');
+
+	// const handleSubmit = async (): Promise<void> => {
+	// 	try {
+	// 		await API.APIs.getAll();
+	// 		console.log(API);
+	// 	} catch (err: any) {
+	// 		console.log('err : ', err);
+	// 	}
+	// };
+
+	useEffect(() => {
+		console.log(match, location);
+	}, [match, location]);
 
 	const [processHeaderInfos, setProcessHeaderInfos] = useState([
 		{
@@ -60,22 +79,35 @@ const RegisterPage = ({
 		},
 	]);
 
-	const handleSubmit = async (): Promise<void> => {
-		try {
-			await API.APIs.getAll();
-			console.log(API);
-		} catch (err: any) {
-			console.log('err : ', err);
-		}
-	};
-
 	return (
 		<GlobalStyled.Body>
 			<GlobalStyled.Container>
 				<Styled.Wrapper>
-					<ProcessHeader infos={processHeaderInfos} />
+					<Styled.HeaderProcessWrapper>
+						<ProcessHeader infos={processHeaderInfos} />
+					</Styled.HeaderProcessWrapper>
+					<Styled.ContentWrapper>
+						<Suspense fallback={<Spinner height="80vh" />}>
+							<Switch>
+								<Route
+									exact
+									path={`${match.path}`}
+									component={TermSection}
+								/>
+								<Route
+									exact
+									path={`${match.path}/attribute`}
+									component={AttributeSettingSection}
+								/>
+								<Route
+									component={() => {
+										return <div>Err</div>;
+									}}
+								/>
+							</Switch>
+						</Suspense>
+					</Styled.ContentWrapper>
 				</Styled.Wrapper>
-				<Styled.NextButton isActive={false}>다음</Styled.NextButton>
 			</GlobalStyled.Container>
 		</GlobalStyled.Body>
 	);

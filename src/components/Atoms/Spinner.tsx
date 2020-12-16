@@ -35,21 +35,27 @@ const Styled = {
 interface CircleSpinnerInterface {
 	size: string;
 	height: string;
+	isLoading: boolean;
+	children: any;
 }
 
 const CircleSpinner = (props: CircleSpinnerInterface) => {
-	const { size, height } = props;
+	const { size, height, isLoading, children } = props;
 
-	return (
+	return isLoading ? (
 		<Styled.Body height={height}>
 			<Styled.LoadingCircle size={size} />
 		</Styled.Body>
+	) : (
+		<>{children}</>
 	);
 };
 
 CircleSpinner.defaultProps = {
 	size: '10rem',
 	height: '',
+	isLoading: true,
+	children: '',
 };
 
 export default CircleSpinner;

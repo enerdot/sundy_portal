@@ -1,6 +1,6 @@
 import { Suspense, lazy } from 'react';
 import { SWRConfig } from 'swr';
-import { ThemeProvider } from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import createFetcher from 'config/fetcher';
@@ -39,37 +39,55 @@ const swrConfig: object = {
 	},
 };
 
+const Styled = {
+	Header: styled.div`
+		width: 100%;
+		height: 10vh;
+	`,
+	Wrapper: styled.div`
+		width: 100%;
+		height: 90vh;
+	`,
+};
+
 function App() {
 	const fetcher = createFetcher('accessToken');
 	return (
 		<Router>
 			<SWRConfig value={{ ...swrConfig, fetcher }}>
 				<ThemeProvider theme={theme}>
-					<GlobalHeader />
-					<Suspense fallback={<Spinner height="80vh" />}>
-						<Switch>
-							<Route exact path="/" component={MainPage} />
-							<Route
-								path="/region/:region/:date"
-								component={RegionPage}
-							/>
-							<Route
-								path="/ranking/:region/:date"
-								component={RankingPage}
-							/>
-							<Route
-								path="/info/:id/:date"
-								component={InfoPage}
-							/>
-							<Route path="/login" component={LoginPage} />
-							<Route path="/register" component={RegisterPage} />
-							<Route
-								component={() => {
-									return <div>Err</div>;
-								}}
-							/>
-						</Switch>
-					</Suspense>
+					<Styled.Header>
+						<GlobalHeader />
+					</Styled.Header>
+					<Styled.Wrapper>
+						<Suspense fallback={<Spinner height="80vh" />}>
+							<Switch>
+								<Route exact path="/" component={MainPage} />
+								<Route
+									path="/region/:region/:date"
+									component={RegionPage}
+								/>
+								<Route
+									path="/ranking/:region/:date"
+									component={RankingPage}
+								/>
+								<Route
+									path="/info/:id/:date"
+									component={InfoPage}
+								/>
+								<Route path="/login" component={LoginPage} />
+								<Route
+									path="/register"
+									component={RegisterPage}
+								/>
+								<Route
+									component={() => {
+										return <div>Err</div>;
+									}}
+								/>
+							</Switch>
+						</Suspense>
+					</Styled.Wrapper>
 					<GlobalFooter />
 				</ThemeProvider>
 			</SWRConfig>

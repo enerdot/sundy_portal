@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { InputHTMLAttributes } from 'react';
 import styled from 'styled-components';
 
 import GlobalStyled from 'style/GlobalStyled';
@@ -7,7 +7,6 @@ const Styled = {
 	Wrapper: styled(GlobalStyled.HeightRow)``,
 	Title: styled(GlobalStyled.FadeInUpRow)`
 		color: ${props => props.theme.lightBlack};
-		font-size: 1.25rem;
 		padding: 0.5rem;
 	`,
 	Input: styled.input`
@@ -24,33 +23,29 @@ const Styled = {
 	`,
 };
 
-interface LoginInputInterface {
-	title: string;
-	required: boolean;
-	type: string;
-	placeholder: string;
-	name: string;
-	value: string;
-	onChange: any;
+interface LoginInputInterface extends InputHTMLAttributes<HTMLInputElement> {
+	label: string;
 }
 
 const LabelInput = (props: LoginInputInterface) => {
-	const { title } = props;
+	const { label } = props;
+
 	return (
 		<Styled.Wrapper>
-			<Styled.Title>{title}</Styled.Title>
+			<Styled.Title>{label}</Styled.Title>
 			<Styled.Input {...props} />
 		</Styled.Wrapper>
 	);
 };
 LabelInput.defaultProps = {
-	title: '-',
+	label: '-',
 	required: true,
 	type: 'text',
 	placeholder: '',
 	name: '',
 	value: '',
 	onChange: () => {},
+	onFocus: () => {},
 };
 
 export default LabelInput;

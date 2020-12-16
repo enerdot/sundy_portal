@@ -123,12 +123,14 @@ const GlobalStyled = {
 		display: flex;
 		flex-direction: column;
 		width: 100%;
+		height: 100%;
 	`,
 
 	Container: styled.div<ColorProps & TypographyProps & SpaceProps>`
 		width: 100%;
 		max-width: 720px;
 		margin: 0 auto;
+		height: 100%;
 		${typography}
 		${space}
         ${color}

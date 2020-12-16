@@ -85,7 +85,7 @@ const LoginPage = ({
 					<Styled.ContentWrapper onSubmit={handleSubmit}>
 						<GlobalStyled.FadeInUpRow bottom={2}>
 							<LabelInput
-								title="아이디"
+								label="아이디"
 								name="userId"
 								value={userId}
 								onChange={onChange}
@@ -93,7 +93,7 @@ const LoginPage = ({
 						</GlobalStyled.FadeInUpRow>
 						<GlobalStyled.FadeInUpRow bottom={4}>
 							<LabelInput
-								title="비밀번호"
+								label="비밀번호"
 								type="password"
 								name="password"
 								value={password}

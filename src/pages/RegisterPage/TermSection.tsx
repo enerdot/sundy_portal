@@ -1,0 +1,117 @@
+import React from 'react';
+import styled from 'styled-components';
+
+import GlobalStyled from 'style/GlobalStyled';
+
+import RegisterTermCheck from 'components/Templates/RegisterTermCheck';
+
+import useCheckBox from 'hooks/useCheckBox';
+
+const Styled = {
+	Wrapper: styled.form`
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		align-items: flex-end;
+		justify-content: center;
+		height: 100%;
+	`,
+	TermWrapper: styled(GlobalStyled.Row)`
+		height: 85%;
+		align-items: flex-end;
+		padding: 1rem;
+	`,
+	ButtonWrapper: styled(GlobalStyled.Row)`
+		height: 15%;
+		align-items: flex-end;
+	`,
+	NextButton: styled(GlobalStyled.ActiveButton)`
+		width: 100%;
+		height: 5rem;
+		font-size: 1.5rem;
+		border-radius: 0;
+	`,
+};
+
+interface TermSectionInterface {
+	match: any;
+	location: any;
+	history: any;
+	processHeaderInfos: any;
+	termHeaderInfo: any;
+	termInfos: any;
+	onChange: any;
+}
+
+const TermSection = ({
+	match,
+	location,
+	history,
+}: TermSectionInterface): JSX.Element => {
+	const [{ all, term, personalProfile, point }, onChange] = useCheckBox({
+		all: false,
+		term: false,
+		personalProfile: false,
+		point: false,
+	});
+
+	const termHeaderInfo = {
+		label: '약관 전체 동의하기',
+		value: all,
+		name: 'all',
+		required: true,
+	};
+
+	const termInfos = [
+		{
+			label: '이용약관 동의 (필수)',
+			value: term,
+			name: 'term',
+			required: true,
+		},
+		{
+			label: '개인정보 취급방침 (필수)',
+			value: personalProfile,
+			name: 'personalProfile',
+			required: true,
+		},
+		{
+			label: '포인트 이용을 위한 지갑 생성 동의 (필수)',
+			value: point,
+			name: 'point',
+			required: true,
+		},
+	];
+
+	const handleSubmit = (e: any) => {
+		e.preventDefault();
+		console.log('what ?');
+		sessionStorage.setItem('term', 'true');
+		history.push('/register/attribute');
+	};
+
+	return (
+		<Styled.Wrapper onSubmit={handleSubmit}>
+			<Styled.TermWrapper>
+				<RegisterTermCheck
+					headerInfo={termHeaderInfo}
+					infos={termInfos}
+					onChange={onChange}
+				/>
+			</Styled.TermWrapper>
+			<Styled.ButtonWrapper>
+				<Styled.NextButton isActive={all} type="submit">
+					다음
+				</Styled.NextButton>
+			</Styled.ButtonWrapper>
+		</Styled.Wrapper>
+	);
+};
+TermSection.defaultProps = {
+	processHeaderInfos: [],
+	termHeaderInfo: {},
+	termInfos: [],
+	onChange: () => {},
+};
+
+export default TermSection;
