@@ -14,12 +14,16 @@ import Swal from 'sweetalert2';
 
 import globalSwal from 'config/alert';
 
+import routerUrl from 'config/routerUrl';
+
+import useCurrentUser from 'hooks/useCurrentUser';
+
 const MainPage = lazy(() => import('./pages/MainPage'));
 const RegionPage = lazy(() => import('./pages/RegionPage'));
 const InfoPage = lazy(() => import('./pages/InfoPage'));
 const RankingPage = lazy(() => import('./pages/RankingPage'));
 const LoginPage = lazy(() => import('./pages/LoginPage'));
-const RegisterPage = lazy(() => import('./pages/RegisterPage'));
+const SignUpPage = lazy(() => import('./pages/SignUpPage'));
 
 const swrConfig: object = {
 	onErrorRetry: (
@@ -29,7 +33,7 @@ const swrConfig: object = {
 		revalidate: any,
 		{ retryCount }: any,
 	) => {
-		console.log('err');
+		console.log(error, 'err');
 		if (retryCount >= 3) return;
 		if (error.response && error.response.status === 404) {
 			Swal.fire(globalSwal.apiErr);
@@ -51,7 +55,8 @@ const Styled = {
 };
 
 function App() {
-	const fetcher = createFetcher('accessToken');
+	const { currentUser } = useCurrentUser();
+	const fetcher = createFetcher(currentUser);
 	return (
 		<Router>
 			<SWRConfig value={{ ...swrConfig, fetcher }}>
@@ -64,21 +69,24 @@ function App() {
 							<Switch>
 								<Route exact path="/" component={MainPage} />
 								<Route
-									path="/region/:region/:date"
+									path={`${routerUrl.regionPage}/:region/:date`}
 									component={RegionPage}
 								/>
 								<Route
-									path="/ranking/:region/:date"
+									path={`${routerUrl.rankingPage}/:region/:date`}
 									component={RankingPage}
 								/>
 								<Route
-									path="/info/:id/:date"
+									path={`${routerUrl.infoPage}/:id/:date`}
 									component={InfoPage}
 								/>
-								<Route path="/login" component={LoginPage} />
 								<Route
-									path="/register"
-									component={RegisterPage}
+									path={`${routerUrl.loginPage}`}
+									component={LoginPage}
+								/>
+								<Route
+									path={`${routerUrl.signUpPage}`}
+									component={SignUpPage}
 								/>
 								<Route
 									component={() => {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import useSWR from 'swr';
 import moment from 'moment';
@@ -11,7 +11,7 @@ import GradationBar from 'components/Atoms/GradationBar';
 import PlantTimeContentList from 'components/Molecules/PlantTimeContentList';
 import CompanyLinkCards from 'components/Molecules/CompanyLinkCards';
 import RegionPlantMap from 'components/Molecules/RegionPlantMap';
-// import useCurrentUser from 'hooks/useCurrentUser';
+import useCurrentUser from 'hooks/useCurrentUser';
 // import useAPI from 'hooks/useAPI';
 
 import { formatRegionPlantTimeDayInfo } from 'utils/api';
@@ -25,7 +25,9 @@ const Styled = {
 };
 
 const MainPage = (): JSX.Element => {
-	// const { currentUser } = useCurrentUser();
+	const { getCurrentUser } = useCurrentUser();
+
+	// console.log('currentUser : ', getCurrentUser());
 
 	// const [API] = useMemo(useAPI, []);
 
@@ -37,6 +39,17 @@ const MainPage = (): JSX.Element => {
 	// 		console.log('err : ', err);
 	// 	}
 	// };
+
+	useEffect(() => {
+		const test = async () => {
+			try {
+				await getCurrentUser();
+			} catch (err) {
+				console.log('get err', err);
+			}
+		};
+		test();
+	}, [getCurrentUser]);
 
 	const [isViewTypeAvg, setIsViewTypeAvg] = useState(false);
 

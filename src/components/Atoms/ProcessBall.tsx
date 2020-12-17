@@ -50,7 +50,7 @@ const ProcessBall = (props: ProcessBallInterface) => {
 	const { value, status } = info;
 	return (
 		<Styled.Wrapper processBallTheme={processBallTheme[status]}>
-			{status === 'beActive' ? '' : value}
+			{status === 'active' ? value : ''}
 		</Styled.Wrapper>
 	);
 };

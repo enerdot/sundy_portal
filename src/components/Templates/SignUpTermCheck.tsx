@@ -14,7 +14,7 @@ const Styled = {
 	`,
 };
 
-interface RegisterTermCheckInterface {
+interface SignUpTermCheckInterface {
 	infos: any;
 	headerInfo: {
 		label: string;
@@ -25,7 +25,7 @@ interface RegisterTermCheckInterface {
 	onChange: any;
 }
 
-const RegisterTermCheck = (props: RegisterTermCheckInterface) => {
+const SignUpTermCheck = (props: SignUpTermCheckInterface) => {
 	const { headerInfo, infos, onChange } = props;
 
 	const { name, value, label, required } = headerInfo;
@@ -48,7 +48,7 @@ const RegisterTermCheck = (props: RegisterTermCheckInterface) => {
 		</Styled.Wrapper>
 	);
 };
-RegisterTermCheck.defaultProps = {
+SignUpTermCheck.defaultProps = {
 	headerInfo: {
 		label: '-',
 		value: '',
@@ -65,4 +65,4 @@ RegisterTermCheck.defaultProps = {
 	onChange: function () {},
 };
 
-export default RegisterTermCheck;
+export default SignUpTermCheck;

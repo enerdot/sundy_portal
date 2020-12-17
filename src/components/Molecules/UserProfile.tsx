@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import GlobalStyled from 'style/GlobalStyled';
 import Svg from 'components/Atoms/Svg';
 
 import theme from 'style/theme';
+import MySettingForm from 'components/Templates/MySettingForm';
 
 const Styled = {
 	Wrapper: styled(GlobalStyled.Row)`
@@ -13,35 +14,39 @@ const Styled = {
 };
 
 interface UserProfileInterface {
-	isLogin: boolean;
+	currentUser: string;
 }
 
 const UserProfile = (props: UserProfileInterface) => {
-	const { isLogin } = props;
+	const { currentUser } = props;
+
+	const [isShowMySettingForm, setIsShowMySettingForm] = useState(false);
+
+	const handleClickProfile = () => {
+		setIsShowMySettingForm(!isShowMySettingForm);
+	};
+
 	return (
-		<Styled.Wrapper>
-			{isLogin ? (
-				<Svg
-					name="userProfile"
-					stroke={theme.gray}
-					fill={theme.blue}
-					size="2rem"
-				/>
-			) : (
-				<GlobalStyled.Link to="/login">
+		<>
+			<Styled.Wrapper>
+				<GlobalStyled.TransparentButton onClick={handleClickProfile}>
 					<Svg
 						name="userProfile"
-						stroke={theme.gray}
+						stroke={currentUser ? theme.blue : theme.gray}
 						fill={theme.white}
 						size="2rem"
 					/>
-				</GlobalStyled.Link>
-			)}
-		</Styled.Wrapper>
+				</GlobalStyled.TransparentButton>
+			</Styled.Wrapper>
+			<MySettingForm
+				isShow={isShowMySettingForm}
+				onClickCancel={handleClickProfile}
+			/>
+		</>
 	);
 };
 UserProfile.defaultProps = {
-	isLogin: '',
+	currentUser: '',
 };
 
 export default UserProfile;

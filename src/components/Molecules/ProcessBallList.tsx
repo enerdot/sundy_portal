@@ -20,8 +20,8 @@ const ProcessBallList = (props: ProcessBallListInterface) => {
 
 	const list = infos.map((res: any, i: number) => {
 		return (
-			<Styled.ProcessBallWrapper>
-				<ProcessBall info={res} key={i} />
+			<Styled.ProcessBallWrapper key={i}>
+				<ProcessBall info={res} />
 			</Styled.ProcessBallWrapper>
 		);
 	});

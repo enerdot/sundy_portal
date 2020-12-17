@@ -12,8 +12,8 @@ const Styled = {
 		flex-direction: column;
 	`,
 	InputRow: styled(GlobalStyled.Row)`
-		flex-direction: column;
 		text-align: center;
+		margin-bottom: 0.5rem;
 	`,
 	InputLabel: styled.p`
 		vertical-align: middle;
@@ -32,14 +32,17 @@ const Styled = {
 		font-size: 0.875rem;
 		color: ${props => props.color};
 	`,
+	ButtonCol: styled(GlobalStyled.RightCol)`
+		align-items: flex-end;
+	`,
 	ConfirmButton: styled(GlobalStyled.ActiveButton)`
 		font-size: 0.875rem;
 		width: 90%;
-		height: 100%;
+		height: 3rem;
 	`,
 };
 
-interface RegisterInputInterface extends InputHTMLAttributes<HTMLInputElement> {
+interface SignUpInputInterface extends InputHTMLAttributes<HTMLInputElement> {
 	confirmValue?: any;
 	confirmButtonText?: string;
 	isConfirmButton?: boolean;
@@ -68,7 +71,7 @@ interface RegisterInputInterface extends InputHTMLAttributes<HTMLInputElement> {
 	// required: boolean;
 }
 
-const RegisterInput = (props: RegisterInputInterface) => {
+const SignUpInput = (props: SignUpInputInterface) => {
 	const {
 		type,
 		name,
@@ -85,6 +88,7 @@ const RegisterInput = (props: RegisterInputInterface) => {
 		regularExpression,
 		required,
 		isConfirmButtonLoading,
+		readOnly,
 	} = props;
 
 	const {
@@ -219,6 +223,12 @@ const RegisterInput = (props: RegisterInputInterface) => {
 									isConfirm: true,
 								};
 							}
+						} else {
+							result = {
+								message: successMessage,
+								messageColor: successColor,
+								isConfirm: true,
+							};
 						}
 					} else {
 						result = {
@@ -244,7 +254,7 @@ const RegisterInput = (props: RegisterInputInterface) => {
 
 		setRegularMessage(result.message || '');
 		setRegularMessageColor(result.messageColor || '');
-		onChangeRegularExpression(name, result);
+		onChangeRegularExpression(name, result.isConfirm);
 		if (result.message === '') {
 			setIsHide(true);
 		} else {
@@ -286,25 +296,26 @@ const RegisterInput = (props: RegisterInputInterface) => {
 						onChange={handleOnChangeInput}
 						onBlur={handleOnBlur}
 						required={required}
+						readOnly={readOnly}
 					/>
 				</GlobalStyled.Col>
 				{isConfirmButton ? (
-					<GlobalStyled.RightCol width={40}>
-						<Spinner
-							isLoading={isConfirmButtonLoading}
-							size={'2rem'}
+					<Styled.ButtonCol width={40}>
+						<Styled.ConfirmButton
+							onClick={(e: any) => {
+								e.preventDefault();
+								onClickConfirmButton();
+							}}
+							isActive={valueRegularExpression()?.isConfirm!}
 						>
-							<Styled.ConfirmButton
-								onClick={(e: any) => {
-									e.preventDefault();
-									onClickConfirmButton();
-								}}
-								isActive={true}
+							<Spinner
+								isLoading={isConfirmButtonLoading}
+								size={'2rem'}
 							>
 								{confirmButtonText}
-							</Styled.ConfirmButton>
-						</Spinner>
-					</GlobalStyled.RightCol>
+							</Spinner>
+						</Styled.ConfirmButton>
+					</Styled.ButtonCol>
 				) : (
 					''
 				)}
@@ -321,20 +332,21 @@ const RegisterInput = (props: RegisterInputInterface) => {
 	);
 };
 
-RegisterInput.defaultProps = {
+SignUpInput.defaultProps = {
 	type: 'text',
 	name: '',
 	value: '',
 	isPassword: true,
-	required: false,
+	required: true,
 	onChange: () => {},
-	placeholder: '-',
+	placeholder: '',
 	confirmValue: '-',
 	label: '',
 	regularExpression: [],
 	confirmButtonText: '인증번호 전송',
 	onChangeRegularExpression: () => {},
 	isActive: true,
+	isConfirmButtonLoading: false,
 };
 
-export default RegisterInput;
+export default SignUpInput;

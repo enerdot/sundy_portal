@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import GlobalStyled from 'style/GlobalStyled';
 import UserProfile from 'components/Molecules/UserProfile';
 
+import useCurrentUser from 'hooks/useCurrentUser';
+
 const Styled = {
 	Wrapper: styled(GlobalStyled.CenterRow)`
 		font-size: 2rem;
@@ -13,24 +15,27 @@ const Styled = {
 	`,
 };
 
-const GlobalHeader = () => (
-	<GlobalStyled.Body>
-		<GlobalStyled.Container>
-			<GlobalStyled.ContentRow>
-				<Styled.Wrapper>
-					<GlobalStyled.Col width={10}></GlobalStyled.Col>
-					<GlobalStyled.CenterCol width={80}>
-						<GlobalStyled.Link to="/">
-							SUNDY PORTAL
-						</GlobalStyled.Link>
-					</GlobalStyled.CenterCol>
-					<GlobalStyled.Col width={10}>
-						<UserProfile />
-					</GlobalStyled.Col>
-				</Styled.Wrapper>
-			</GlobalStyled.ContentRow>
-		</GlobalStyled.Container>
-	</GlobalStyled.Body>
-);
+const GlobalHeader = () => {
+	const { currentUser } = useCurrentUser();
+	return (
+		<GlobalStyled.Body>
+			<GlobalStyled.Container>
+				<GlobalStyled.ContentRow>
+					<Styled.Wrapper>
+						<GlobalStyled.Col width={10}></GlobalStyled.Col>
+						<GlobalStyled.CenterCol width={80}>
+							<GlobalStyled.Link to="/">
+								SUNDY PORTAL
+							</GlobalStyled.Link>
+						</GlobalStyled.CenterCol>
+						<GlobalStyled.Col width={10}>
+							<UserProfile currentUser={currentUser} />
+						</GlobalStyled.Col>
+					</Styled.Wrapper>
+				</GlobalStyled.ContentRow>
+			</GlobalStyled.Container>
+		</GlobalStyled.Body>
+	);
+};
 
 export default GlobalHeader;

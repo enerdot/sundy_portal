@@ -28,13 +28,13 @@ const regularExpression = {
 		failMessage: '비밀번호와 일치하지않습니다',
 		successMessage: '일치합니다!',
 	},
-	name: {
+	nickname: {
 		expressionName: 'expressionName',
-		expression: /^[가-힣]*$/,
+		expression: /^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|a-z]*$/,
 		isRequired: true,
 		maxLength: 10,
 		minLength: 1,
-		failMessage: '한글이름을 입력해주세요',
+		failMessage: '10자 미만으로 입력해주세요',
 		successMessage: '',
 	},
 	birthDate: {

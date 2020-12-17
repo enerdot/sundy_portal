@@ -23,7 +23,7 @@ const TermCheckList = (props: TermCheckListInterface) => {
 
 	const list = infos.map((res: any, i: number) => {
 		return (
-			<GlobalStyled.Row bottom={1}>
+			<GlobalStyled.Row bottom={1} key={i}>
 				<TermCheck {...res} onChange={onChange} />
 			</GlobalStyled.Row>
 		);

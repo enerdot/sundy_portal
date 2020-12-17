@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import GlobalStyled from 'style/GlobalStyled';
 
-import LabelInput from 'components/Atoms/LabelInput';
 import SubmitButton from 'components/Molecules/SubmitButton';
-import RegisterInput from 'components/Molecules/RegisterInput';
+import SignUpInput from 'components/Molecules/SignUpInput';
 
 import useInput from 'hooks/useInput';
 
-import regularExpression from 'config/reqularExpression';
+import regularExpression from 'config/regularExpression';
 
 const Styled = {
 	Wrapper: styled.form`
@@ -39,23 +38,15 @@ const Styled = {
 };
 
 interface AttributeSettingSectionInterface {
-	match: any;
-	location: any;
-	history: any;
+	onSubmit: any;
 }
 
 const AttributeSettingSection = ({
-	match,
-	location,
-	history,
+	onSubmit,
 }: AttributeSettingSectionInterface): JSX.Element => {
-	useEffect(() => {
-		console.log(window.scrollX, window.scrollY);
-	}, []);
-
-	const [{ password, passwordConfirm, nickname }, onChange] = useInput({
+	const [{ password, confirmPassword, nickname }, onChange] = useInput({
 		password: '',
-		passwordConfirm: '',
+		confirmPassword: '',
 		nickname: '',
 	});
 
@@ -66,18 +57,26 @@ const AttributeSettingSection = ({
 		setIsStateRegularExpressionInfo,
 	] = useState({
 		password: false,
-		passwordConfirm: false,
+		confirmPassword: false,
 		nickname: false,
 	});
 
+	const isConfirm = !(Object.keys(isStateRegularExpressionInfo) as Array<
+		keyof typeof isStateRegularExpressionInfo
+	>).some(res => {
+		return !isStateRegularExpressionInfo[res];
+	});
+
 	const handleSubmit = async (e: any): Promise<void> => {
-		e.preventDefault();
 		setIsSubmitButtonLoading(true);
+		e.preventDefault();
 		try {
-			// await login({
-			// 	userId: `+82${userId}`,
-			// 	password: password,
-			// });
+			if (isConfirm) {
+				onSubmit(2, {
+					password,
+					nickname,
+				});
+			}
 		} catch (err: any) {
 			console.log('err : ', err);
 		} finally {
@@ -92,47 +91,58 @@ const AttributeSettingSection = ({
 	};
 
 	return (
-		<Styled.Wrapper>
+		<Styled.Wrapper onSubmit={handleSubmit}>
 			<Styled.TermWrapper>
 				<GlobalStyled.FadeInUpRow bottom={2.5}>
-					<RegisterInput
-						title="닉네임"
+					<SignUpInput
+						label="닉네임"
 						type="text"
 						name="nickname"
 						value={nickname}
 						onChange={onChange}
-						regularExpression={regularExpression.name}
+						regularExpression={regularExpression.nickname}
 						onChangeRegularExpression={
 							handleOnChangeRegularExpression
 						}
+						required={true}
 					/>
 				</GlobalStyled.FadeInUpRow>
 				<GlobalStyled.FadeInUpRow bottom={2.5}>
-					<LabelInput
-						title="비밀번호"
+					<SignUpInput
+						label="비밀번호"
 						type="password"
 						name="password"
 						value={password}
 						onChange={onChange}
+						regularExpression={regularExpression.password}
+						onChangeRegularExpression={
+							handleOnChangeRegularExpression
+						}
+						required={true}
 					/>
 				</GlobalStyled.FadeInUpRow>
 				<GlobalStyled.FadeInUpRow>
-					<LabelInput
-						title="비밀번호 재입력"
+					<SignUpInput
+						label="비밀번호 재입력"
 						type="password"
-						name="passwordConfirm"
-						value={passwordConfirm}
+						name="confirmPassword"
+						value={confirmPassword}
+						confirmValue={password}
 						onChange={onChange}
 						onFocus={() => {
 							window.scrollTo(0, 300);
 						}}
+						regularExpression={regularExpression.confirmPassword}
+						onChangeRegularExpression={
+							handleOnChangeRegularExpression
+						}
+						required={true}
 					/>
 				</GlobalStyled.FadeInUpRow>
 			</Styled.TermWrapper>
 			<Styled.ButtonWrapper>
 				<Styled.NextButton
-					onClick={handleSubmit}
-					isActive={false}
+					isActive={isConfirm}
 					type="submit"
 					isLoading={isSubmitButtonLoading}
 				>

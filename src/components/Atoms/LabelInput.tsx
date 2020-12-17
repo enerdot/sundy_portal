@@ -5,7 +5,7 @@ import GlobalStyled from 'style/GlobalStyled';
 
 const Styled = {
 	Wrapper: styled(GlobalStyled.HeightRow)``,
-	Title: styled(GlobalStyled.FadeInUpRow)`
+	Title: styled(GlobalStyled.Row)`
 		color: ${props => props.theme.lightBlack};
 		padding: 0.5rem;
 	`,
@@ -19,6 +19,14 @@ const Styled = {
 		:focus {
 			color: ${props => props.theme.black};
 			border-bottom: 1px solid ${props => props.theme.sky};
+		}
+		:read-only {
+			opacity: 0.5;
+			color: ${props => props.theme.gray};
+			:focus {
+				color: ${props => props.theme.gray};
+				border-bottom: 1px solid ${props => props.theme.gray};
+			}
 		}
 	`,
 };

@@ -4,6 +4,7 @@ interface GlobalSwalType {
 	confirm: SweetAlertOptions;
 	urlErr: SweetAlertOptions;
 	apiErr: SweetAlertOptions;
+	overlapPhoneNumber: SweetAlertOptions;
 }
 
 const globalSwal: GlobalSwalType = {
@@ -20,6 +21,11 @@ const globalSwal: GlobalSwalType = {
 	urlErr: {
 		icon: 'error',
 		title: '잘못된 URL 접속입니다.',
+		confirmButtonText: '확인',
+	},
+	overlapPhoneNumber: {
+		icon: 'error',
+		title: '해당 전화번호는 이미 계정이 있는 전화번호입니다!',
 		confirmButtonText: '확인',
 	},
 };

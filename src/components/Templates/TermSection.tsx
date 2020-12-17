@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import GlobalStyled from 'style/GlobalStyled';
 
-import RegisterTermCheck from 'components/Templates/RegisterTermCheck';
+import SignUpTermCheck from 'components/Templates/SignUpTermCheck';
 
 import useCheckBox from 'hooks/useCheckBox';
 
@@ -34,20 +34,14 @@ const Styled = {
 };
 
 interface TermSectionInterface {
-	match: any;
-	location: any;
-	history: any;
+	onSubmit: any;
 	processHeaderInfos: any;
 	termHeaderInfo: any;
 	termInfos: any;
 	onChange: any;
 }
 
-const TermSection = ({
-	match,
-	location,
-	history,
-}: TermSectionInterface): JSX.Element => {
+const TermSection = ({ onSubmit }: TermSectionInterface): JSX.Element => {
 	const [{ all, term, personalProfile, point }, onChange] = useCheckBox({
 		all: false,
 		term: false,
@@ -85,15 +79,13 @@ const TermSection = ({
 
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
-		console.log('what ?');
-		sessionStorage.setItem('term', 'true');
-		history.push('/register/attribute');
+		onSubmit(1);
 	};
 
 	return (
 		<Styled.Wrapper onSubmit={handleSubmit}>
 			<Styled.TermWrapper>
-				<RegisterTermCheck
+				<SignUpTermCheck
 					headerInfo={termHeaderInfo}
 					infos={termInfos}
 					onChange={onChange}

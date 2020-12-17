@@ -11,9 +11,9 @@ const Styled = {
 	Title: styled(GlobalStyled.Row)`
 		font-size: 2rem;
 		font-weight: bold;
-		margin-bottom: : 1rem;
+		margin-bottom: 1rem;
 	`,
-	Sub: styled(GlobalStyled.Row)`
+	Sub: styled(GlobalStyled.HeightRow)`
 		font-size: 1rem;
 	`,
 };
@@ -43,6 +43,10 @@ const ProcessHeader = (props: ProcessHeaderInterface) => {
 
 	const { title, sub } = activeInfo;
 
+	const subFormat = sub.split('\n').map((res: string, i: number) => {
+		return <div key={i}>{res}</div>;
+	});
+
 	return (
 		<Styled.Wrapper>
 			<GlobalStyled.HeightRow>
@@ -54,7 +58,7 @@ const ProcessHeader = (props: ProcessHeaderInterface) => {
 						<ProcessBallList infos={infos} />
 					</GlobalStyled.RightCol>
 				</GlobalStyled.Row>
-				<Styled.Sub>{sub}</Styled.Sub>
+				<Styled.Sub>{subFormat}</Styled.Sub>
 			</GlobalStyled.HeightRow>
 		</Styled.Wrapper>
 	);

@@ -17,8 +17,8 @@ const cognitoSetting: any = {
 		detailAddress: 'custom:detail_address',
 		addressType: 'custom:address_type',
 		postcode: 'custom:postcode',
-		registerPath: 'custom:register_path',
-		isRegisterService: 'custom:isRegisterService',
+		signUpPath: 'custom:signUp_path',
+		isSignUpService: 'custom:isSignUpService',
 	},
 };
 
@@ -53,27 +53,32 @@ const getCurrentUser = () => {
 	return cognitoInfo.currentUser();
 };
 
-const register = (dataUser: {
+const signUp = (dataUser: {
 	phoneNumber: string;
-	userId: string;
 	password: string;
+	nickname: string;
 }) => {
 	return new Promise((resolve, reject) => {
 		const userPool = cognitoInfo.userPool();
-		let attributeData = [
+		const formatUserId = `+82${dataUser.phoneNumber}`;
+		const attributeData = [
 			{
 				name: cognitoSetting.attribute.phoneNumber,
-				value: '+82' + dataUser.phoneNumber,
+				value: formatUserId,
+			},
+			{
+				name: cognitoSetting.attribute.name,
+				value: dataUser.nickname,
 			},
 		];
 		let attributeList: any = [];
 
 		attributeData.map((data: any) => {
-			let cognitoUserFormat = {
+			const cognitoUserFormat = {
 				Name: data.name,
 				Value: data.value,
 			};
-			let cognitoUserData = new AmazonCognitoIdentity.CognitoUserAttribute(
+			const cognitoUserData = new AmazonCognitoIdentity.CognitoUserAttribute(
 				cognitoUserFormat,
 			);
 			attributeList.push(cognitoUserData);
@@ -81,7 +86,7 @@ const register = (dataUser: {
 		});
 
 		userPool.signUp(
-			dataUser.userId,
+			formatUserId,
 			dataUser.password,
 			attributeList,
 			[],
@@ -114,7 +119,7 @@ const isOverlapUserId = (userId: string) => {
 	});
 };
 
-const login = (dataUser: any) => {
+const signIn = (dataUser: any) => {
 	return new Promise((resolve, reject) => {
 		const authenticationData = {
 			Username: dataUser.userId,
@@ -146,7 +151,7 @@ const login = (dataUser: any) => {
 	});
 };
 
-const registerConfirm = (cognitoUser: any, confirmCode: string | number) => {
+const signUpConfirm = (cognitoUser: any, confirmCode: string | number) => {
 	return new Promise((resolve, reject) => {
 		if (cognitoUser === null) {
 			reject(null);
@@ -370,10 +375,10 @@ const getIdentity = (idToken: any) => {
 export {
 	getCognitoUser,
 	getCurrentUser,
-	register,
+	signUp,
 	isOverlapUserId,
-	login,
-	registerConfirm,
+	signIn,
+	signUpConfirm,
 	resendConfirmationCode,
 	signOut,
 	getSession,

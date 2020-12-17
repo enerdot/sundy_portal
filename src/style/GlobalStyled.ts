@@ -41,6 +41,7 @@ const Parent = {
 	>`
 		display: flex;
 		width: ${props => props.width}%;
+		align-items: center;
 		${typography}
 		${space}
         ${color}
@@ -177,10 +178,19 @@ const GlobalStyled = {
 	Button: styled(Parent.Button)`
 		width: 100%;
 	`,
-	ActiveButton: styled(Parent.Button)<{ isActive: boolean }>`
+	ActiveButton: styled(Parent.Button)<{ isActive: boolean | undefined }>`
 		width: 100%;
 		background-color: ${props =>
 			props.isActive ? props.theme.blue : props.theme.gray};
+	`,
+	TransparentButton: styled.button`
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		outline: none;
+		background-color: inherit;
+		border: 0px;
+		cursor: pointer;
 	`,
 	RowLink: styled(Parent.Link)`
 		width: 100%;
@@ -191,6 +201,7 @@ const GlobalStyled = {
 		font-weight: bold;
 		color: ${props => props.theme.lightBlack};
 	`,
+
 	// ButtonCard: styled(Parent.Card)`
 	//     width : 100%;
 	//     padding : 2rem 0;
@@ -244,14 +255,6 @@ const GlobalStyled = {
 
 	// ActiveRow: styled(Parent.Row)`
 	//     display: ${props => props.isActive ? 'flex' : 'none'};
-	// `,
-
-	// TransparentButton: styled.button`
-	//     display : flex;
-	//     width : 100%;
-	//     align-items : center;
-	//     justify-content : center;
-	//     outline : none;
 	// `,
 
 	// BorderButton: styled.button`

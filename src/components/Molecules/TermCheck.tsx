@@ -5,7 +5,9 @@ import GlobalStyled from 'style/GlobalStyled';
 import CheckBox, { CheckBoxInterface } from 'components/Atoms/CheckBox';
 
 const Styled = {
-	Wrapper: styled(GlobalStyled.Row)``,
+	Wrapper: styled(GlobalStyled.Row)`
+		cursor: pointer;
+	`,
 };
 
 export interface TermCheckInterface extends CheckBoxInterface {
