@@ -92,7 +92,10 @@ const InfoPage = ({
 			.add(-6, 'days')
 			.format('YYYY-MM-DD')}&endDate=${moment(match.params.date).format(
 			'YYYY-MM-DD',
-		)}`,
+		)}
+		&date=${formatDate}
+		
+		`,
 	);
 
 	const weekPlantPowerChartInfos = apiWeekPlantPowerChartInfos.map(
