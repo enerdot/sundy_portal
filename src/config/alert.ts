@@ -11,6 +11,11 @@ const globalSwal: { [key: string]: SweetAlertOptions } = {
 		title: '통신 실패',
 		confirmButtonText: '확인',
 	},
+	userErr: {
+		icon: 'warning',
+		title: '회원만 사용 가능한 기능입니다.',
+		confirmButtonText: '확인',
+	},
 	urlErr: {
 		icon: 'error',
 		title: '잘못된 URL 접속입니다.',

@@ -5,7 +5,7 @@ import useSWR from 'swr';
 
 import GlobalStyled from 'style/GlobalStyled';
 
-// import useCurrentUser from 'hooks/useCurrentUser';
+import useCurrentUser from 'hooks/useCurrentUser';
 import useAPI from 'hooks/useAPI';
 import { isDateUrl } from 'utils/url';
 import globalSwal from 'config/alert';
@@ -25,7 +25,7 @@ const InfoPage = ({
 	location,
 	history,
 }: InfoPageInterface): JSX.Element => {
-	// const { currentUser } = useCurrentUser();
+	const { currentUser } = useCurrentUser();
 
 	const [API] = useAPI();
 
@@ -44,7 +44,34 @@ const InfoPage = ({
 		data: apiDayTotalPlantPowerInfo = { total_kwh: 0, total_time: 0 },
 	} = useSWR(`/plants/kwhbydate?plantId=${formatId}&date=${formatDate}`);
 
-	const { data: apiDayPlantPowerChartInfos = [] } = useSWR(
+	const {
+		data: apiDayPlantPowerChartInfos = [
+			1,
+			2,
+			3,
+			4,
+			5,
+			6,
+			7,
+			8,
+			9,
+			10,
+			11,
+			12,
+			13,
+			14,
+			15,
+			16,
+			17,
+			18,
+			19,
+			20,
+			21,
+			22,
+			23,
+			24,
+		],
+	} = useSWR(
 		`/plants/kwhbydate-graph?plantId=${formatId}&date=${formatDate}`,
 	);
 
@@ -126,45 +153,51 @@ const InfoPage = ({
 	useEffect(() => {
 		const formatDateUrl = isDateUrl(match);
 		if (formatDateUrl.isUrl) {
-			if (error) {
-				if (error.response.status === 403) {
-					Swal.fire({
-						icon: 'warning',
-						title: `${moment(formatDateUrl.value).format(
-							'MM월DD일',
-						)}의 \n지역발전소를 구경하시겠어요?`,
-						text:
-							'발전소 위치, 용량, 설비 정보와 발전량 그래프를 \n확인해 볼 수 있습니다.',
-						showConfirmButton: true,
-						showCancelButton: true,
-						confirmButtonText: '결제하기',
-						cancelButtonText: '돌아가기',
-						preConfirm: async () => {
-							try {
-								await API.token.payment({
-									contents: 'plants_per_date',
-									date: moment(formatDateUrl.value).format(
-										'YYYY-MM-DD',
-									),
-								});
-							} catch (err) {
-								await Swal.fire(globalSwal.apiErr);
+			if (currentUser) {
+				if (error) {
+					if (error.response.status === 403) {
+						Swal.fire({
+							icon: 'warning',
+							title: `${moment(formatDateUrl.value).format(
+								'MM월DD일',
+							)}의 \n지역발전소를 구경하시겠어요?`,
+							text:
+								'발전소 위치, 용량, 설비 정보와 발전량 그래프를 \n확인해 볼 수 있습니다.',
+							showConfirmButton: true,
+							showCancelButton: true,
+							confirmButtonText: '결제하기',
+							cancelButtonText: '돌아가기',
+							preConfirm: async () => {
+								try {
+									await API.token.payment({
+										contents: 'plants_per_date',
+										date: moment(
+											formatDateUrl.value,
+										).format('YYYY-MM-DD'),
+									});
+								} catch (err) {
+									await Swal.fire(globalSwal.apiErr);
+								}
+							},
+						}).then(({ isConfirmed }: any) => {
+							if (isConfirmed) {
+								window.location.reload();
+							} else {
+								history.push('/');
 							}
-						},
-					}).then(({ isConfirmed }: any) => {
-						if (isConfirmed) {
-							window.location.reload();
-						} else {
-							history.push('/');
-						}
-					});
+						});
+					}
 				}
+			} else {
+				Swal.fire(globalSwal.userErr).then(res =>
+					history.push('/login'),
+				);
 			}
 		} else {
 			Swal.fire(globalSwal.urlErr).then(res => history.push('/'));
 		}
 		// eslint-disable-next-line
-	}, [match, history, API.token]);
+	}, [match, history, API.token, currentUser]);
 
 	return (
 		<GlobalStyled.Body>
@@ -188,11 +221,15 @@ const InfoPage = ({
 									},
 									{
 										name: '모듈',
-										value: apiPlantInfo.moduleName,
+										value: apiPlantInfo.moduleName
+											? apiPlantInfo.moduleName
+											: '-',
 									},
 									{
 										name: '모듈방향',
-										value: apiPlantInfo.module_bearing,
+										value: apiPlantInfo.module_bearing
+											? apiPlantInfo.module_bearing
+											: '-',
 									},
 								],
 							}}
@@ -224,24 +261,20 @@ const InfoPage = ({
 							keys={['발전량']}
 							leftTickFormat="kWh"
 							leftMargin={50}
-							axisBottomTickValues={
-								dayPlantPowerChartInfos
-									? [
-											'00',
-											'02',
-											'04',
-											'06',
-											'08',
-											'10',
-											'12',
-											'14',
-											'16',
-											'18',
-											'20',
-											'22',
-									  ]
-									: ['0']
-							}
+							axisBottomTickValues={[
+								'00',
+								'02',
+								'04',
+								'06',
+								'08',
+								'10',
+								'12',
+								'14',
+								'16',
+								'18',
+								'20',
+								'22',
+							]}
 						/>
 					</GlobalStyled.HeightRow>
 					<GlobalStyled.HeightRow padding="1rem">
