@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 import styled from 'styled-components';
 import useSWR from 'swr';
+import Swal from 'sweetalert2';
 
 import GlobalStyled from 'style/GlobalStyled';
 
-// import useCurrentUser from 'hooks/useCurrentUser';
-// import useAPI from 'hooks/useAPI';
-import { regionOptions, reverseApiRegionLabel } from 'config/region';
+import globalSwal from 'config/alert';
+
+import { reverseApiRegionLabel } from 'config/region';
 import { isRegionUrl, isDateUrl } from 'utils/url';
 
 import PlantRankingList from 'components/Molecules/PlantRankingList';
@@ -39,31 +40,14 @@ const RankingPage = ({
 	location,
 	history,
 }: RankingPageInterface): JSX.Element => {
-	// const { currentUser } = useCurrentUser();
-
-	// const [API] = useMemo(useAPI, []);
-
 	const region = isRegionUrl(match).value.label;
 	const inquiryDate = isRegionUrl(match).value;
 
-	const { data: apiPlantRankList = { list: [], total: {} } } = useSWR(
+	const { data: apiPlantRankList = { list: [] } } = useSWR(
 		`/region/plants-ranking?regionGroupId=${
 			reverseApiRegionLabel[region as '서울경기']
 		}&date=${moment(inquiryDate as any).format('YYYY-MM-DD')}`,
 	);
-
-	// const handleSubmit = async (): Promise<void> => {
-	// 	try {
-	// 		await API.APIs.getAll();
-	// 		console.log(API);
-	// 	} catch (err: any) {
-	// 		console.log('err : ', err);
-	// 	}
-	// };
-
-	// const [region, setRegion] = useState(regionOptions[0].label);
-
-	// const [inquiryDate, setInquiryDate] = useState(moment());
 
 	const [rankingInfos, setRankingInfos] = useState([
 		{
@@ -113,17 +97,7 @@ const RankingPage = ({
 				// }),
 			);
 		} else {
-			history.push(
-				`/region/${
-					urlRegion.isUrl
-						? urlRegion.value.value
-						: regionOptions[0].value
-				}/${
-					urlDate.isUrl
-						? moment(urlDate.value).format('YYYYMMDD')
-						: moment().format('YYYYMMDD')
-				}}`,
-			);
+			Swal.fire(globalSwal.urlErr).then(() => history.push('/'));
 		}
 	}, [match, history, region, apiPlantRankList]);
 
@@ -131,15 +105,17 @@ const RankingPage = ({
 		<GlobalStyled.Body>
 			<GlobalStyled.Container>
 				<Styled.Header>
-					<GlobalStyled.FadeInUpRow bottom={1}>
-						<GlobalStyled.RightCol width={100}>
-							<InquiryDate date={inquiryDate} />
-						</GlobalStyled.RightCol>
-					</GlobalStyled.FadeInUpRow>
-					<Styled.Title>{region} 발전량 상위 10위</Styled.Title>
+					<GlobalStyled.RightCol width={100}>
+						<InquiryDate date={inquiryDate} />
+					</GlobalStyled.RightCol>
+					<Styled.Title>{region} 발전량 상위 5위</Styled.Title>
 				</Styled.Header>
 				<Styled.ContentWrapper>
-					<PlantRankingList infos={rankingInfos} />
+					<PlantRankingList
+						infos={rankingInfos.filter(
+							(res: any, i: number) => i < 5,
+						)}
+					/>
 				</Styled.ContentWrapper>
 			</GlobalStyled.Container>
 		</GlobalStyled.Body>

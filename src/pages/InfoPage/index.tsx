@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import moment from 'moment';
 import Swal from 'sweetalert2';
 import useSWR from 'swr';
@@ -6,7 +6,7 @@ import useSWR from 'swr';
 import GlobalStyled from 'style/GlobalStyled';
 
 // import useCurrentUser from 'hooks/useCurrentUser';
-// import useAPI from 'hooks/useAPI';
+import useAPI from 'hooks/useAPI';
 import { isDateUrl } from 'utils/url';
 import globalSwal from 'config/alert';
 import InquiryDate from 'components/Atoms/InquiryDate';
@@ -27,44 +27,39 @@ const InfoPage = ({
 }: InfoPageInterface): JSX.Element => {
 	// const { currentUser } = useCurrentUser();
 
-	// const [API] = useMemo(useAPI, []);
+	const [API] = useAPI();
 
-	const { data: apiPlantInfo = {} } = useSWR(
-		`plants/info?plantId=${match.params.id}`,
+	const formatDate = moment(isDateUrl(match).value).format('YYYY-MM-DD');
+	const formatId = match.params.id;
+
+	const { data: apiPlantInfo = {}, error } = useSWR(
+		`plants/info?plantId=${formatId}&date=${formatDate}`,
 	);
 
 	const { data: apiPlantWeatherInfo = {} } = useSWR(
-		`plants/weather/hourly?plantId=${match.params.id}&date=${moment(
-			match.params.date,
-		).format('YYYY-MM-DD')}`,
+		`plants/weather/hourly?plantId=${formatId}&date=${formatDate}`,
 	);
 
 	const {
 		data: apiDayTotalPlantPowerInfo = { total_kwh: 0, total_time: 0 },
-	} = useSWR(
-		`/plants/kwhbydate?plantId=${match.params.id}&date=${moment(
-			match.params.date,
-		).format('YYYY-MM-DD')}`,
-	);
+	} = useSWR(`/plants/kwhbydate?plantId=${formatId}&date=${formatDate}`);
 
 	const { data: apiDayPlantPowerChartInfos = [] } = useSWR(
-		`/plants/kwhbydate-graph?plantId=${match.params.id}&date=${moment(
-			match.params.date,
-		).format('YYYY-MM-DD')}`,
+		`/plants/kwhbydate-graph?plantId=${formatId}&date=${formatDate}`,
 	);
 
-	const dayPlantPowerChartInfos = apiDayPlantPowerChartInfos.map(
-		(res: any, i: number) => {
-			const day = moment().set('hour', 0);
-			return {
-				id: moment(day).add(i, 'hour').format('HH'),
-				발전량: res,
-			};
-		},
-	);
+	const dayPlantPowerChartInfos = apiDayPlantPowerChartInfos
+		? apiDayPlantPowerChartInfos.map((res: any, i: number) => {
+				const day = moment().set('hour', 0);
+				return {
+					id: moment(day).add(i, 'hour').format('HH'),
+					발전량: res,
+				};
+		  })
+		: [{ 0: 0, value: 0 }];
 
 	const { data: apiWeekPlantPowerChartInfos = [] } = useSWR(
-		`/plants/kwhfordays-graph?plantId=${match.params.id}&startDate=${moment(
+		`/plants/kwhfordays-graph?plantId=${formatId}&startDate=${moment(
 			match.params.date,
 		)
 			.add(-6, 'days')
@@ -93,41 +88,83 @@ const InfoPage = ({
 	// 	}
 	// };
 
-	const [plantInfo, setPlantTimeInfos] = useState({
-		plantName: '-',
-		address: '-',
-		capacity: '-',
-		equipmentInfos: [{ name: '-', value: '-' }],
-	});
+	// const [plantInfo, setPlantTimeInfos] = useState({
+	// 	plantName: '-',
+	// 	address: '-',
+	// 	capacity: '-',
+	// 	equipmentInfos: [{ name: '-', value: '-' }],
+	// });
 
-	const [inquiryDate, setInquiryDate] = useState(moment());
+	// const [inquiryDate, setInquiryDate] = useState(moment());
+
+	// useEffect(() => {
+	// 	if (urlDate.isUrl) {
+	// 		const {
+	// 			inverter,
+	// 			module: moduleName,
+	// 			module_bearing,
+	// 			plant_kwatt,
+	// 			plant_loc,
+	// 			plant_name,
+	// 		} = apiPlantInfo;
+	// 		setInquiryDate(urlDate.value);
+	// 		setPlantTimeInfos({
+	// 			plantName: plant_name,
+	// 			address: plant_loc,
+	// 			capacity: plant_kwatt,
+	// 			equipmentInfos: [
+	// 				{ name: '인버터', value: inverter },
+	// 				{ name: '모듈', value: moduleName },
+	// 				{ name: '모듈방향', value: module_bearing },
+	// 			],
+	// 		});
+	// 	} else {
+	// 		Swal.fire(globalSwal.urlErr).then(res => history.push('/'));
+	// 	}
+	// }, [match, history, apiPlantInfo]);
 
 	useEffect(() => {
-		const urlDate = isDateUrl(match);
-		if (urlDate.isUrl) {
-			const {
-				inverter,
-				module: moduleName,
-				module_bearing,
-				plant_kwatt,
-				plant_loc,
-				plant_name,
-			} = apiPlantInfo;
-			setInquiryDate(urlDate.value);
-			setPlantTimeInfos({
-				plantName: plant_name,
-				address: plant_loc,
-				capacity: plant_kwatt,
-				equipmentInfos: [
-					{ name: '인버터', value: inverter },
-					{ name: '모듈', value: moduleName },
-					{ name: '모듈방향', value: module_bearing },
-				],
-			});
+		const formatDateUrl = isDateUrl(match);
+		if (formatDateUrl.isUrl) {
+			if (error) {
+				if (error.response.status === 403) {
+					Swal.fire({
+						icon: 'warning',
+						title: `${moment(formatDateUrl.value).format(
+							'MM월DD일',
+						)}의 \n지역발전소를 구경하시겠어요?`,
+						text:
+							'발전소 위치, 용량, 설비 정보와 발전량 그래프를 \n확인해 볼 수 있습니다.',
+						showConfirmButton: true,
+						showCancelButton: true,
+						confirmButtonText: '결제하기',
+						cancelButtonText: '돌아가기',
+						preConfirm: async () => {
+							try {
+								await API.token.payment({
+									contents: 'plants_per_date',
+									date: moment(formatDateUrl.value).format(
+										'YYYY-MM-DD',
+									),
+								});
+							} catch (err) {
+								await Swal.fire(globalSwal.apiErr);
+							}
+						},
+					}).then(({ isConfirmed }: any) => {
+						if (isConfirmed) {
+							window.location.reload();
+						} else {
+							history.push('/');
+						}
+					});
+				}
+			}
 		} else {
 			Swal.fire(globalSwal.urlErr).then(res => history.push('/'));
 		}
-	}, [match, history, apiPlantInfo]);
+		// eslint-disable-next-line
+	}, [match, history, API.token]);
 
 	return (
 		<GlobalStyled.Body>
@@ -135,12 +172,30 @@ const InfoPage = ({
 				<GlobalStyled.HeightRow padding="1rem">
 					<GlobalStyled.FadeInUpRow>
 						<GlobalStyled.RightCol width={100}>
-							<InquiryDate date={inquiryDate} />
+							<InquiryDate date={formatDate} />
 						</GlobalStyled.RightCol>
 					</GlobalStyled.FadeInUpRow>
 					<GlobalStyled.FadeInUpRow>
 						<PlantDetailInfo
-							info={plantInfo}
+							info={{
+								plantName: apiPlantInfo.plant_name,
+								address: apiPlantInfo.plant_loc,
+								capacity: apiPlantInfo.plant_kwatt,
+								equipmentInfos: [
+									{
+										name: '인버터',
+										value: apiPlantInfo.inverter,
+									},
+									{
+										name: '모듈',
+										value: apiPlantInfo.moduleName,
+									},
+									{
+										name: '모듈방향',
+										value: apiPlantInfo.module_bearing,
+									},
+								],
+							}}
 							weatherInfo={apiPlantWeatherInfo}
 						/>
 					</GlobalStyled.FadeInUpRow>
@@ -169,20 +224,24 @@ const InfoPage = ({
 							keys={['발전량']}
 							leftTickFormat="kWh"
 							leftMargin={50}
-							axisBottomTickValues={[
-								'00',
-								'02',
-								'04',
-								'06',
-								'08',
-								'10',
-								'12',
-								'14',
-								'16',
-								'18',
-								'20',
-								'22',
-							]}
+							axisBottomTickValues={
+								dayPlantPowerChartInfos
+									? [
+											'00',
+											'02',
+											'04',
+											'06',
+											'08',
+											'10',
+											'12',
+											'14',
+											'16',
+											'18',
+											'20',
+											'22',
+									  ]
+									: ['0']
+							}
 						/>
 					</GlobalStyled.HeightRow>
 					<GlobalStyled.HeightRow padding="1rem">

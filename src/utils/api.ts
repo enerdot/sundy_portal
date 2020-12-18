@@ -26,15 +26,15 @@ type regionType =
 
 const formatRegionPlantTimeDayInfo = (data: any) => {
 	let result = {
-		seoul: 1,
-		chungnam: 1,
-		jeonbuk: 1,
-		jeonnam: 1,
-		gangwon: 1,
-		chungbuk: 1,
-		gyeongbuk: 1,
-		gyeongnam: 1,
-		jeju: 1,
+		seoul: 0,
+		chungnam: 0,
+		jeonbuk: 0,
+		jeonnam: 0,
+		gangwon: 0,
+		chungbuk: 0,
+		gyeongbuk: 0,
+		gyeongnam: 0,
+		jeju: 0,
 	};
 
 	if (data) {

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-// import useSWR from 'swr';
+import useSWR from 'swr';
 
 import GlobalStyled from 'style/GlobalStyled';
 
@@ -56,6 +56,10 @@ const MySettingForm = (props: MySettingFormInterface) => {
 
 	const { currentUser, deleteSession } = useCurrentUser();
 
+	const { data: userInfo = { nickname: '', wallet_balance: 0 } } = useSWR(
+		'/users/info',
+	);
+
 	const handleClickSignCheck = async () => {
 		if (currentUser) {
 			await deleteSession();
@@ -63,8 +67,6 @@ const MySettingForm = (props: MySettingFormInterface) => {
 			window.location.href = '/login';
 		}
 	};
-
-	// const { data: userData } = useSWR('/users/info');
 
 	return (
 		<Styled.Wrapper isShow={isShow}>
@@ -81,16 +83,20 @@ const MySettingForm = (props: MySettingFormInterface) => {
 				</GlobalStyled.Row>
 				{currentUser ? (
 					<>
-						<GlobalStyled.Row bottom={1}>한희태</GlobalStyled.Row>
-						<GlobalStyled.Row bottom={0.25}>
+						<GlobalStyled.Row bottom={1}>
+							{userInfo.nickname}
+						</GlobalStyled.Row>
+						<GlobalStyled.ImgRow bottom={0.25}>
 							<Styled.CoinImg
 								alt="coin"
 								src={require('images/ic-coin.svg').default}
 							/>
 							<Styled.GrayText>레디포인트</Styled.GrayText>
-						</GlobalStyled.Row>
+						</GlobalStyled.ImgRow>
 						<GlobalStyled.Row>
-							<Styled.CoinText>10,000</Styled.CoinText>
+							<Styled.CoinText>
+								{userInfo.wallet_balance}
+							</Styled.CoinText>
 						</GlobalStyled.Row>
 					</>
 				) : (

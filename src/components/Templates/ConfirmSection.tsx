@@ -14,6 +14,7 @@ import LabelInput from 'components/Atoms/LabelInput';
 import { signUp, resendConfirmationCode } from 'api/cognito';
 
 import globalSwal from 'config/alert';
+import CircleSpinner from 'components/Atoms/Spinner';
 
 const Styled = {
 	Wrapper: styled.form`
@@ -44,6 +45,7 @@ const Styled = {
 
 interface AttributeSettingSectionInterface {
 	onSubmit: any;
+	isSubmitLoading: boolean;
 	userInfo: {
 		nickname: string;
 		password: string;
@@ -54,6 +56,7 @@ interface AttributeSettingSectionInterface {
 const AttributeSettingSection = ({
 	onSubmit,
 	userInfo,
+	isSubmitLoading,
 }: AttributeSettingSectionInterface): JSX.Element => {
 	const [{ phoneNumber, confirmCode }, onChange] = useInput({
 		phoneNumber: '',
@@ -109,6 +112,7 @@ const AttributeSettingSection = ({
 				onSubmit(3, {
 					confirmCode: confirmCode,
 					cognitoUser: cognitoUser,
+					phoneNumber: phoneNumber,
 				});
 			}
 		} catch (err: any) {
@@ -164,7 +168,9 @@ const AttributeSettingSection = ({
 					type="submit"
 					isLoading={isSubmitButtonLoading}
 				>
-					회원가입
+					<CircleSpinner size="1.5rem" isLoading={isSubmitLoading}>
+						회원가입
+					</CircleSpinner>
 				</Styled.NextButton>
 			</Styled.ButtonWrapper>
 		</Styled.Wrapper>
@@ -173,6 +179,7 @@ const AttributeSettingSection = ({
 
 AttributeSettingSection.defaultProps = {
 	onSubmit: () => {},
+	isSubmitLoading: false,
 	userInfo: {
 		nickName: '',
 		password: '',

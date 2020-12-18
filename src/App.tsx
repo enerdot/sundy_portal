@@ -1,4 +1,4 @@
-import { Suspense, lazy } from 'react';
+import { Suspense, lazy, useEffect } from 'react';
 import { SWRConfig } from 'swr';
 import styled, { ThemeProvider } from 'styled-components';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -10,9 +10,9 @@ import theme from 'style/theme';
 import GlobalHeader from 'components/Organisms/GlobalHeader';
 import GlobalFooter from 'components/Organisms/GlobalFooter';
 import Spinner from 'components/Atoms/Spinner';
-import Swal from 'sweetalert2';
+// import Swal from 'sweetalert2';
 
-import globalSwal from 'config/alert';
+// import globalSwal from 'config/alert';
 
 import routerUrl from 'config/routerUrl';
 
@@ -33,13 +33,13 @@ const swrConfig: object = {
 		revalidate: any,
 		{ retryCount }: any,
 	) => {
-		console.log(error, 'err');
-		if (retryCount >= 3) return;
-		if (error.response && error.response.status === 404) {
-			Swal.fire(globalSwal.apiErr);
-			return;
-		}
-		setTimeout(() => revalidate({ retryCount: retryCount + 1 }), 5000);
+		// if (retryCount >= 3) return;
+		if (error.response && error.response.status === 404) return;
+		// if (error.response && error.response.status === 403) {
+		// 	Swal.fire(globalSwal.apiErr);
+		// 	return;
+		// }
+		// setTimeout(() => revalidate({ retryCount: retryCount + 1 }), 5000);
 	},
 };
 
@@ -55,8 +55,16 @@ const Styled = {
 };
 
 function App() {
-	const { currentUser } = useCurrentUser();
-	const fetcher = createFetcher(currentUser);
+	const { accessToken, getCurrentUser } = useCurrentUser();
+
+	useEffect(() => {
+		async function loading() {
+			await getCurrentUser();
+		}
+		loading();
+	}, [getCurrentUser]);
+
+	const fetcher = createFetcher(accessToken);
 	return (
 		<Router>
 			<SWRConfig value={{ ...swrConfig, fetcher }}>

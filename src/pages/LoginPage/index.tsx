@@ -74,7 +74,7 @@ const LoginPage = ({
 		setIsSubmitButtonLoading(true);
 		try {
 			await createCurrentUser({
-				userId: userId,
+				userId: `+82${userId}`,
 				password: password,
 			});
 			window.location.href = '/';

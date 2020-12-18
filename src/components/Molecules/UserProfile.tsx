@@ -38,10 +38,14 @@ const UserProfile = (props: UserProfileInterface) => {
 					/>
 				</GlobalStyled.TransparentButton>
 			</Styled.Wrapper>
-			<MySettingForm
-				isShow={isShowMySettingForm}
-				onClickCancel={handleClickProfile}
-			/>
+			{isShowMySettingForm ? (
+				<MySettingForm
+					isShow={isShowMySettingForm}
+					onClickCancel={handleClickProfile}
+				/>
+			) : (
+				''
+			)}
 		</>
 	);
 };

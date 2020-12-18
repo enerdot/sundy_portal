@@ -139,6 +139,10 @@ const GlobalStyled = {
 
 	Row: styled(Parent.Row)``,
 
+	ImgRow: styled(Parent.Row)`
+		align-items: center;
+	`,
+
 	FadeInUpRow: styled(Parent.Row)`
 		animation: ${animation.fadeInUp} 1s;
 	`,

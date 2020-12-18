@@ -28,12 +28,14 @@ function useAPI(): any {
 	const token = {
 		insert: (params: { contents: string }) =>
 			API.post('/users/get-token', params),
+		payment: (params: { contents: string; date: string }) =>
+			API.post('/users/use-token', params),
 	};
 
 	const session = {
-		create: (params: { userId: string; password: string }) =>
+		insert: (params: { userId: string; password: string }) =>
 			signIn(params),
-		update: () => getSession(),
+		get: () => getSession(),
 		delete: () => signOut(),
 	};
 

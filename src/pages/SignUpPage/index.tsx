@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 // import useSWR from 'swr';
 
 import GlobalStyled from 'style/GlobalStyled';
@@ -84,28 +85,43 @@ const SignUpPage = ({
 		},
 	]);
 
+	const [isSubmitLoading, setIsSubmitLoading] = useState(false);
+
 	const [API] = useAPI();
 
 	const handleSubmit = async (e: number, info: any) => {
 		try {
 			if (e === processHeaderInfos.length) {
+				setIsSubmitLoading(true);
 				await signUpConfirm(info.cognitoUser, info.confirmCode);
 
-				const formatPhoneNumber = `+82${userInfo.phoneNumber}`;
+				const formatPhoneNumber = `+82${info.phoneNumber}`;
 
-				setSubmitLevel(e);
+				console.log('userInfo : ', userInfo);
+
 				await API.user.create({
 					user_phone: formatPhoneNumber,
 					nickname: userInfo.nickname,
 					password: userInfo.password,
 				});
-				await createCurrentUser({
+
+				const idToken = await createCurrentUser({
 					userId: formatPhoneNumber,
 					password: userInfo.password,
 				});
-				await API.token.insert({
+
+				const formatAPI = axios.create({
+					baseURL: process.env.REACT_APP_API_URL,
+					headers: {
+						Authorization: idToken,
+					},
+				});
+
+				await formatAPI.post('/users/get-token', {
 					contents: 'create_wallet',
 				});
+				console.log('e : ', e);
+				setSubmitLevel(e);
 			} else {
 				setProcessHeaderInfos((prevState: Array<object>) => {
 					return prevState.map((res: any, i: number) => {
@@ -134,6 +150,7 @@ const SignUpPage = ({
 					...info,
 				};
 			});
+			setIsSubmitLoading(false);
 		}
 	};
 
@@ -164,6 +181,7 @@ const SignUpPage = ({
 							<ConfirmSection
 								userInfo={userInfo}
 								onSubmit={handleSubmit}
+								isSubmitLoading={isSubmitLoading}
 							/>
 						) : (
 							''

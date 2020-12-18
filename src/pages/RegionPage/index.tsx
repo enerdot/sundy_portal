@@ -4,6 +4,8 @@ import moment from 'moment';
 
 import GlobalStyled from 'style/GlobalStyled';
 
+import globalSwal from 'config/alert';
+
 // import useCurrentUser from 'hooks/useCurrentUser';
 // import useAPI from 'hooks/useAPI';
 import Select from 'components/Atoms/Select';
@@ -16,6 +18,7 @@ import PlantRankingInfo from 'components/Atoms/PlantRankingInfo';
 import BarChart from 'components/Atoms/BarChart';
 import InquiryDate from 'components/Atoms/InquiryDate';
 import { isRegionUrl, isDateUrl } from 'utils/url';
+import Swal from 'sweetalert2';
 
 interface RegionPageInterface {
 	match: any;
@@ -71,6 +74,8 @@ const RegionPage = ({
 			inquiryDate,
 		).format('YYYY-MM-DD')}`,
 	);
+
+	console.log('apiPlantTimeInfo : ', apiPlantTimeInfo);
 
 	const { data: apiPlantList = { list: [], total: {} } } = useSWR(
 		`/region/plants-list?regionGroupId=${selectApiRegionId}&date=${moment(
@@ -147,18 +152,18 @@ const RegionPage = ({
 				// prevState[urlRegion.value.value] = 1
 			});
 		} else {
-			console.log(urlDate, urlRegion);
-			history.push(
-				`/region/${
-					urlRegion.isUrl
-						? urlRegion.value.value
-						: regionOptions[0].value
-				}/${
-					urlDate.isUrl
-						? moment(urlDate.value).format('YYYYMMDD')
-						: moment().format('YYYYMMDD')
-				}}`,
-			);
+			Swal.fire(globalSwal.urlErr).then(() => history.push('/'));
+			// history.push(
+			// 	`/region/${
+			// 		urlRegion.isUrl
+			// 			? urlRegion.value.value
+			// 			: regionOptions[0].value
+			// 	}/${
+			// 		urlDate.isUrl
+			// 			? moment(urlDate.value).format('YYYYMMDD')
+			// 			: moment().format('YYYYMMDD')
+			// 	}}`,
+			// );
 		}
 	}, [match, history, apiPlantTimeInfo]);
 

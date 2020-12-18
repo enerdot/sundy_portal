@@ -12,15 +12,13 @@ function useCurrentUser() {
 	const createCurrentUser = useCallback(
 		async (params: { userId: string; password: string }) => {
 			try {
-				await API.cookie.delete();
-				await API.session.delete();
-				const userSession = await API.session.create({
+				const userSession = await API.session.insert({
 					...params,
-					userId: `+82${params.userId}`,
+					userId: params.userId,
 				});
-				console.log('userSession : ', userSession);
 				setCurrentUser(userSession);
 				API.cookie.create(userSession);
+				return userSession;
 			} catch (error) {
 				setCurrentUser(null);
 				throw error;
@@ -32,9 +30,8 @@ function useCurrentUser() {
 
 	const getCurrentUser = useCallback(async () => {
 		try {
-			const userSession = await API.session.update();
+			const userSession = await API.session.get();
 			const idToken = userSession.signInUserSession.idToken.jwtToken;
-			console.log('idToken : ', idToken);
 			setCurrentUser(idToken);
 			API.cookie.create(idToken);
 		} catch (error) {
