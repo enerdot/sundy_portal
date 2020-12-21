@@ -96,13 +96,6 @@ const MainPage = (): JSX.Element => {
 						<Calendar
 							info={calendarInfo}
 							onChange={setCalendarInfo}
-							minDate={
-								new Date(
-									moment()
-										.add(-1, 'days')
-										.format('YYYY-MM-DD'),
-								)
-							}
 						>
 							<Styled.CalendarSmallInfo>
 								지역 별 발전소들을 구경해보세요
