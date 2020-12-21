@@ -58,6 +58,8 @@ interface CalendarInterface {
 	dateFormats: any;
 }
 
+const formatMaxDate = new Date(new Date().setDate(new Date().getDate() - 1));
+
 const Calendar = (props: CalendarInterface) => {
 	const {
 		info,
@@ -82,7 +84,7 @@ const Calendar = (props: CalendarInterface) => {
 		'month' | 'century' | 'year' | 'decade'
 	>('month');
 
-	const [maxDate, setMaxDate] = useState(new Date());
+	const [maxDate, setMaxDate] = useState(formatMaxDate);
 
 	useEffect(() => {
 		const { time, day, month, year } = dateFormats;
@@ -90,22 +92,22 @@ const Calendar = (props: CalendarInterface) => {
 			setDateFormat(time);
 			setMinDetail('century');
 			setMaxDetail('month');
-			setMaxDate(new Date());
+			setMaxDate(formatMaxDate);
 		} else if (type === 'day') {
 			setDateFormat(day);
 			setMinDetail('century');
 			setMaxDetail('month');
-			setMaxDate(new Date());
+			setMaxDate(formatMaxDate);
 		} else if (type === 'month') {
 			setDateFormat(month);
 			setMinDetail('century');
 			setMaxDetail('year');
-			setMaxDate(new Date());
+			setMaxDate(formatMaxDate);
 		} else if (type === 'year') {
 			setDateFormat(year);
 			setMinDetail('century');
 			setMaxDetail('decade');
-			setMaxDate(new Date());
+			setMaxDate(formatMaxDate);
 		} else {
 			setMaxDate(info.endDate);
 		}
