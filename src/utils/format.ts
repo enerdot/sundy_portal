@@ -41,4 +41,12 @@ const makeJson = (value: any, key: string | number) => {
 	};
 };
 
-export { kWhToMWh, numberCommaFormat, makeJson };
+const exposureSecurity = (value: any, exposureCount: number) => {
+	let result = value ? value.split('')[0] : '';
+	for (let i = 0; i < exposureCount; i++) {
+		result += '*';
+	}
+	return result;
+};
+
+export { kWhToMWh, numberCommaFormat, makeJson, exposureSecurity };

@@ -99,6 +99,7 @@ const LoginPage = ({
 								label="아이디"
 								name="userId"
 								value={userId}
+								placeholder="전화번호 로그인 가능"
 								onChange={onChange}
 							/>
 						</GlobalStyled.FadeInUpRow>

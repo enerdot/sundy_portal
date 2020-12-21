@@ -14,6 +14,8 @@ import { isRegionUrl, isDateUrl } from 'utils/url';
 import PlantRankingList from 'components/Molecules/PlantRankingList';
 import InquiryDate from 'components/Atoms/InquiryDate';
 
+import { exposureSecurity } from 'utils/format';
+
 interface RankingPageInterface {
 	match: any;
 	location: any;
@@ -77,7 +79,7 @@ const RankingPage = ({
 					return {
 						region: '',
 						ranking: `${i + 1}위`,
-						plantName: plant_name,
+						plantName: exposureSecurity(plant_name, 2),
 						address: plant_address,
 						plantTime: `${kwh_time} 시간`,
 						to: `/info/${plant_id}/${moment(urlDate.value).format(
