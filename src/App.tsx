@@ -13,7 +13,6 @@ import Spinner from 'components/Atoms/Spinner';
 // import Swal from 'sweetalert2';
 
 // import globalSwal from 'config/alert';
-// import globalSwal from 'config/alert';
 
 import routerUrl from 'config/routerUrl';
 
