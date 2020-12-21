@@ -14,8 +14,10 @@
 # misc
 .DS_Store
 .env.local
-
-.eslintcache
+.env.development.local
+.env.test.local
+.env.production.local
+.eslintcache.local
 
 npm-debug.log*
 yarn-debug.log*
