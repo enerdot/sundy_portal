@@ -96,10 +96,10 @@ const LoginPage = ({
 					<Styled.ContentWrapper onSubmit={handleSubmit}>
 						<GlobalStyled.FadeInUpRow bottom={isLoginFail ? 1 : 2}>
 							<LabelInput
-								label="아이디"
+								label="핸드폰번호"
 								name="userId"
 								value={userId}
-								placeholder="전화번호 로그인 가능"
+								placeholder="01000000000"
 								onChange={onChange}
 							/>
 						</GlobalStyled.FadeInUpRow>

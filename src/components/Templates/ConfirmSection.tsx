@@ -67,6 +67,11 @@ const AttributeSettingSection = ({
 		false,
 	);
 
+	const [
+		isSendConfirmPhoneNumberLoading,
+		setIsSendConfirmPhoneNumberLoading,
+	] = useState(false);
+
 	const [isSubmitButtonLoading, setIsSubmitButtonLoading] = useState(false);
 
 	const [cognitoUser, setCognitoUser] = useState('');
@@ -87,20 +92,24 @@ const AttributeSettingSection = ({
 	};
 
 	const handleSendConfirmCode = async () => {
-		try {
-			if (isSendConfirmPhoneNumber) {
-				await resendConfirmationCode(cognitoUser);
-			} else {
-				const user = await signUp({ ...userInfo, phoneNumber });
-				setCognitoUser(user as any);
-				setIsSendConfirmPhoneNumber(true);
+		if (!isSendConfirmPhoneNumber) {
+			try {
+				setIsSendConfirmPhoneNumberLoading(true);
+				if (isSendConfirmPhoneNumber) {
+					await resendConfirmationCode(cognitoUser);
+				} else {
+					const user = await signUp({ ...userInfo, phoneNumber });
+					setCognitoUser(user as any);
+					setIsSendConfirmPhoneNumber(true);
+				}
+			} catch (err) {
+				if (err.code === 'UsernameExistsException') {
+					Swal.fire(globalSwal.overlapPhoneNumber);
+				}
+				console.log('sign up err : ', err);
+			} finally {
+				setIsSendConfirmPhoneNumberLoading(false);
 			}
-		} catch (err) {
-			if (err.code === 'UsernameExistsException') {
-				Swal.fire(globalSwal.overlapPhoneNumber);
-			}
-			console.log('sign up err : ', err);
-		} finally {
 		}
 	};
 
@@ -149,6 +158,7 @@ const AttributeSettingSection = ({
 								? '인증번호 재발송'
 								: '인증번호 발송'
 						}
+						isConfirmButtonLoading={isSendConfirmPhoneNumberLoading}
 					/>
 				</GlobalStyled.FadeInUpRow>
 				<GlobalStyled.FadeInUpRow bottom={2.5}>

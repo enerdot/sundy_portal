@@ -97,8 +97,6 @@ const SignUpPage = ({
 
 				const formatPhoneNumber = `+82${info.phoneNumber}`;
 
-				console.log('userInfo : ', userInfo);
-
 				await API.user.create({
 					user_phone: formatPhoneNumber,
 					nickname: userInfo.nickname,
@@ -120,7 +118,6 @@ const SignUpPage = ({
 				await formatAPI.post('/users/get-token', {
 					contents: 'create_wallet',
 				});
-				console.log('e : ', e);
 				setSubmitLevel(e);
 			} else {
 				setProcessHeaderInfos((prevState: Array<object>) => {
