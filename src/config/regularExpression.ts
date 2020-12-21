@@ -1,7 +1,7 @@
 const regularExpression = {
 	userId: {
 		expressionName: 'userId',
-		expression: /^[0-9a-z]+$/,
+		expression: /^[0-9a-zA-Z]+$/,
 		isRequired: true,
 		maxLength: 8,
 		minLength: 6,
@@ -30,9 +30,9 @@ const regularExpression = {
 	},
 	nickname: {
 		expressionName: 'expressionName',
-		expression: /^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|a-z]*$/,
+		expression: /^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|a-z|A-Z]*$/,
 		isRequired: true,
-		maxLength: 10,
+		maxLength: 6,
 		minLength: 1,
 		failMessage: '10자 미만으로 입력해주세요',
 		successMessage: '',

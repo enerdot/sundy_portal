@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import useSWR from 'swr';
 import moment from 'moment';
-
+import Swal from 'sweetalert2';
 import GlobalStyled from 'style/GlobalStyled';
 
 import globalSwal from 'config/alert';
@@ -18,7 +18,8 @@ import PlantRankingInfo from 'components/Atoms/PlantRankingInfo';
 import BarChart from 'components/Atoms/BarChart';
 import InquiryDate from 'components/Atoms/InquiryDate';
 import { isRegionUrl, isDateUrl } from 'utils/url';
-import Swal from 'sweetalert2';
+
+import { exposureSecurity } from 'utils/format';
 
 interface RegionPageInterface {
 	match: any;
@@ -58,7 +59,7 @@ const RegionPage = ({
 		jeju: 1,
 	});
 
-	const [inquiryDate, setInquiryDate] = useState(moment());
+	const [inquiryDate, setInquiryDate] = useState(moment().add(-1, 'days'));
 
 	// const { currentUser } = useCurrentUser();
 
@@ -214,11 +215,19 @@ const RegionPage = ({
 						</GlobalStyled.CenterCol>
 						<GlobalStyled.Col width={50}>
 							<PlantStatusTable
-								infos={apiPlantList.list.filter(
-									(res: any, i: number) => {
+								infos={apiPlantList.list
+									.map((res: any) => {
+										return {
+											...res,
+											plant_name: exposureSecurity(
+												res.plant_name,
+												2,
+											),
+										};
+									})
+									.filter((res: any, i: number) => {
 										return i < 6;
-									},
-								)}
+									})}
 							/>
 						</GlobalStyled.Col>
 					</GlobalStyled.FadeInUpRow>

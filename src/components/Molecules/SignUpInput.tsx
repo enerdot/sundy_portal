@@ -306,11 +306,15 @@ const SignUpInput = (props: SignUpInputInterface) => {
 								e.preventDefault();
 								onClickConfirmButton();
 							}}
-							isActive={valueRegularExpression()?.isConfirm!}
+							isActive={
+								isConfirmButtonLoading
+									? false
+									: valueRegularExpression()?.isConfirm!
+							}
 						>
 							<Spinner
 								isLoading={isConfirmButtonLoading}
-								size={'2rem'}
+								size={'1.25rem'}
 							>
 								{confirmButtonText}
 							</Spinner>

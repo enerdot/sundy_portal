@@ -54,8 +54,8 @@ const MainPage = (): JSX.Element => {
 	const [isViewTypeAvg, setIsViewTypeAvg] = useState(false);
 
 	const [calendarInfo, setCalendarInfo] = useState({
-		startDate: new Date(),
-		endDate: new Date(),
+		startDate: new Date(moment().add(-1, 'days').format('YYYY-MM-DD')),
+		endDate: new Date(moment().add(-1, 'days').format('YYYY-MM-DD')),
 	});
 
 	const { data: avgData } = useSWR(
@@ -96,6 +96,13 @@ const MainPage = (): JSX.Element => {
 						<Calendar
 							info={calendarInfo}
 							onChange={setCalendarInfo}
+							minDate={
+								new Date(
+									moment()
+										.add(-1, 'days')
+										.format('YYYY-MM-DD'),
+								)
+							}
 						>
 							<Styled.CalendarSmallInfo>
 								지역 별 발전소들을 구경해보세요

@@ -14,6 +14,8 @@ import PlantDetailInfo from 'components/Organisms/PlantDetailInfo';
 import PlantTimeContentList from 'components/Molecules/PlantTimeContentList';
 import BarChart from 'components/Atoms/BarChart';
 
+import { exposureSecurity } from 'utils/format';
+
 interface InfoPageInterface {
 	match: any;
 	location: any;
@@ -214,7 +216,10 @@ const InfoPage = ({
 					<GlobalStyled.FadeInUpRow>
 						<PlantDetailInfo
 							info={{
-								plantName: apiPlantInfo.plant_name,
+								plantName: exposureSecurity(
+									apiPlantInfo.plant_name,
+									2,
+								),
 								address: apiPlantInfo.plant_loc,
 								capacity: apiPlantInfo.plant_kwatt,
 								equipmentInfos: [
