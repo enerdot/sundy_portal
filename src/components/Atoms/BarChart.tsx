@@ -36,8 +36,6 @@ const BarChart = (props: BarChartInterface) => {
 		maxValue,
 	} = props;
 
-	console.log('maxValue', maxValue);
-
 	return (
 		<Styled.Wrapper>
 			{maxValue === 'auto' ? (
