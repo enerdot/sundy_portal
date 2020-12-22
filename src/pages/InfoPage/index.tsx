@@ -88,7 +88,7 @@ const InfoPage = ({
 		: [{ 0: 0, value: 0 }];
 
 	const {
-		data: apiWeekPlantPowerChartInfos = [0, 1, 2, 3, 4, 5, 6],
+		data: apiWeekPlantPowerChartInfos = [0, 0, 0, 0, 0, 0, 0],
 	} = useSWR(
 		`/plants/kwhfordays-graph?plantId=${formatId}&startDate=${moment(
 			match.params.date,
@@ -285,7 +285,11 @@ const InfoPage = ({
 								'20',
 								'22',
 							]}
-							maxValue={apiPlantInfo.plant_kwatt}
+							maxValue={
+								apiPlantInfo.plant_kwatt
+									? apiPlantInfo.plant_kwatt
+									: 'auto'
+							}
 						/>
 					</GlobalStyled.HeightRow>
 					<GlobalStyled.HeightRow padding="1rem">
@@ -297,7 +301,11 @@ const InfoPage = ({
 							keys={['발전량']}
 							leftTickFormat="kWh"
 							leftMargin={60}
-							maxValue={apiPlantInfo.plant_kwatt * 6}
+							maxValue={
+								apiPlantInfo.plant_kwatt
+									? apiPlantInfo.plant_kwatt * 6
+									: 'auto'
+							}
 						/>
 					</GlobalStyled.HeightRow>
 				</GlobalStyled.HeightRow>

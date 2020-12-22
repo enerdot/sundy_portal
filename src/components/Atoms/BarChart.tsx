@@ -20,7 +20,7 @@ interface BarChartInterface {
 	keys: any;
 	leftMargin: number;
 	axisBottomTickValues: any;
-	maxValue?: number;
+	maxValue?: number | 'auto';
 }
 
 const BarChart = (props: BarChartInterface) => {
@@ -36,44 +36,53 @@ const BarChart = (props: BarChartInterface) => {
 		maxValue,
 	} = props;
 
+	console.log('maxValue', maxValue);
+
 	return (
 		<Styled.Wrapper>
-			<ResponsiveBar
-				data={infos}
-				colors={colors}
-				keys={keys}
-				indexBy="id"
-				margin={{ top: 30, bottom: 35, left: leftMargin }}
-				padding={0.6}
-				valueScale={{ type: 'linear' }}
-				indexScale={{ type: 'band', round: true }}
-				borderColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
-				axisTop={null}
-				axisRight={null}
-				axisLeft={{
-					tickValues: 5,
-					tickPadding: tickPadding,
-					// tickRotation: 0,
-					format: v => `${v}${leftTickFormat}`,
-				}}
-				axisBottom={{
-					tickValues: axisBottomTickValues,
-				}}
-				labelSkipWidth={12}
-				labelSkipHeight={12}
-				labelTextColor={labelTextColor}
-				labelFormat={labelValue =>
-					((
-						<tspan style={{ fontWeight: 'bold' }} y={-12}>
-							{labelValue}
-						</tspan>
-					) as unknown) as string
-				}
-				animate={true}
-				motionStiffness={90}
-				motionDamping={15}
-				maxValue={maxValue}
-			/>
+			{maxValue === 'auto' ? (
+				''
+			) : (
+				<ResponsiveBar
+					data={infos}
+					colors={colors}
+					keys={keys}
+					indexBy="id"
+					margin={{ top: 30, bottom: 35, left: leftMargin }}
+					padding={0.6}
+					valueScale={{ type: 'linear' }}
+					indexScale={{ type: 'band', round: true }}
+					borderColor={{
+						from: 'color',
+						modifiers: [['darker', 1.6]],
+					}}
+					axisTop={null}
+					axisRight={null}
+					axisLeft={{
+						tickValues: 5,
+						tickPadding: tickPadding,
+						// tickRotation: 0,
+						format: v => `${v}${leftTickFormat}`,
+					}}
+					axisBottom={{
+						tickValues: axisBottomTickValues,
+					}}
+					labelSkipWidth={12}
+					labelSkipHeight={12}
+					labelTextColor={labelTextColor}
+					labelFormat={labelValue =>
+						((
+							<tspan style={{ fontWeight: 'bold' }} y={-12}>
+								{labelValue}
+							</tspan>
+						) as unknown) as string
+					}
+					animate={true}
+					motionStiffness={90}
+					motionDamping={15}
+					maxValue={maxValue}
+				/>
+			)}
 		</Styled.Wrapper>
 	);
 };
