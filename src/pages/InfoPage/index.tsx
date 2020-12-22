@@ -161,39 +161,37 @@ const InfoPage = ({
 		const formatDateUrl = isDateUrl(match);
 		if (formatDateUrl.isUrl) {
 			if (currentUser) {
-				if (apiPlantInfoErr) {
-					if (apiPlantInfoErr.response.status === 403) {
-						Swal.fire({
-							icon: 'warning',
-							title: `${moment(formatDateUrl.value).format(
-								'MM월DD일',
-							)}의 \n지역발전소를 구경하시겠어요?`,
-							text:
-								'발전소 위치, 용량, 설비 정보와 발전량 그래프를 \n확인해 볼 수 있습니다.',
-							showConfirmButton: true,
-							showCancelButton: true,
-							confirmButtonText: '결제하기',
-							cancelButtonText: '돌아가기',
-							preConfirm: async () => {
-								try {
-									await API.token.payment({
-										contents: 'plants_per_date',
-										date: moment(
-											formatDateUrl.value,
-										).format('YYYY-MM-DD'),
-									});
-								} catch (err) {
-									await Swal.fire(globalSwal.apiErr);
-								}
-							},
-						}).then(({ isConfirmed }: any) => {
-							if (isConfirmed) {
-								window.location.reload();
-							} else {
-								history.push('/');
+				if (apiPlantInfoErr?.response?.status === 403) {
+					Swal.fire({
+						icon: 'warning',
+						title: `${moment(formatDateUrl.value).format(
+							'MM월DD일',
+						)}의 \n지역발전소를 구경하시겠어요?`,
+						text:
+							'발전소 위치, 용량, 설비 정보와 발전량 그래프를 \n확인해 볼 수 있습니다.',
+						showConfirmButton: true,
+						showCancelButton: true,
+						confirmButtonText: '결제하기',
+						cancelButtonText: '돌아가기',
+						preConfirm: async () => {
+							try {
+								await API.token.payment({
+									contents: 'plants_per_date',
+									date: moment(formatDateUrl.value).format(
+										'YYYY-MM-DD',
+									),
+								});
+							} catch (err) {
+								await Swal.fire(globalSwal.apiErr);
 							}
-						});
-					}
+						},
+					}).then(({ isConfirmed }: any) => {
+						if (isConfirmed) {
+							window.location.reload();
+						} else {
+							history.push('/');
+						}
+					});
 				}
 			} else {
 				Swal.fire(globalSwal.userErr).then(res =>
