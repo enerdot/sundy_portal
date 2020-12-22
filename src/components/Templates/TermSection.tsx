@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import GlobalStyled from 'style/GlobalStyled';
 
 import SignUpTermCheck from 'components/Templates/SignUpTermCheck';
+import routerUrl from 'config/routerUrl';
 
 import useCheckBox from 'hooks/useCheckBox';
 
@@ -42,11 +43,10 @@ const TermSection = ({
 	onSubmit,
 	submitLevel,
 }: TermSectionInterface): JSX.Element => {
-	const [{ all, term, personalProfile, point }, onChange] = useCheckBox({
+	const [{ all, term, personalProfile }, onChange] = useCheckBox({
 		all: false,
 		term: false,
 		personalProfile: false,
-		point: false,
 	});
 
 	const termHeaderInfo = {
@@ -62,18 +62,14 @@ const TermSection = ({
 			value: term,
 			name: 'term',
 			required: true,
+			url: routerUrl.termPage,
 		},
 		{
 			label: '개인정보 취급방침 (필수)',
 			value: personalProfile,
 			name: 'personalProfile',
 			required: true,
-		},
-		{
-			label: '포인트 이용을 위한 지갑 생성 동의 (필수)',
-			value: point,
-			name: 'point',
-			required: true,
+			url: routerUrl.privacyPage,
 		},
 	];
 

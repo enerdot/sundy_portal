@@ -2,6 +2,7 @@ import { Suspense, lazy, useEffect } from 'react';
 import { SWRConfig } from 'swr';
 import styled, { ThemeProvider } from 'styled-components';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+// import { importMDX } from 'mdx.macro';
 
 import createFetcher from 'config/fetcher';
 
@@ -25,6 +26,9 @@ const RankingPage = lazy(() => import('./pages/RankingPage'));
 const LoginPage = lazy(() => import('./pages/LoginPage'));
 const SignUpPage = lazy(() => import('./pages/SignUpPage'));
 const ForgotPasswordPage = lazy(() => import('./pages/ForgotPasswordPage'));
+
+const TermPage = lazy(() => import('./pages/TermPage'));
+const PrivacyPage = lazy(() => import('./pages/PrivacyPage'));
 
 const swrConfig: object = {
 	onErrorRetry: (
@@ -102,6 +106,14 @@ function App() {
 								<Route
 									path={`${routerUrl.forgotPasswordPage}`}
 									component={ForgotPasswordPage}
+								/>
+								<Route
+									path={`${routerUrl.termPage}`}
+									component={TermPage}
+								/>
+								<Route
+									path={`${routerUrl.privacyPage}`}
+									component={PrivacyPage}
 								/>
 								<Route
 									component={() => {
