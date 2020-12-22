@@ -45,6 +45,7 @@ const Styled = {
 
 interface AttributeSettingSectionInterface {
 	onSubmit: any;
+	submitLevel?: number;
 	isSubmitLoading: boolean;
 	userInfo: {
 		nickname: string;
@@ -57,6 +58,7 @@ const AttributeSettingSection = ({
 	onSubmit,
 	userInfo,
 	isSubmitLoading,
+	submitLevel,
 }: AttributeSettingSectionInterface): JSX.Element => {
 	const [{ phoneNumber, confirmCode }, onChange] = useInput({
 		phoneNumber: '',
@@ -118,7 +120,7 @@ const AttributeSettingSection = ({
 		e.preventDefault();
 		try {
 			if (isConfirm) {
-				onSubmit(3, {
+				onSubmit(submitLevel, {
 					confirmCode: confirmCode,
 					cognitoUser: cognitoUser,
 					phoneNumber: phoneNumber,
@@ -189,6 +191,7 @@ const AttributeSettingSection = ({
 
 AttributeSettingSection.defaultProps = {
 	onSubmit: () => {},
+	submitLevel: 3,
 	isSubmitLoading: false,
 	userInfo: {
 		nickName: '',

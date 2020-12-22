@@ -282,9 +282,9 @@ const changePassword = (
 	});
 };
 
-const forgotPassword = (userid: string) => {
+const forgotPassword = (userId: string) => {
 	return new Promise((resolve, reject) => {
-		const cognitoUser = cognitoInfo.cognitoUser(userid);
+		const cognitoUser = cognitoInfo.cognitoUser(userId);
 		cognitoUser.forgotPassword({
 			onSuccess: function (result: any) {
 				window.location.href = '/';

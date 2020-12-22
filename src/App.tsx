@@ -24,6 +24,7 @@ const InfoPage = lazy(() => import('./pages/InfoPage'));
 const RankingPage = lazy(() => import('./pages/RankingPage'));
 const LoginPage = lazy(() => import('./pages/LoginPage'));
 const SignUpPage = lazy(() => import('./pages/SignUpPage'));
+const ForgotPasswordPage = lazy(() => import('./pages/ForgotPasswordPage'));
 
 const swrConfig: object = {
 	onErrorRetry: (
@@ -97,6 +98,10 @@ function App() {
 								<Route
 									path={`${routerUrl.signUpPage}`}
 									component={SignUpPage}
+								/>
+								<Route
+									path={`${routerUrl.forgotPasswordPage}`}
+									component={ForgotPasswordPage}
 								/>
 								<Route
 									component={() => {

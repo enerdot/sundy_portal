@@ -35,13 +35,13 @@ const Styled = {
 
 interface TermSectionInterface {
 	onSubmit: any;
-	processHeaderInfos: any;
-	termHeaderInfo: any;
-	termInfos: any;
-	onChange: any;
+	submitLevel?: number;
 }
 
-const TermSection = ({ onSubmit }: TermSectionInterface): JSX.Element => {
+const TermSection = ({
+	onSubmit,
+	submitLevel,
+}: TermSectionInterface): JSX.Element => {
 	const [{ all, term, personalProfile, point }, onChange] = useCheckBox({
 		all: false,
 		term: false,
@@ -79,7 +79,7 @@ const TermSection = ({ onSubmit }: TermSectionInterface): JSX.Element => {
 
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
-		onSubmit(1);
+		onSubmit(submitLevel);
 	};
 
 	return (
@@ -100,10 +100,8 @@ const TermSection = ({ onSubmit }: TermSectionInterface): JSX.Element => {
 	);
 };
 TermSection.defaultProps = {
-	processHeaderInfos: [],
-	termHeaderInfo: {},
-	termInfos: [],
-	onChange: () => {},
+	onSubmit: () => {},
+	submitLevel: 1,
 };
 
 export default TermSection;

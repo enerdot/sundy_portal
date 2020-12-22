@@ -6,6 +6,7 @@ const routerUrl: { [Key: string]: string } = {
 	loginPage: '/login',
 	signUpPage: '/signup',
 	myPage: '/mypage',
+	forgotPasswordPage: '/forgot',
 };
 
 export default routerUrl;

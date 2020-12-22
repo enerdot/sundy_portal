@@ -39,10 +39,12 @@ const Styled = {
 
 interface AttributeSettingSectionInterface {
 	onSubmit: any;
+	submitLevel?: number;
 }
 
 const AttributeSettingSection = ({
 	onSubmit,
+	submitLevel,
 }: AttributeSettingSectionInterface): JSX.Element => {
 	const [{ password, confirmPassword, nickname }, onChange] = useInput({
 		password: '',
@@ -72,7 +74,7 @@ const AttributeSettingSection = ({
 		e.preventDefault();
 		try {
 			if (isConfirm) {
-				onSubmit(2, {
+				onSubmit(submitLevel, {
 					password,
 					nickname,
 				});
@@ -154,10 +156,8 @@ const AttributeSettingSection = ({
 };
 
 AttributeSettingSection.defaultProps = {
-	processHeaderInfos: [],
-	termHeaderInfo: {},
-	termInfos: [],
-	onChange: () => {},
+	onSubmit: () => {},
+	submitLevel: 2,
 };
 
 export default AttributeSettingSection;
