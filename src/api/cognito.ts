@@ -56,11 +56,11 @@ const getCurrentUser = () => {
 const signUp = (dataUser: {
 	phoneNumber: string;
 	password: string;
-	nickname: string;
+	nickname?: string;
 }) => {
 	return new Promise((resolve, reject) => {
 		const userPool = cognitoInfo.userPool();
-		const formatUserId = `+82${dataUser.phoneNumber}`;
+		const formatUserId = dataUser.phoneNumber;
 		const attributeData = [
 			{
 				name: cognitoSetting.attribute.phoneNumber,
@@ -286,9 +286,7 @@ const forgotPassword = (userId: string) => {
 	return new Promise((resolve, reject) => {
 		const cognitoUser = cognitoInfo.cognitoUser(userId);
 		cognitoUser.forgotPassword({
-			onSuccess: function (result: any) {
-				window.location.href = '/';
-			},
+			onSuccess: function (result: any) {},
 			onFailure: function (err: any) {
 				reject(err);
 				if (err.code === 'CodeMismatchException') {
@@ -309,13 +307,18 @@ const forgotPassword = (userId: string) => {
 	});
 };
 
-const confirmPassword = (
-	cognitoUser: any,
-	verificationCode: string,
-	newPassword: string,
-	obj: any,
-) => {
-	return cognitoUser.confirmPassword(verificationCode, newPassword, obj);
+const confirmPassword = ({
+	cognitoUser,
+	confirmCode,
+	password,
+	cognitoUserObj,
+}: {
+	cognitoUser: any;
+	confirmCode: string;
+	password: string;
+	cognitoUserObj: any;
+}) => {
+	return cognitoUser.confirmPassword(confirmCode, password, cognitoUserObj);
 };
 
 const deleteUser = (cognitoUser: any) => {

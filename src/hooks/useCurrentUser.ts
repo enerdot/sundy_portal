@@ -34,9 +34,11 @@ function useCurrentUser() {
 			const idToken = userSession.signInUserSession.idToken.jwtToken;
 			setCurrentUser(idToken);
 			API.cookie.create(idToken);
+			return idToken;
 		} catch (error) {
 			setCurrentUser(null);
 			API.cookie.delete();
+			throw error;
 		}
 		// eslint-disable-next-line
 	}, [accessToken, setCurrentUser]);

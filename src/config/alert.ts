@@ -26,6 +26,12 @@ const globalSwal: { [key: string]: SweetAlertOptions } = {
 		title: '해당 전화번호는 이미 계정이 있는 전화번호입니다!',
 		confirmButtonText: '확인',
 	},
+	limitConfirmErr: {
+		icon: 'error',
+		title: '너무많은 인증시도를 하였습니다.',
+		text: '잠시후에 다시 시도해주세요.',
+		confirmButtonText: '확인',
+	},
 	isPaymentToken: {
 		icon: 'warning',
 		title: '',

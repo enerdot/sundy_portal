@@ -6,15 +6,14 @@ import axios from 'axios';
 import GlobalStyled from 'style/GlobalStyled';
 
 import useCurrentUser from 'hooks/useCurrentUser';
-import useAPI from 'hooks/useAPI';
 
 import ProcessHeader from 'components/Organisms/ProcessHeader';
 
-import AttributeSettingSection from 'components/Templates/AttributeSettingSection';
-import TermSection from 'components/Templates/TermSection';
 import ConfirmSection from 'components/Templates/ConfirmSection';
+import ForgotPasswordSettingSection from 'components/Templates/ForgotPasswordSettingSection';
+import ForgotPasswordCompleteSection from 'components/Templates/ForgetPasswordCompleteSection';
 
-import { signUpConfirm } from 'api/cognito';
+import { confirmPassword } from 'api/cognito';
 import SignUpCompleteSection from 'components/Templates/SignUpCompleteSection';
 const Styled = {
 	Wrapper: styled(GlobalStyled.HeightRow)`
@@ -56,56 +55,44 @@ const ForgotPasswordPage = ({
 	const [submitLevel, setSubmitLevel] = useState(0);
 
 	const [userInfo, setUserInfo] = useState({
-		nickname: '',
 		password: '',
 		phoneNumber: '',
 		confirmCode: '',
 		cognitoUser: '',
+		cognitoUserObj: null,
 	});
 
 	const [processHeaderInfos, setProcessHeaderInfos] = useState([
 		{
-			title: '약관동의',
-			sub: '약관 동의 후 회원가입을 진행합니다.',
+			title: '비밀번호 재설정',
+			sub: '등록된 계정의 휴대전화번호를 입력해주세요',
 			value: 1,
 			status: 'active',
 		},
 		{
-			title: '비밀번호와 닉네임 설정',
-			sub: '비밀번호와 닉네임을 설정합니다.',
+			title: '비밀번호 재설정',
+			sub: '비밀번호 재설정을 진행합니다.',
 			value: 2,
-			status: 'beActive',
-		},
-		{
-			title: '휴대전화 번호 인증',
-			sub:
-				'이제 마지막이에요. \n 휴대전화 번호를 입력해주세요.\n 휴대전화 번호는 로그인에 이용됩니다.',
-			value: 3,
 			status: 'beActive',
 		},
 	]);
 
 	const [isSubmitLoading, setIsSubmitLoading] = useState(false);
 
-	const [API] = useAPI();
-
 	const handleSubmit = async (e: number, info: any) => {
 		try {
 			if (e === processHeaderInfos.length) {
 				setIsSubmitLoading(true);
-				await signUpConfirm(info.cognitoUser, info.confirmCode);
-
-				const formatPhoneNumber = `+82${info.phoneNumber}`;
-
-				await API.user.create({
-					user_phone: formatPhoneNumber,
-					nickname: userInfo.nickname,
-					password: userInfo.password,
+				console.log('userInfo : ', userInfo);
+				await confirmPassword({
+					...userInfo,
+					password: info.password,
 				});
 
+				const formatPhoneNumber = `+82${userInfo.phoneNumber}`;
 				const idToken = await createCurrentUser({
 					userId: formatPhoneNumber,
-					password: userInfo.password,
+					password: info.password,
 				});
 
 				const formatAPI = axios.create({
@@ -115,8 +102,8 @@ const ForgotPasswordPage = ({
 					},
 				});
 
-				await formatAPI.post('/users/get-token', {
-					contents: 'create_wallet',
+				await formatAPI.post('/users/change-pwd', {
+					new_password: info.password,
 				});
 				setSubmitLevel(e);
 			} else {
@@ -139,9 +126,10 @@ const ForgotPasswordPage = ({
 				setSubmitLevel(e);
 			}
 		} catch (err) {
-			console.log('signUp err : ', err);
+			console.log('forgot password err : ', err);
 		} finally {
-			setUserInfo((prevState: object) => {
+			console.log(info);
+			setUserInfo(prevState => {
 				return {
 					...prevState,
 					...info,
@@ -155,7 +143,7 @@ const ForgotPasswordPage = ({
 		<GlobalStyled.Body>
 			<GlobalStyled.Container>
 				<Styled.Wrapper>
-					{submitLevel === 3 ? (
+					{submitLevel === processHeaderInfos.length ? (
 						''
 					) : (
 						<Styled.HeaderProcessWrapper>
@@ -165,21 +153,26 @@ const ForgotPasswordPage = ({
 
 					<Styled.ContentWrapper>
 						{submitLevel === 0 ? (
-							<TermSection onSubmit={handleSubmit} />
+							<ConfirmSection
+								type="forgotPassword"
+								userInfo={userInfo}
+								submitLevel={1}
+								onSubmit={handleSubmit}
+								isSubmitLoading={isSubmitLoading}
+							/>
 						) : (
 							''
 						)}
 						{submitLevel === 1 ? (
-							<AttributeSettingSection onSubmit={handleSubmit} />
+							<ForgotPasswordSettingSection
+								submitLevel={2}
+								onSubmit={handleSubmit}
+							/>
 						) : (
 							''
 						)}
 						{submitLevel === 2 ? (
-							<ConfirmSection
-								userInfo={userInfo}
-								onSubmit={handleSubmit}
-								isSubmitLoading={isSubmitLoading}
-							/>
+							<ForgotPasswordCompleteSection />
 						) : (
 							''
 						)}

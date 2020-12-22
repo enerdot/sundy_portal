@@ -176,6 +176,7 @@ const SignUpPage = ({
 						)}
 						{submitLevel === 2 ? (
 							<ConfirmSection
+								type="signUp"
 								userInfo={userInfo}
 								onSubmit={handleSubmit}
 								isSubmitLoading={isSubmitLoading}

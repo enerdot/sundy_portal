@@ -11,7 +11,7 @@ import useInput from 'hooks/useInput';
 
 import regularExpression from 'config/regularExpression';
 import LabelInput from 'components/Atoms/LabelInput';
-import { signUp, resendConfirmationCode } from 'api/cognito';
+import { signUp, resendConfirmationCode, forgotPassword } from 'api/cognito';
 
 import globalSwal from 'config/alert';
 import CircleSpinner from 'components/Atoms/Spinner';
@@ -47,10 +47,12 @@ interface AttributeSettingSectionInterface {
 	onSubmit: any;
 	submitLevel?: number;
 	isSubmitLoading: boolean;
+	type: 'signUp' | 'forgotPassword';
 	userInfo: {
-		nickname: string;
+		nickname?: string;
 		password: string;
 		phoneNumber: string;
+		cognitoUserObj?: any;
 	};
 }
 
@@ -59,6 +61,7 @@ const AttributeSettingSection = ({
 	userInfo,
 	isSubmitLoading,
 	submitLevel,
+	type,
 }: AttributeSettingSectionInterface): JSX.Element => {
 	const [{ phoneNumber, confirmCode }, onChange] = useInput({
 		phoneNumber: '',
@@ -77,6 +80,8 @@ const AttributeSettingSection = ({
 	const [isSubmitButtonLoading, setIsSubmitButtonLoading] = useState(false);
 
 	const [cognitoUser, setCognitoUser] = useState('');
+
+	const [cognitoUserObj, setCognitoUserObj] = useState('');
 
 	const [
 		isStateRegularExpressionInfo,
@@ -97,16 +102,38 @@ const AttributeSettingSection = ({
 		if (!isSendConfirmPhoneNumber) {
 			try {
 				setIsSendConfirmPhoneNumberLoading(true);
-				if (isSendConfirmPhoneNumber) {
-					await resendConfirmationCode(cognitoUser);
-				} else {
-					const user = await signUp({ ...userInfo, phoneNumber });
-					setCognitoUser(user as any);
-					setIsSendConfirmPhoneNumber(true);
+				if (type === 'signUp') {
+					if (isSendConfirmPhoneNumber) {
+						await resendConfirmationCode(cognitoUser);
+					} else {
+						const user = await signUp({
+							...userInfo,
+							phoneNumber: `+82${phoneNumber}`,
+							nickname: userInfo.nickname
+								? userInfo.nickname
+								: '',
+						});
+						setCognitoUser(user as any);
+						setIsSendConfirmPhoneNumber(true);
+					}
+				} else if (type === 'forgotPassword') {
+					if (isSendConfirmPhoneNumber) {
+						await resendConfirmationCode(cognitoUser);
+					} else {
+						const user: any = await forgotPassword(
+							`+82${phoneNumber}`,
+						);
+						setCognitoUser(user?.cognitoUser);
+						setCognitoUserObj(user?.obj);
+						setIsSendConfirmPhoneNumber(true);
+					}
 				}
 			} catch (err) {
+				console.log('confirm err : ', err);
 				if (err.code === 'UsernameExistsException') {
 					Swal.fire(globalSwal.overlapPhoneNumber);
+				} else if (err.code === 'LimitExceededException') {
+					Swal.fire(globalSwal.limitConfirmErr);
 				}
 				console.log('sign up err : ', err);
 			} finally {
@@ -124,6 +151,7 @@ const AttributeSettingSection = ({
 					confirmCode: confirmCode,
 					cognitoUser: cognitoUser,
 					phoneNumber: phoneNumber,
+					cognitoUserObj: cognitoUserObj,
 				});
 			}
 		} catch (err: any) {
@@ -181,7 +209,7 @@ const AttributeSettingSection = ({
 					isLoading={isSubmitButtonLoading}
 				>
 					<CircleSpinner size="1.5rem" isLoading={isSubmitLoading}>
-						회원가입
+						{type === 'signUp' ? '회원가입' : '다음'}
 					</CircleSpinner>
 				</Styled.NextButton>
 			</Styled.ButtonWrapper>

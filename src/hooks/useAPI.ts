@@ -23,6 +23,8 @@ function useAPI(): any {
 			nickname: string;
 			password: string;
 		}) => API.post('/users/insert', params),
+		forgotPassword: (params: { new_password: string }) =>
+			API.post('/users/change-pwd', params),
 	};
 
 	const token = {

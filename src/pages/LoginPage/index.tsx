@@ -129,7 +129,9 @@ const LoginPage = ({
 							</SubmitButton>
 						</GlobalStyled.FadeInUpRow>
 						<GlobalStyled.CenterRow bottom={3}>
-							<GlobalStyled.Link to="/">
+							<GlobalStyled.Link
+								to={routerUrl.forgotPasswordPage}
+							>
 								비밀번호 재설정
 							</GlobalStyled.Link>
 						</GlobalStyled.CenterRow>
