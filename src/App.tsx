@@ -34,7 +34,9 @@ const swrConfig: object = {
 		{ retryCount }: any,
 	) => {
 		// if (retryCount >= 3) return;
-		if (error.response && error.response.status === 404) return;
+		if (error.response) {
+			if (error.response.status === 404) return;
+		}
 		// if (error.response && error.response.status === 403) {
 		// 	Swal.fire(globalSwal.apiErr);
 		// 	return;

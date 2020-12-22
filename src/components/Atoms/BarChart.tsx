@@ -20,6 +20,7 @@ interface BarChartInterface {
 	keys: any;
 	leftMargin: number;
 	axisBottomTickValues: any;
+	maxValue?: number;
 }
 
 const BarChart = (props: BarChartInterface) => {
@@ -32,6 +33,7 @@ const BarChart = (props: BarChartInterface) => {
 		keys,
 		leftMargin,
 		axisBottomTickValues,
+		maxValue,
 	} = props;
 
 	return (
@@ -51,7 +53,7 @@ const BarChart = (props: BarChartInterface) => {
 				axisLeft={{
 					tickValues: 5,
 					tickPadding: tickPadding,
-					tickRotation: 0,
+					// tickRotation: 0,
 					format: v => `${v}${leftTickFormat}`,
 				}}
 				axisBottom={{
@@ -70,6 +72,7 @@ const BarChart = (props: BarChartInterface) => {
 				animate={true}
 				motionStiffness={90}
 				motionDamping={15}
+				maxValue={maxValue}
 			/>
 		</Styled.Wrapper>
 	);
@@ -112,6 +115,7 @@ BarChart.defaultProps = {
 	keys: ['value'],
 	leftMargin: 40,
 	axisBottomTickValues: 0,
+	maxValue: 'auto',
 };
 
 export default BarChart;

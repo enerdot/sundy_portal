@@ -34,7 +34,7 @@ const InfoPage = ({
 	const formatDate = moment(isDateUrl(match).value).format('YYYY-MM-DD');
 	const formatId = match.params.id;
 
-	const { data: apiPlantInfo = {}, error } = useSWR(
+	const { data: apiPlantInfo = {}, error: apiPlantInfoErr } = useSWR(
 		`plants/info?plantId=${formatId}&date=${formatDate}`,
 	);
 
@@ -87,7 +87,9 @@ const InfoPage = ({
 		  })
 		: [{ 0: 0, value: 0 }];
 
-	const { data: apiWeekPlantPowerChartInfos = [] } = useSWR(
+	const {
+		data: apiWeekPlantPowerChartInfos = [0, 1, 2, 3, 4, 5, 6],
+	} = useSWR(
 		`/plants/kwhfordays-graph?plantId=${formatId}&startDate=${moment(
 			match.params.date,
 		)
@@ -159,8 +161,8 @@ const InfoPage = ({
 		const formatDateUrl = isDateUrl(match);
 		if (formatDateUrl.isUrl) {
 			if (currentUser) {
-				if (error) {
-					if (error.response.status === 403) {
+				if (apiPlantInfoErr) {
+					if (apiPlantInfoErr.response.status === 403) {
 						Swal.fire({
 							icon: 'warning',
 							title: `${moment(formatDateUrl.value).format(
@@ -221,7 +223,7 @@ const InfoPage = ({
 									2,
 								),
 								address: apiPlantInfo.plant_loc,
-								capacity: apiPlantInfo.plant_kwatt,
+								capacity: `${apiPlantInfo.plant_kwatt} kW`,
 								equipmentInfos: [
 									{
 										name: '인버터',
@@ -268,7 +270,7 @@ const InfoPage = ({
 							infos={dayPlantPowerChartInfos}
 							keys={['발전량']}
 							leftTickFormat="kWh"
-							leftMargin={50}
+							leftMargin={60}
 							axisBottomTickValues={[
 								'00',
 								'02',
@@ -283,6 +285,7 @@ const InfoPage = ({
 								'20',
 								'22',
 							]}
+							maxValue={apiPlantInfo.plant_kwatt}
 						/>
 					</GlobalStyled.HeightRow>
 					<GlobalStyled.HeightRow padding="1rem">
@@ -294,6 +297,7 @@ const InfoPage = ({
 							keys={['발전량']}
 							leftTickFormat="kWh"
 							leftMargin={60}
+							maxValue={apiPlantInfo.plant_kwatt * 6}
 						/>
 					</GlobalStyled.HeightRow>
 				</GlobalStyled.HeightRow>

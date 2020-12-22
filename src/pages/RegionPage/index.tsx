@@ -84,7 +84,7 @@ const RegionPage = ({
 		).format('YYYY-MM-DD')}`,
 	);
 
-	const { data: apiWeekPlantTimeChart = [] } = useSWR(
+	const { data: apiWeekPlantTimeChart = [0, 0, 0, 0, 0, 0, 0] } = useSWR(
 		`region/kwhtime-graph?regionGroupId=${selectApiRegionId}&startDate=${moment(
 			inquiryDate,
 		)
@@ -97,11 +97,9 @@ const RegionPage = ({
 	const weekPlantTimeChartInfos = apiWeekPlantTimeChart.map(
 		(res: any, i: number) => {
 			return {
-				id: [
-					moment(inquiryDate)
-						.add(-7 + i, 'days')
-						.format('MM-DD'),
-				],
+				id: moment(inquiryDate)
+					.add(-7 + i, 'days')
+					.format('MM-DD'),
 				발전시간: res,
 			};
 		},
@@ -243,6 +241,8 @@ const RegionPage = ({
 						infos={weekPlantTimeChartInfos}
 						leftTickFormat="시간"
 						keys={['발전시간']}
+						leftMargin={50}
+						maxValue={6}
 					/>
 				</GlobalStyled.HeightRow>
 				<GlobalStyled.HeightRow padding="1rem">
