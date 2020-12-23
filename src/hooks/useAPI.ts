@@ -25,6 +25,8 @@ function useAPI(): any {
 		}) => API.post('/users/insert', params),
 		forgotPassword: (params: { new_password: string }) =>
 			API.post('/users/change-pwd', params),
+		signUpCheck: (params: { userPhone: string }) =>
+			API.get('/users/check', { params }),
 	};
 
 	const token = {

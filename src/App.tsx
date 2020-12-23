@@ -81,7 +81,9 @@ function App() {
 						<GlobalHeader />
 					</Styled.Header>
 					<Styled.Wrapper>
-						<Suspense fallback={<Spinner height="80vh" />}>
+						<Suspense
+							fallback={<Spinner height="80vh" size={'10rem'} />}
+						>
 							<Switch>
 								<Route exact path="/" component={MainPage} />
 								<Route

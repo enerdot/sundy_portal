@@ -15,6 +15,7 @@ import useCurrentUser from 'hooks/useCurrentUser';
 // import useAPI from 'hooks/useAPI';
 
 import { formatRegionPlantTimeDayInfo } from 'utils/api';
+import Modal from 'components/Atoms/Modal';
 
 const Styled = {
 	CalendarSmallInfo: styled.div`
@@ -145,6 +146,7 @@ const MainPage = (): JSX.Element => {
 					<CompanyLinkCards />
 				</GlobalStyled.HeightRow>
 			</GlobalStyled.Container>
+			<Modal />
 		</GlobalStyled.Body>
 	);
 };

@@ -15,6 +15,11 @@ const Keyframes = {
 };
 
 const Styled = {
+	Body: styled(GlobalStyled.CenterRow)<{ height: string }>`
+		width: 100%;
+		height: ${props => props.height};
+		margin: auto;
+	`,
 	LoadingCircle: styled.div<{ size: string }>`
 		margin: 0 auto;
 		width: ${props => props.size};
@@ -23,12 +28,6 @@ const Styled = {
 		border-radius: 50%;
 		border-top-color: ${props => props.theme.sky};
 		animation: ${Keyframes.spinnerSpin} 1s ease-in-out infinite;
-	`,
-
-	Body: styled(GlobalStyled.CenterRow)<{ height: string }>`
-		width: 100%;
-		height: ${props => props.height};
-		margin: auto;
 	`,
 };
 
@@ -52,7 +51,7 @@ const CircleSpinner = (props: CircleSpinnerInterface) => {
 };
 
 CircleSpinner.defaultProps = {
-	size: '10rem',
+	size: '100%',
 	height: '',
 	isLoading: true,
 	children: '',

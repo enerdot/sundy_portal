@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import GlobalStyled from 'style/GlobalStyled';
 import ProcessBallList from 'components/Molecules/ProcessBallList';
+import TextBrFormat from 'components/Atoms/TextBrFormat';
 
 const Styled = {
 	Wrapper: styled(GlobalStyled.Row)`
@@ -43,10 +44,6 @@ const ProcessHeader = (props: ProcessHeaderInterface) => {
 
 	const { title, sub } = activeInfo;
 
-	const subFormat = sub.split('\n').map((res: string, i: number) => {
-		return <div key={i}>{res}</div>;
-	});
-
 	return (
 		<Styled.Wrapper>
 			<GlobalStyled.HeightRow>
@@ -58,7 +55,9 @@ const ProcessHeader = (props: ProcessHeaderInterface) => {
 						<ProcessBallList infos={infos} />
 					</GlobalStyled.RightCol>
 				</GlobalStyled.Row>
-				<Styled.Sub>{subFormat}</Styled.Sub>
+				<Styled.Sub>
+					<TextBrFormat value={sub} />
+				</Styled.Sub>
 			</GlobalStyled.HeightRow>
 		</Styled.Wrapper>
 	);

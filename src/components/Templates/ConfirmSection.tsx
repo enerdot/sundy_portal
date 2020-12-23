@@ -8,6 +8,7 @@ import SubmitButton from 'components/Molecules/SubmitButton';
 import SignUpInput from 'components/Molecules/SignUpInput';
 
 import useInput from 'hooks/useInput';
+import useAPI from 'hooks/useAPI';
 
 import regularExpression from 'config/regularExpression';
 import LabelInput from 'components/Atoms/LabelInput';
@@ -63,6 +64,7 @@ const AttributeSettingSection = ({
 	submitLevel,
 	type,
 }: AttributeSettingSectionInterface): JSX.Element => {
+	const [API] = useAPI();
 	const [{ phoneNumber, confirmCode }, onChange] = useInput({
 		phoneNumber: '',
 		confirmCode: '',
@@ -101,6 +103,7 @@ const AttributeSettingSection = ({
 	const handleSendConfirmCode = async () => {
 		if (!isSendConfirmPhoneNumber) {
 			try {
+				const formatPhoneNumber = `+82${phoneNumber}`;
 				setIsSendConfirmPhoneNumberLoading(true);
 				if (type === 'signUp') {
 					if (isSendConfirmPhoneNumber) {
@@ -108,7 +111,7 @@ const AttributeSettingSection = ({
 					} else {
 						const user = await signUp({
 							...userInfo,
-							phoneNumber: `+82${phoneNumber}`,
+							phoneNumber: formatPhoneNumber,
 							nickname: userInfo.nickname
 								? userInfo.nickname
 								: '',
@@ -120,12 +123,19 @@ const AttributeSettingSection = ({
 					if (isSendConfirmPhoneNumber) {
 						await resendConfirmationCode(cognitoUser);
 					} else {
-						const user: any = await forgotPassword(
-							`+82${phoneNumber}`,
-						);
-						setCognitoUser(user?.cognitoUser);
-						setCognitoUserObj(user?.obj);
-						setIsSendConfirmPhoneNumber(true);
+						const { user_check } = await API.user.signUpCheck({
+							userPhone: formatPhoneNumber,
+						});
+						if (user_check) {
+							const user: any = await forgotPassword(
+								formatPhoneNumber,
+							);
+							setCognitoUser(user?.cognitoUser);
+							setCognitoUserObj(user?.obj);
+							setIsSendConfirmPhoneNumber(true);
+						} else {
+							Swal.fire(globalSwal.notSignUpPhoneNumber);
+						}
 					}
 				}
 			} catch (err) {

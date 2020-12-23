@@ -58,7 +58,7 @@ const Parent = {
 		cursor: pointer;
 		padding: 1rem;
 		font-weight: bold;
-		background-color: ${props => props.theme.blue};
+		background-color: ${props => props.theme.sk};
 		${typography}
 		${space}
         ${color}
@@ -185,7 +185,7 @@ const GlobalStyled = {
 	ActiveButton: styled(Parent.Button)<{ isActive: boolean | undefined }>`
 		width: 100%;
 		background-color: ${props =>
-			props.isActive ? props.theme.blue : props.theme.gray};
+			props.isActive ? props.theme.sky : props.theme.gray};
 	`,
 	TransparentButton: styled.button`
 		display: flex;
