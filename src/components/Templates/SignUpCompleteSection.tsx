@@ -23,14 +23,14 @@ const Styled = {
 		font-size: 1.667rem;
 		color: ${props => props.theme.sky};
 		font-weight: bold;
-		margin-bottom: 3rem;
 		justify-content: center;
 	`,
-	CoinCompleteImgRow: styled(GlobalStyled.FadeInUpRow)`
-		width: 15rem;
-		height: 15rem;
-		margin-bottom: 3rem;
+	CoinAnimationWrapper: styled(GlobalStyled.FadeInUpRow)`
+		video {
+			width: 100%;
+		}
 		justify-content: center;
+		margin-bottom: 3rem;
 	`,
 	HomeLink: styled(GlobalStyled.Link)`
 		margin: auto;
@@ -53,12 +53,12 @@ const SignUpCompleteSection = (props: SignUpCompleteSectionInterface) => {
 			<Styled.Content>회원가입 축하 포인트를 받았어요 !</Styled.Content>
 			<Styled.CoinText>10000 REDi</Styled.CoinText>
 			<GlobalStyled.CenterRow>
-				<Styled.CoinCompleteImgRow>
+				<Styled.CoinAnimationWrapper>
 					<video
 						autoPlay
 						src={require('videos/ani-gift-token.mp4').default}
 					/>
-				</Styled.CoinCompleteImgRow>
+				</Styled.CoinAnimationWrapper>
 			</GlobalStyled.CenterRow>
 			<GlobalStyled.FadeInUpRow>
 				<Styled.HomeLink to="/">
