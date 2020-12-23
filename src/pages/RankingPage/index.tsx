@@ -43,7 +43,7 @@ const RankingPage = ({
 	history,
 }: RankingPageInterface): JSX.Element => {
 	const region = isRegionUrl(match).value.label;
-	const inquiryDate = isRegionUrl(match).value;
+	const inquiryDate = isDateUrl(match).value;
 
 	const { data: apiPlantRankList = { list: [] } } = useSWR(
 		`/region/plants-ranking?regionGroupId=${
