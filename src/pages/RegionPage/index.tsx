@@ -252,7 +252,7 @@ const RegionPage = ({
 					<PlantRankingInfo
 						info={{
 							region: `${selectRegionValue.label}`,
-							ranking: '상위 1~10위',
+							ranking: '상위 1~5위',
 							plantName: '** 발전소',
 							address: '',
 							plantTime: '구경하기',

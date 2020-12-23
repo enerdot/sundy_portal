@@ -54,9 +54,9 @@ const SignUpCompleteSection = (props: SignUpCompleteSectionInterface) => {
 			<Styled.CoinText>10000 REDi</Styled.CoinText>
 			<GlobalStyled.CenterRow>
 				<Styled.CoinCompleteImgRow>
-					<img
-						alt="token"
-						src={require('images/ic-token-gift.svg').default}
+					<video
+						autoPlay
+						src={require('videos/ani-gift-token.mp4').default}
 					/>
 				</Styled.CoinCompleteImgRow>
 			</GlobalStyled.CenterRow>

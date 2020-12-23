@@ -53,7 +53,7 @@ const SignUpPage = ({
 
 	const { createCurrentUser } = useCurrentUser();
 
-	const [submitLevel, setSubmitLevel] = useState(0);
+	const [submitLevel, setSubmitLevel] = useState(3);
 
 	const [userInfo, setUserInfo] = useState({
 		nickname: '',
