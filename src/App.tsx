@@ -2,7 +2,7 @@ import { Suspense, lazy, useEffect } from 'react';
 import { SWRConfig } from 'swr';
 import styled, { ThemeProvider } from 'styled-components';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-// import { importMDX } from 'mdx.macro';
+import { importMDX } from 'mdx.macro';
 
 import createFetcher from 'config/fetcher';
 
@@ -19,16 +19,17 @@ import routerUrl from 'config/routerUrl';
 
 import useCurrentUser from 'hooks/useCurrentUser';
 
-const MainPage = lazy(() => import('./pages/MainPage'));
-const RegionPage = lazy(() => import('./pages/RegionPage'));
-const InfoPage = lazy(() => import('./pages/InfoPage'));
-const RankingPage = lazy(() => import('./pages/RankingPage'));
-const LoginPage = lazy(() => import('./pages/LoginPage'));
-const SignUpPage = lazy(() => import('./pages/SignUpPage'));
-const ForgotPasswordPage = lazy(() => import('./pages/ForgotPasswordPage'));
+const MainPage = lazy(() => import('pages/MainPage'));
+const RegionPage = lazy(() => import('pages/RegionPage'));
+const InfoPage = lazy(() => import('pages/InfoPage'));
+const RankingPage = lazy(() => import('pages/RankingPage'));
+const LoginPage = lazy(() => import('pages/LoginPage'));
+const SignUpPage = lazy(() => import('pages/SignUpPage'));
+const ForgotPasswordPage = lazy(() => import('pages/ForgotPasswordPage'));
 
-const TermPage = lazy(() => import('./pages/TermPage'));
-const PrivacyPage = lazy(() => import('./pages/PrivacyPage'));
+const TermPage = lazy(() => import('pages/TermPage'));
+
+const Privacy = lazy(() => importMDX('pages/Privacy.mdx'));
 
 const swrConfig: object = {
 	onErrorRetry: (
@@ -113,7 +114,7 @@ function App() {
 								/>
 								<Route
 									path={`${routerUrl.privacyPage}`}
-									component={PrivacyPage}
+									component={Privacy}
 								/>
 								<Route
 									component={() => {
