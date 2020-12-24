@@ -1,3 +1,3 @@
-# SUNDY PORTAL
+# [SUNDY PORTAL](https://portal.sundy.co.kr)
 
-[Create React App --typescript](https://github.com/facebook/create-react-app)
+use [Create React App --typescript](https://github.com/facebook/create-react-app)
