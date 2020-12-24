@@ -22,7 +22,16 @@ const Styled = {
 			margin-right: 0.5rem;
 		}
 	`,
+	CancelButton: styled(GlobalStyled.Button)`
+		border-radius: 5rem;
+		padding: 1rem 2.5rem;
+		width: auto;
+		color: ${props => props.theme.sky};
+		border: 2px solid ${props => props.theme.sky};
+		background-color: ${props => props.theme.white};
+	`,
 	SubmitButton: styled(GlobalStyled.Button)`
+		border: 2px solid ${props => props.theme.sky};
 		border-radius: 5rem;
 		width: auto;
 		padding: 1rem 2.5rem;
@@ -119,11 +128,11 @@ const TokenPaymentModal = (props: TokenPaymentModalInterface) => {
 						</Styled.SubmitButton>
 					</GlobalStyled.CenterCol>
 					<GlobalStyled.CenterCol width={50}>
-						<Styled.SubmitButton
+						<Styled.CancelButton
 							onClick={messageInfo.onClickCancelButton}
 						>
 							{messageInfo.cancelButtonText}
-						</Styled.SubmitButton>
+						</Styled.CancelButton>
 					</GlobalStyled.CenterCol>
 				</GlobalStyled.CenterRow>
 				<GlobalStyled.HeightRow>
