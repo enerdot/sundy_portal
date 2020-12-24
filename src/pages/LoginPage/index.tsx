@@ -10,8 +10,8 @@ import useCurrentUser from 'hooks/useCurrentUser';
 // import useAPI from 'hooks/useAPI';
 import useInput from 'hooks/useInput';
 
-import LabelInput from 'components/Atoms/LabelInput';
-import SubmitButton from 'components/Molecules/SubmitButton';
+import LabelInput from 'components/atoms/LabelInput';
+import SubmitButton from 'components/molecules/SubmitButton';
 
 const Styled = {
 	Wrapper: styled(GlobalStyled.Card)`

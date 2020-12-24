@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import GlobalStyled from 'style/GlobalStyled';
-import ProcessBall from 'components/Atoms/ProcessBall';
+import ProcessBall from 'components/atoms/ProcessBall';
 
 const Styled = {
 	Wrapper: styled(GlobalStyled.CenterRow)``,

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import GlobalStyled from 'style/GlobalStyled';
-import Svg from '../Atoms/Svg';
+import Svg from '../atoms/Svg';
 import formatWeather from 'config/weather';
 
 const Styled = {

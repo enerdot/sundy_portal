@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import GlobalStyled from 'style/GlobalStyled';
-import UserProfile from 'components/Molecules/UserProfile';
+import UserProfile from 'components/molecules/UserProfile';
 
 import useCurrentUser from 'hooks/useCurrentUser';
 

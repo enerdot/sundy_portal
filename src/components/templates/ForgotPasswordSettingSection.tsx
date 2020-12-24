@@ -3,8 +3,8 @@ import styled from 'styled-components';
 
 import GlobalStyled from 'style/GlobalStyled';
 
-import SubmitButton from 'components/Molecules/SubmitButton';
-import SignUpInput from 'components/Molecules/SignUpInput';
+import SubmitButton from 'components/molecules/SubmitButton';
+import SignUpInput from 'components/molecules/SignUpInput';
 
 import useInput from 'hooks/useInput';
 

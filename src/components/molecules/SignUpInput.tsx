@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import GlobalStyled from 'style/GlobalStyled';
 import theme from 'style/theme';
 
-import LabelInput from 'components/Atoms/LabelInput';
-import Spinner from 'components/Atoms/Spinner';
+import LabelInput from 'components/atoms/LabelInput';
+import Spinner from 'components/atoms/Spinner';
 
 const Styled = {
 	Body: styled(GlobalStyled.Row)`

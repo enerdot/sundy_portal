@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 import GlobalStyled from 'style/GlobalStyled';
-import TermCheck from 'components/Molecules/TermCheck';
-import TermCheckList from 'components/Organisms/TermCheckList';
+import TermCheck from 'components/molecules/TermCheck';
+import TermCheckList from 'components/organisms/TermCheckList';
 
 const Styled = {
 	Wrapper: styled(GlobalStyled.HeightRow)``,

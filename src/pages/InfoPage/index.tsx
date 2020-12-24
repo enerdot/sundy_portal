@@ -9,13 +9,13 @@ import useCurrentUser from 'hooks/useCurrentUser';
 import useAPI from 'hooks/useAPI';
 import { isDateUrl } from 'utils/url';
 import globalSwal from 'config/alert';
-import InquiryDate from 'components/Atoms/InquiryDate';
-import PlantDetailInfo from 'components/Organisms/PlantDetailInfo';
-import PlantTimeContentList from 'components/Molecules/PlantTimeContentList';
-import BarChart from 'components/Atoms/BarChart';
+import InquiryDate from 'components/atoms/InquiryDate';
+import PlantDetailInfo from 'components/organisms/PlantDetailInfo';
+import PlantTimeContentList from 'components/molecules/PlantTimeContentList';
+import BarChart from 'components/atoms/BarChart';
 
 import { exposureSecurity } from 'utils/format';
-import TokenPaymentModal from 'components/Organisms/TokenPaymentModal';
+import TokenPaymentModal from 'components/organisms/TokenPaymentModal';
 
 interface InfoPageInterface {
 	match: any;

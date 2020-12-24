@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import GlobalStyled from 'style/GlobalStyled';
-import CircleSpinner from 'components/Atoms/Spinner';
+import CircleSpinner from 'components/atoms/Spinner';
 
 const Styled = {
 	SubmitButton: styled(GlobalStyled.ActiveButton)`

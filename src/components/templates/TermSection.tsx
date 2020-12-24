@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import GlobalStyled from 'style/GlobalStyled';
 
-import SignUpTermCheck from 'components/Templates/SignUpTermCheck';
+import SignUpTermCheck from 'components/templates/SignUpTermCheck';
 import routerUrl from 'config/routerUrl';
 
 import useCheckBox from 'hooks/useCheckBox';

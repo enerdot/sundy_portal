@@ -4,18 +4,18 @@ import useSWR from 'swr';
 import moment from 'moment';
 
 import GlobalStyled from 'style/GlobalStyled';
-import SwitchButton from 'components/Atoms/SwitchButton';
+import SwitchButton from 'components/atoms/SwitchButton';
 
-import Calendar from 'components/Atoms/Calendar';
-import GradationBar from 'components/Atoms/GradationBar';
-import PlantTimeContentList from 'components/Molecules/PlantTimeContentList';
-import CompanyLinkCards from 'components/Molecules/CompanyLinkCards';
-import RegionPlantMap from 'components/Molecules/RegionPlantMap';
+import Calendar from 'components/atoms/Calendar';
+import GradationBar from 'components/atoms/GradationBar';
+import PlantTimeContentList from 'components/molecules/PlantTimeContentList';
+import CompanyLinkCards from 'components/molecules/CompanyLinkCards';
+import RegionPlantMap from 'components/molecules/RegionPlantMap';
 import useCurrentUser from 'hooks/useCurrentUser';
 // import useAPI from 'hooks/useAPI';
 
 import { formatRegionPlantTimeDayInfo } from 'utils/api';
-import Modal from 'components/Atoms/Modal';
+import Modal from 'components/atoms/Modal';
 
 const Styled = {
 	CalendarSmallInfo: styled.div`

@@ -4,8 +4,8 @@ import moment from 'moment';
 
 import GlobalStyled from 'style/GlobalStyled';
 
-import RegionPlantTimeCard from 'components/Atoms/RegionPlantTimeCard';
-import PlantMap from 'components/Atoms/PlantMap';
+import RegionPlantTimeCard from 'components/atoms/RegionPlantTimeCard';
+import PlantMap from 'components/atoms/PlantMap';
 
 import { regionLinkUrl } from 'config/region';
 

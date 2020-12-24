@@ -7,9 +7,9 @@ import createFetcher from 'config/fetcher';
 
 import theme from 'style/theme';
 
-import GlobalHeader from 'components/Organisms/GlobalHeader';
-import GlobalFooter from 'components/Organisms/GlobalFooter';
-import Spinner from 'components/Atoms/Spinner';
+import GlobalHeader from 'components/organisms/GlobalHeader';
+import GlobalFooter from 'components/organisms/GlobalFooter';
+import Spinner from 'components/atoms/Spinner';
 // import Swal from 'sweetalert2';
 
 // import globalSwal from 'config/alert';

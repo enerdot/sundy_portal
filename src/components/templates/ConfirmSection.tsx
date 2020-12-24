@@ -4,18 +4,18 @@ import Swal from 'sweetalert2';
 
 import GlobalStyled from 'style/GlobalStyled';
 
-import SubmitButton from 'components/Molecules/SubmitButton';
-import SignUpInput from 'components/Molecules/SignUpInput';
+import SubmitButton from 'components/molecules/SubmitButton';
+import SignUpInput from 'components/molecules/SignUpInput';
 
 import useInput from 'hooks/useInput';
 import useAPI from 'hooks/useAPI';
 
 import regularExpression from 'config/regularExpression';
-import LabelInput from 'components/Atoms/LabelInput';
+import LabelInput from 'components/atoms/LabelInput';
 import { signUp, resendConfirmationCode, forgotPassword } from 'api/cognito';
 
 import globalSwal from 'config/alert';
-import CircleSpinner from 'components/Atoms/Spinner';
+import CircleSpinner from 'components/atoms/Spinner';
 
 const Styled = {
 	Wrapper: styled.form`

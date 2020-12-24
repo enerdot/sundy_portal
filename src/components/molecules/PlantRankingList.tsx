@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import GlobalStyled from 'style/GlobalStyled';
-import PlantRankingInfo from 'components/Atoms/PlantRankingInfo';
+import PlantRankingInfo from 'components/atoms/PlantRankingInfo';
 
 const Styled = {
 	Wrapper: styled(GlobalStyled.FadeInUpRow)`

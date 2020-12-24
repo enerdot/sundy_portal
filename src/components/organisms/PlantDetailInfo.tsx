@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import GlobalStyled from 'style/GlobalStyled';
-import Weather from 'components/Molecules/Weather';
+import Weather from 'components/molecules/Weather';
 
 const Styled = {
 	Wrapper: styled(GlobalStyled.HeightRow)`

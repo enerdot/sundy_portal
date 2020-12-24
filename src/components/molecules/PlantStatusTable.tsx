@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import GlobalStyled from 'style/GlobalStyled';
-import TableInfo from 'components/Atoms/TableInfo';
+import TableInfo from 'components/atoms/TableInfo';
 
 const Styled = {
 	Wrapper: styled(GlobalStyled.FadeInUpRow)`

@@ -2,21 +2,29 @@ import React from 'react';
 import styled from 'styled-components';
 
 import GlobalStyled from 'style/GlobalStyled';
-import CheckBox, { CheckBoxInterface } from 'components/Atoms/CheckBox';
+import CheckBox, { CheckBoxInterface } from 'components/atoms/CheckBox';
 
 const Styled = {
 	Wrapper: styled(GlobalStyled.Row)`
 		cursor: pointer;
+	`,
+	TermLink: styled.a`
+		display: flex;
+		width: 100%;
+		height: 100%;
+		align-items: center;
+		justify-content: center;
 	`,
 };
 
 export interface TermCheckInterface extends CheckBoxInterface {
 	label: any;
 	isCursor: boolean;
+	url: string;
 }
 
 const TermCheck = (props: TermCheckInterface) => {
-	const { label, onChange, value, name, isCursor } = props;
+	const { label, onChange, value, name, isCursor, url } = props;
 
 	const handleOnChange = () => {
 		onChange({
@@ -35,12 +43,14 @@ const TermCheck = (props: TermCheckInterface) => {
 			<GlobalStyled.Col onClick={handleOnChange} width={77.5}>
 				{label}
 			</GlobalStyled.Col>
-			<GlobalStyled.CenterCol onClick={handleOnChange} width={10}>
+			<GlobalStyled.CenterCol width={10}>
 				{isCursor ? (
-					<img
-						alt="right-cursor"
-						src={require('images/ic-right-cursor.svg').default}
-					/>
+					<Styled.TermLink href={url} target="_blank">
+						<img
+							alt="right-cursor"
+							src={require('images/ic-right-cursor.svg').default}
+						/>
+					</Styled.TermLink>
 				) : (
 					''
 				)}
@@ -51,6 +61,7 @@ const TermCheck = (props: TermCheckInterface) => {
 TermCheck.defaultProps = {
 	label: '',
 	isCursor: true,
+	url: '',
 };
 
 export default TermCheck;

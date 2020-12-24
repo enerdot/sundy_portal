@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import GlobalStyled from 'style/GlobalStyled';
 
-import MotionCounter from 'components/Atoms/MotionCounter';
+import MotionCounter from 'components/atoms/MotionCounter';
 
 const Styled = {
 	Wrapper: styled(GlobalStyled.Card)`

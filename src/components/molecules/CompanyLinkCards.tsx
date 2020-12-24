@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import GlobalStyled from 'style/GlobalStyled';
-import CompanyLinkCard from 'components/Atoms/CompanyLinkCard';
+import CompanyLinkCard from 'components/atoms/CompanyLinkCard';
 
 const Styled = {
 	Wrapper: styled(GlobalStyled.Card)`

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import GlobalStyled from 'style/GlobalStyled';
 
-import TermCheck from 'components/Molecules/TermCheck';
+import TermCheck from 'components/molecules/TermCheck';
 
 const Styled = {
 	Wrapper: styled(GlobalStyled.HeightRow)`

@@ -8,14 +8,14 @@ import GlobalStyled from 'style/GlobalStyled';
 import useCurrentUser from 'hooks/useCurrentUser';
 import useAPI from 'hooks/useAPI';
 
-import ProcessHeader from 'components/Organisms/ProcessHeader';
+import ProcessHeader from 'components/organisms/ProcessHeader';
 
-import AttributeSettingSection from 'components/Templates/AttributeSettingSection';
-import TermSection from 'components/Templates/TermSection';
-import ConfirmSection from 'components/Templates/ConfirmSection';
+import AttributeSettingSection from 'components/templates/AttributeSettingSection';
+import TermSection from 'components/templates/TermSection';
+import ConfirmSection from 'components/templates/ConfirmSection';
 
 import { signUpConfirm } from 'api/cognito';
-import SignUpCompleteSection from 'components/Templates/SignUpCompleteSection';
+import SignUpCompleteSection from 'components/templates/SignUpCompleteSection';
 const Styled = {
 	Wrapper: styled(GlobalStyled.HeightRow)`
 		height: 100%;

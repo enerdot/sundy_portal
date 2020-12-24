@@ -3,8 +3,8 @@ import styled from 'styled-components';
 
 import GlobalStyled from 'style/GlobalStyled';
 
-import Modal, { ModalInterface } from 'components/Atoms/Modal';
-import TextBrFormat from 'components/Atoms/TextBrFormat';
+import Modal, { ModalInterface } from 'components/atoms/Modal';
+import TextBrFormat from 'components/atoms/TextBrFormat';
 
 const Styled = {
 	Content: styled.div`

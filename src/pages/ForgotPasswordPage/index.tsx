@@ -7,14 +7,14 @@ import GlobalStyled from 'style/GlobalStyled';
 
 import useCurrentUser from 'hooks/useCurrentUser';
 
-import ProcessHeader from 'components/Organisms/ProcessHeader';
+import ProcessHeader from 'components/organisms/ProcessHeader';
 
-import ConfirmSection from 'components/Templates/ConfirmSection';
-import ForgotPasswordSettingSection from 'components/Templates/ForgotPasswordSettingSection';
-import ForgotPasswordCompleteSection from 'components/Templates/ForgetPasswordCompleteSection';
+import ConfirmSection from 'components/templates/ConfirmSection';
+import ForgotPasswordSettingSection from 'components/templates/ForgotPasswordSettingSection';
+import ForgotPasswordCompleteSection from 'components/templates/ForgetPasswordCompleteSection';
 
 import { confirmPassword } from 'api/cognito';
-import SignUpCompleteSection from 'components/Templates/SignUpCompleteSection';
+import SignUpCompleteSection from 'components/templates/SignUpCompleteSection';
 const Styled = {
 	Wrapper: styled(GlobalStyled.HeightRow)`
 		height: 100%;

@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import GlobalStyled from 'style/GlobalStyled';
-import Svg from 'components/Atoms/Svg';
+import Svg from 'components/atoms/Svg';
 
 import theme from 'style/theme';
-import MySettingForm from 'components/Templates/MySettingForm';
+import MySettingForm from 'components/templates/MySettingForm';
 
 const Styled = {
 	Wrapper: styled(GlobalStyled.Row)`

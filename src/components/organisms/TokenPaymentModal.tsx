@@ -8,9 +8,9 @@ import globalSwal from 'config/alert';
 
 import GlobalStyled from 'style/GlobalStyled';
 import routerUrl from 'config/routerUrl';
-import TextBrFormat from 'components/Atoms/TextBrFormat';
-import ModalMessage from 'components/Molecules/ModalMessage';
-import Spinner from 'components/Atoms/Spinner';
+import TextBrFormat from 'components/atoms/TextBrFormat';
+import ModalMessage from 'components/molecules/ModalMessage';
+import Spinner from 'components/atoms/Spinner';
 
 const Styled = {
 	Wrapper: styled(GlobalStyled.HeightRow)``,

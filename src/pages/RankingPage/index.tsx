@@ -11,8 +11,8 @@ import globalSwal from 'config/alert';
 import { reverseApiRegionLabel } from 'config/region';
 import { isRegionUrl, isDateUrl } from 'utils/url';
 
-import PlantRankingList from 'components/Molecules/PlantRankingList';
-import InquiryDate from 'components/Atoms/InquiryDate';
+import PlantRankingList from 'components/molecules/PlantRankingList';
+import InquiryDate from 'components/atoms/InquiryDate';
 
 import { exposureSecurity } from 'utils/format';
 

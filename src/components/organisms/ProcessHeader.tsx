@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 import GlobalStyled from 'style/GlobalStyled';
-import ProcessBallList from 'components/Molecules/ProcessBallList';
-import TextBrFormat from 'components/Atoms/TextBrFormat';
+import ProcessBallList from 'components/molecules/ProcessBallList';
+import TextBrFormat from 'components/atoms/TextBrFormat';
 
 const Styled = {
 	Wrapper: styled(GlobalStyled.Row)`
