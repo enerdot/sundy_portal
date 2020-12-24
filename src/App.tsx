@@ -7,9 +7,9 @@ import createFetcher from 'config/fetcher';
 
 import theme from 'style/theme';
 
-import GlobalHeader from 'components/Organisms/GlobalHeader';
-import GlobalFooter from 'components/Organisms/GlobalFooter';
-import Spinner from 'components/Atoms/Spinner';
+import GlobalHeader from 'components/organisms/GlobalHeader';
+import GlobalFooter from 'components/organisms/GlobalFooter';
+import Spinner from 'components/atoms/Spinner';
 // import Swal from 'sweetalert2';
 
 // import globalSwal from 'config/alert';
@@ -18,13 +18,18 @@ import routerUrl from 'config/routerUrl';
 
 import useCurrentUser from 'hooks/useCurrentUser';
 
-const MainPage = lazy(() => import('./pages/MainPage'));
-const RegionPage = lazy(() => import('./pages/RegionPage'));
-const InfoPage = lazy(() => import('./pages/InfoPage'));
-const RankingPage = lazy(() => import('./pages/RankingPage'));
-const LoginPage = lazy(() => import('./pages/LoginPage'));
-const SignUpPage = lazy(() => import('./pages/SignUpPage'));
-const ForgotPasswordPage = lazy(() => import('./pages/ForgotPasswordPage'));
+const MainPage = lazy(() => import('pages/MainPage'));
+const RegionPage = lazy(() => import('pages/RegionPage'));
+const InfoPage = lazy(() => import('pages/InfoPage'));
+const RankingPage = lazy(() => import('pages/RankingPage'));
+const LoginPage = lazy(() => import('pages/LoginPage'));
+const SignUpPage = lazy(() => import('pages/SignUpPage'));
+const ForgotPasswordPage = lazy(() => import('pages/ForgotPasswordPage'));
+
+const TermPage = lazy(() => import('pages/TermPage'));
+const PrivacyPage = lazy(() => import('pages/PrivacyPage'));
+
+// const Privacy = lazy(() => importMDX('pages/Privacy.mdx'));
 
 const swrConfig: object = {
 	onErrorRetry: (
@@ -76,7 +81,9 @@ function App() {
 						<GlobalHeader />
 					</Styled.Header>
 					<Styled.Wrapper>
-						<Suspense fallback={<Spinner height="80vh" />}>
+						<Suspense
+							fallback={<Spinner height="80vh" size={'10rem'} />}
+						>
 							<Switch>
 								<Route exact path="/" component={MainPage} />
 								<Route
@@ -102,6 +109,14 @@ function App() {
 								<Route
 									path={`${routerUrl.forgotPasswordPage}`}
 									component={ForgotPasswordPage}
+								/>
+								<Route
+									path={`${routerUrl.termPage}`}
+									component={TermPage}
+								/>
+								<Route
+									path={`${routerUrl.privacyPage}`}
+									component={PrivacyPage}
 								/>
 								<Route
 									component={() => {

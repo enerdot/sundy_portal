@@ -7,14 +7,14 @@ import GlobalStyled from 'style/GlobalStyled';
 
 import useCurrentUser from 'hooks/useCurrentUser';
 
-import ProcessHeader from 'components/Organisms/ProcessHeader';
+import ProcessHeader from 'components/organisms/ProcessHeader';
 
-import ConfirmSection from 'components/Templates/ConfirmSection';
-import ForgotPasswordSettingSection from 'components/Templates/ForgotPasswordSettingSection';
-import ForgotPasswordCompleteSection from 'components/Templates/ForgetPasswordCompleteSection';
+import UserConfirmTemplate from 'components/templates/UserConfirmTemplate';
+import Form from 'pages/ForgotPasswordPage/Form';
+import Compleat from 'pages/ForgotPasswordPage/Compleat';
 
 import { confirmPassword } from 'api/cognito';
-import SignUpCompleteSection from 'components/Templates/SignUpCompleteSection';
+import SignUpCompleteSection from 'pages/SignUpPage/Compleat';
 const Styled = {
 	Wrapper: styled(GlobalStyled.HeightRow)`
 		height: 100%;
@@ -117,7 +117,7 @@ const ForgotPasswordPage = ({
 						} else if (i < e) {
 							return {
 								...res,
-								status: 'complete',
+								status: 'compleat',
 							};
 						}
 						return res;
@@ -153,7 +153,7 @@ const ForgotPasswordPage = ({
 
 					<Styled.ContentWrapper>
 						{submitLevel === 0 ? (
-							<ConfirmSection
+							<UserConfirmTemplate
 								type="forgotPassword"
 								userInfo={userInfo}
 								submitLevel={1}
@@ -164,18 +164,11 @@ const ForgotPasswordPage = ({
 							''
 						)}
 						{submitLevel === 1 ? (
-							<ForgotPasswordSettingSection
-								submitLevel={2}
-								onSubmit={handleSubmit}
-							/>
+							<Form submitLevel={2} onSubmit={handleSubmit} />
 						) : (
 							''
 						)}
-						{submitLevel === 2 ? (
-							<ForgotPasswordCompleteSection />
-						) : (
-							''
-						)}
+						{submitLevel === 2 ? <Compleat /> : ''}
 						{submitLevel === 3 ? <SignUpCompleteSection /> : ''}
 					</Styled.ContentWrapper>
 				</Styled.Wrapper>

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import Swal from 'sweetalert2';
 import useSWR from 'swr';
@@ -9,12 +9,13 @@ import useCurrentUser from 'hooks/useCurrentUser';
 import useAPI from 'hooks/useAPI';
 import { isDateUrl } from 'utils/url';
 import globalSwal from 'config/alert';
-import InquiryDate from 'components/Atoms/InquiryDate';
-import PlantDetailInfo from 'components/Organisms/PlantDetailInfo';
-import PlantTimeContentList from 'components/Molecules/PlantTimeContentList';
-import BarChart from 'components/Atoms/BarChart';
+import InquiryDate from 'components/atoms/InquiryDate';
+import PlantDetailInfo from 'components/organisms/PlantDetailInfo';
+import PlantTimeContentList from 'components/molecules/PlantTimeContentList';
+import BarChart from 'components/atoms/BarChart';
 
 import { exposureSecurity } from 'utils/format';
+import TokenPaymentModal from 'components/organisms/TokenPaymentModal';
 
 interface InfoPageInterface {
 	match: any;
@@ -30,6 +31,8 @@ const InfoPage = ({
 	const { currentUser } = useCurrentUser();
 
 	const [API] = useAPI();
+
+	const [isPaymentModal, setIsPaymentModal] = useState(false);
 
 	const formatDate = moment(isDateUrl(match).value).format('YYYY-MM-DD');
 	const formatId = match.params.id;
@@ -91,11 +94,10 @@ const InfoPage = ({
 		data: apiWeekPlantPowerChartInfos = [0, 0, 0, 0, 0, 0, 0],
 	} = useSWR(
 		`/plants/kwhfordays-graph?plantId=${formatId}&startDate=${moment(
-			match.params.date,
+			formatDate,
 		)
 			.add(-6, 'days')
-			.format('YYYY-MM-DD')}&endDate=${moment(match.params.date).format(
-			'YYYY-MM-DD',
+			.format('YYYY-MM-DD')}&endDate=${formatDate},
 		)}
 		&date=${formatDate}
 		
@@ -162,41 +164,43 @@ const InfoPage = ({
 		if (formatDateUrl.isUrl) {
 			if (currentUser) {
 				if (apiPlantInfoErr?.response?.status === 403) {
-					Swal.fire({
-						icon: 'warning',
-						title: `${moment(formatDateUrl.value).format(
-							'MM월DD일',
-						)}의 \n지역발전소를 구경하시겠어요?`,
-						text:
-							'발전소 위치, 용량, 설비 정보와 발전량 그래프를 \n확인해 볼 수 있습니다.',
-						showConfirmButton: true,
-						showCancelButton: true,
-						confirmButtonText: '결제하기',
-						cancelButtonText: '돌아가기',
-						preConfirm: async () => {
-							try {
-								await API.token.payment({
-									contents: 'plants_per_date',
-									date: moment(formatDateUrl.value).format(
-										'YYYY-MM-DD',
-									),
-								});
-							} catch (err) {
-								await Swal.fire(globalSwal.apiErr);
-							}
-						},
-					}).then(({ isConfirmed }: any) => {
-						if (isConfirmed) {
-							window.location.reload();
-						} else {
-							history.push('/');
-						}
-					});
+					setIsPaymentModal(true);
+					// Swal.fire({
+					// 	icon: 'warning',
+					// 	title: `${moment(formatDateUrl.value).format(
+					// 		'MM월DD일',
+					// 	)}의 \n지역발전소를 구경하시겠어요?`,
+					// 	text:
+					// 		'발전소 위치, 용량, 설비 정보와 발전량 그래프를 \n확인해 볼 수 있습니다.',
+					// 	showConfirmButton: true,
+					// 	showCancelButton: true,
+					// 	confirmButtonText: '결제하기',
+					// 	cancelButtonText: '돌아가기',
+					// 	preConfirm: async () => {
+					// 		try {
+					// 			await API.token.payment({
+					// 				contents: 'plants_per_date',
+					// 				date: moment(formatDateUrl.value).format(
+					// 					'YYYY-MM-DD',
+					// 				),
+					// 			});
+					// 		} catch (err) {
+					// 			await Swal.fire(globalSwal.apiErr);
+					// 		}
+					// 	},
+					// }).then(({ isConfirmed }: any) => {
+					// 	if (isConfirmed) {
+					// 		window.location.reload();
+					// 	} else {
+					// 		history.push('/');
+					// 	}
+					// });
 				}
 			} else {
-				Swal.fire(globalSwal.userErr).then(res =>
-					history.push('/login'),
-				);
+				setIsPaymentModal(true);
+				// Swal.fire(globalSwal.userErr).then(res =>
+				// 	history.push('/login'),
+				// );
 			}
 		} else {
 			Swal.fire(globalSwal.urlErr).then(res => history.push('/'));
@@ -207,6 +211,12 @@ const InfoPage = ({
 	return (
 		<GlobalStyled.Body>
 			<GlobalStyled.Container>
+				<TokenPaymentModal
+					isModal={isPaymentModal}
+					currentUser={currentUser}
+					token={100}
+					date={moment(formatDate)}
+				/>
 				<GlobalStyled.HeightRow padding="1rem">
 					<GlobalStyled.FadeInUpRow>
 						<GlobalStyled.RightCol width={100}>

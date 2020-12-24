@@ -11,8 +11,8 @@ import globalSwal from 'config/alert';
 import { reverseApiRegionLabel } from 'config/region';
 import { isRegionUrl, isDateUrl } from 'utils/url';
 
-import PlantRankingList from 'components/Molecules/PlantRankingList';
-import InquiryDate from 'components/Atoms/InquiryDate';
+import PlantRankingList from 'components/molecules/PlantRankingList';
+import InquiryDate from 'components/atoms/InquiryDate';
 
 import { exposureSecurity } from 'utils/format';
 
@@ -43,7 +43,7 @@ const RankingPage = ({
 	history,
 }: RankingPageInterface): JSX.Element => {
 	const region = isRegionUrl(match).value.label;
-	const inquiryDate = isRegionUrl(match).value;
+	const inquiryDate = isDateUrl(match).value;
 
 	const { data: apiPlantRankList = { list: [] } } = useSWR(
 		`/region/plants-ranking?regionGroupId=${

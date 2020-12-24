@@ -8,15 +8,15 @@ import globalSwal from 'config/alert';
 
 // import useCurrentUser from 'hooks/useCurrentUser';
 // import useAPI from 'hooks/useAPI';
-import Select from 'components/Atoms/Select';
+import Select from 'components/atoms/Select';
 
 import { reverseApiRegionLabel, regionOptions } from 'config/region';
-import PlantMap from 'components/Atoms/PlantMap';
-import PlantStatusTable from 'components/Molecules/PlantStatusTable';
-import PlantTimeContentList from 'components/Molecules/PlantTimeContentList';
-import PlantRankingInfo from 'components/Atoms/PlantRankingInfo';
-import BarChart from 'components/Atoms/BarChart';
-import InquiryDate from 'components/Atoms/InquiryDate';
+import PlantMap from 'components/atoms/PlantMap';
+import PlantStatusTable from 'components/molecules/PlantStatusTable';
+import PlantTimeContentList from 'components/molecules/PlantTimeContentList';
+import PlantRankingInfo from 'components/atoms/PlantRankingInfo';
+import BarChart from 'components/atoms/BarChart';
+import InquiryDate from 'components/atoms/InquiryDate';
 import { isRegionUrl, isDateUrl } from 'utils/url';
 
 import { exposureSecurity } from 'utils/format';
@@ -252,7 +252,7 @@ const RegionPage = ({
 					<PlantRankingInfo
 						info={{
 							region: `${selectRegionValue.label}`,
-							ranking: '상위 1~10위',
+							ranking: '상위 1~5위',
 							plantName: '** 발전소',
 							address: '',
 							plantTime: '구경하기',
