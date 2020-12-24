@@ -5,7 +5,7 @@ import GlobalStyled from 'style/GlobalStyled';
 import Svg from 'components/atoms/Svg';
 
 import theme from 'style/theme';
-import MySettingForm from 'components/templates/MySettingForm';
+import MyPageTemplate from 'components/templates/MyPageTemplate';
 
 const Styled = {
 	Wrapper: styled(GlobalStyled.Row)`
@@ -20,10 +20,10 @@ interface UserProfileInterface {
 const UserProfile = (props: UserProfileInterface) => {
 	const { currentUser } = props;
 
-	const [isShowMySettingForm, setIsShowMySettingForm] = useState(false);
+	const [isShowMyPageTemplate, setIsShowMyPageTemplate] = useState(false);
 
 	const handleClickProfile = () => {
-		setIsShowMySettingForm(!isShowMySettingForm);
+		setIsShowMyPageTemplate(!isShowMyPageTemplate);
 	};
 
 	return (
@@ -38,14 +38,10 @@ const UserProfile = (props: UserProfileInterface) => {
 					/>
 				</GlobalStyled.TransparentButton>
 			</Styled.Wrapper>
-			{isShowMySettingForm ? (
-				<MySettingForm
-					isShow={isShowMySettingForm}
-					onClickCancel={handleClickProfile}
-				/>
-			) : (
-				''
-			)}
+			<MyPageTemplate
+				isShow={isShowMyPageTemplate}
+				onClickCancel={handleClickProfile}
+			/>
 		</>
 	);
 };

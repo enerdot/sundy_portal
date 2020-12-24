@@ -10,12 +10,13 @@ import useAPI from 'hooks/useAPI';
 
 import ProcessHeader from 'components/organisms/ProcessHeader';
 
-import AttributeSettingSection from 'components/templates/AttributeSettingSection';
-import TermSection from 'components/templates/TermSection';
-import ConfirmSection from 'components/templates/ConfirmSection';
+import Form from 'pages/SignUpPage/Form';
+import Term from 'pages/SignUpPage/Term';
+import UserConfirmTemplate from 'components/templates/UserConfirmTemplate';
 
 import { signUpConfirm } from 'api/cognito';
-import SignUpCompleteSection from 'components/templates/SignUpCompleteSection';
+import Compleat from 'pages/SignUpPage/Compleat';
+
 const Styled = {
 	Wrapper: styled(GlobalStyled.HeightRow)`
 		height: 100%;
@@ -130,7 +131,7 @@ const SignUpPage = ({
 						} else if (i < e) {
 							return {
 								...res,
-								status: 'complete',
+								status: 'compleat',
 							};
 						}
 						return res;
@@ -165,17 +166,17 @@ const SignUpPage = ({
 
 					<Styled.ContentWrapper>
 						{submitLevel === 0 ? (
-							<TermSection onSubmit={handleSubmit} />
+							<Term onSubmit={handleSubmit} />
 						) : (
 							''
 						)}
 						{submitLevel === 1 ? (
-							<AttributeSettingSection onSubmit={handleSubmit} />
+							<Form onSubmit={handleSubmit} />
 						) : (
 							''
 						)}
 						{submitLevel === 2 ? (
-							<ConfirmSection
+							<UserConfirmTemplate
 								type="signUp"
 								userInfo={userInfo}
 								onSubmit={handleSubmit}
@@ -184,7 +185,7 @@ const SignUpPage = ({
 						) : (
 							''
 						)}
-						{submitLevel === 3 ? <SignUpCompleteSection /> : ''}
+						{submitLevel === 3 ? <Compleat /> : ''}
 					</Styled.ContentWrapper>
 				</Styled.Wrapper>
 			</GlobalStyled.Container>

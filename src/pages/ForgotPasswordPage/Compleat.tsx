@@ -43,11 +43,13 @@ const Styled = {
 	`,
 };
 
-interface SignUpCompleteSectionInterface {
+interface ForgotPasswordCompleatSectionInterface {
 	info: any;
 }
 
-const SignUpCompleteSection = (props: SignUpCompleteSectionInterface) => {
+const ForgotPasswordCompleatSection = (
+	props: ForgotPasswordCompleatSectionInterface,
+) => {
 	return (
 		<Styled.Wrapper>
 			<Styled.Title>비밀번호가 재설정 되었습니다.</Styled.Title>
@@ -57,7 +59,7 @@ const SignUpCompleteSection = (props: SignUpCompleteSectionInterface) => {
 					<img
 						alt="token"
 						src={
-							require('images/ic-forgot-password-complete.svg')
+							require('images/ic-forgot-password-compleat.svg')
 								.default
 						}
 					/>
@@ -71,8 +73,8 @@ const SignUpCompleteSection = (props: SignUpCompleteSectionInterface) => {
 		</Styled.Wrapper>
 	);
 };
-SignUpCompleteSection.defaultProps = {
+ForgotPasswordCompleatSection.defaultProps = {
 	info: '',
 };
 
-export default SignUpCompleteSection;
+export default ForgotPasswordCompleatSection;

@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 import useSWR from 'swr';
 
@@ -46,12 +45,12 @@ const Styled = {
 	`,
 };
 
-interface MySettingFormInterface {
+interface MyPageTemplateInterface {
 	isShow: boolean;
 	onClickCancel(): void;
 }
 
-const MySettingForm = (props: MySettingFormInterface) => {
+const MyPageTemplate = (props: MyPageTemplateInterface) => {
 	const { isShow, onClickCancel } = props;
 
 	const { currentUser, deleteSession } = useCurrentUser();
@@ -114,4 +113,4 @@ const MySettingForm = (props: MySettingFormInterface) => {
 	);
 };
 
-export default MySettingForm;
+export default MyPageTemplate;

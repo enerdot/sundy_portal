@@ -44,7 +44,7 @@ const Styled = {
 	`,
 };
 
-interface AttributeSettingSectionInterface {
+interface UserConfirmInterface {
 	onSubmit: any;
 	submitLevel?: number;
 	isSubmitLoading: boolean;
@@ -57,13 +57,13 @@ interface AttributeSettingSectionInterface {
 	};
 }
 
-const AttributeSettingSection = ({
+const UserConfirm = ({
 	onSubmit,
 	userInfo,
 	isSubmitLoading,
 	submitLevel,
 	type,
-}: AttributeSettingSectionInterface): JSX.Element => {
+}: UserConfirmInterface): JSX.Element => {
 	const [API] = useAPI();
 	const [{ phoneNumber, confirmCode }, onChange] = useInput({
 		phoneNumber: '',
@@ -227,7 +227,7 @@ const AttributeSettingSection = ({
 	);
 };
 
-AttributeSettingSection.defaultProps = {
+UserConfirm.defaultProps = {
 	onSubmit: () => {},
 	submitLevel: 3,
 	isSubmitLoading: false,
@@ -238,4 +238,4 @@ AttributeSettingSection.defaultProps = {
 	},
 };
 
-export default AttributeSettingSection;
+export default UserConfirm;

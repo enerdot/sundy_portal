@@ -20,7 +20,7 @@ const Styled = {
 interface ProcessBallInterface {
 	info: {
 		value: string;
-		status: 'beActive' | 'active' | 'complete';
+		status: 'beActive' | 'active' | 'compleat';
 	};
 }
 
@@ -37,7 +37,7 @@ const processBallTheme: any = {
 		color: theme.white,
 		themeColor: theme.sky,
 	},
-	complete: {
+	compleat: {
 		width: '1rem',
 		height: '1rem',
 		color: theme.white,

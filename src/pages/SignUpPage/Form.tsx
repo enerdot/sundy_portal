@@ -37,15 +37,15 @@ const Styled = {
 	`,
 };
 
-interface AttributeSettingSectionInterface {
+interface SignUpFormInterface {
 	onSubmit: any;
 	submitLevel?: number;
 }
 
-const AttributeSettingSection = ({
+const SignUpForm = ({
 	onSubmit,
 	submitLevel,
-}: AttributeSettingSectionInterface): JSX.Element => {
+}: SignUpFormInterface): JSX.Element => {
 	const [{ password, confirmPassword, nickname }, onChange] = useInput({
 		password: '',
 		confirmPassword: '',
@@ -155,9 +155,9 @@ const AttributeSettingSection = ({
 	);
 };
 
-AttributeSettingSection.defaultProps = {
+SignUpForm.defaultProps = {
 	onSubmit: () => {},
 	submitLevel: 2,
 };
 
-export default AttributeSettingSection;
+export default SignUpForm;

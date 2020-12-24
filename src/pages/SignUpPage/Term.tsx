@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import GlobalStyled from 'style/GlobalStyled';
 
-import SignUpTermCheck from 'components/templates/SignUpTermCheck';
+import SignUpTermSectionCheck from 'components/templates/SignUpTermTemplate';
 import routerUrl from 'config/routerUrl';
 
 import useCheckBox from 'hooks/useCheckBox';
@@ -34,15 +34,15 @@ const Styled = {
 	`,
 };
 
-interface TermSectionInterface {
+interface SignUpTermSectionInterface {
 	onSubmit: any;
 	submitLevel?: number;
 }
 
-const TermSection = ({
+const SignUpTermSection = ({
 	onSubmit,
 	submitLevel,
-}: TermSectionInterface): JSX.Element => {
+}: SignUpTermSectionInterface): JSX.Element => {
 	const [{ all, term, personalProfile }, onChange] = useCheckBox({
 		all: false,
 		term: false,
@@ -81,7 +81,7 @@ const TermSection = ({
 	return (
 		<Styled.Wrapper onSubmit={handleSubmit}>
 			<Styled.TermWrapper>
-				<SignUpTermCheck
+				<SignUpTermSectionCheck
 					headerInfo={termHeaderInfo}
 					infos={termInfos}
 					onChange={onChange}
@@ -95,9 +95,9 @@ const TermSection = ({
 		</Styled.Wrapper>
 	);
 };
-TermSection.defaultProps = {
+SignUpTermSection.defaultProps = {
 	onSubmit: () => {},
 	submitLevel: 1,
 };
 
-export default TermSection;
+export default SignUpTermSection;
