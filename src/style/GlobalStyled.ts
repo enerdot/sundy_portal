@@ -58,7 +58,7 @@ const Parent = {
 		cursor: pointer;
 		padding: 1rem;
 		font-weight: bold;
-		background-color: ${props => props.theme.sk};
+		background-color: ${props => props.theme.sky};
 		${typography}
 		${space}
         ${color}
