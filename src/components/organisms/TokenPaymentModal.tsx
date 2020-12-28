@@ -4,7 +4,7 @@ import moment from 'moment';
 import Swal from 'sweetalert2';
 import useAPI from 'hooks/useAPI';
 
-import globalSwal from 'config/alert';
+import globalSwal from 'config/swal';
 
 import GlobalStyled from 'style/GlobalStyled';
 import routerUrl from 'config/routerUrl';

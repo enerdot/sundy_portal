@@ -64,7 +64,7 @@ interface SignUpInputInterface extends InputHTMLAttributes<HTMLInputElement> {
 
 	// type: string;
 	// name: string;
-	// onChange: any;
+	// onChange: Function;
 	// placeholder: string;
 
 	// value: any;

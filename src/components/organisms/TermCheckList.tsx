@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { InputHTMLAttributes } from 'react';
 import styled from 'styled-components';
 
 import GlobalStyled from 'style/GlobalStyled';
@@ -13,9 +13,8 @@ const Styled = {
 	`,
 };
 
-interface TermCheckListInterface {
+interface TermCheckListInterface extends InputHTMLAttributes<HTMLInputElement> {
 	infos: any;
-	onChange: any;
 }
 
 const TermCheckList = (props: TermCheckListInterface) => {

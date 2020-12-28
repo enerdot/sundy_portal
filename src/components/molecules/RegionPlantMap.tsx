@@ -22,7 +22,7 @@ import {
 } from 'images/PlantMap';
 
 const Animation = {
-	line: ({ strokeDashoffset }: { strokeDashoffset: any }) => keyframes`
+	line: ({ strokeDashoffset }: { strokeDashoffset: number }) => keyframes`
     0%{
       stroke-dashoffset : 1000;
     }
@@ -30,7 +30,7 @@ const Animation = {
       stroke-dashoffset: ${strokeDashoffset};
     }
   `,
-	marker: ({ info }: { info: any }) => keyframes`
+	marker: ({ info }: { info: { top: number } }) => keyframes`
     0%{
       top: ${info.top - 30}px;
     }
@@ -143,7 +143,7 @@ const Styled = {
 
 const pcLeftPosition = 0;
 const pcRightPosition = -52;
-const topPosition = 38;
+const topPosition = 55;
 const defaultWidth = 100;
 
 const positionLocation = {
@@ -178,14 +178,14 @@ const positionLocation = {
 	gangwon: {
 		width: defaultWidth,
 		height: '78px',
-		top: 10 + topPosition,
+		top: 0 + topPosition,
 		left: pcRightPosition,
 		strokeDashoffset: 871,
 	},
 	chungbuk: {
 		width: defaultWidth,
 		height: '80px',
-		top: 84 + topPosition,
+		top: 80 + topPosition,
 		left: -20 + pcRightPosition,
 		strokeDashoffset: 847,
 	},
@@ -199,14 +199,14 @@ const positionLocation = {
 	gyeongnam: {
 		width: defaultWidth,
 		height: '91px',
-		top: 185 + topPosition,
+		top: 180 + topPosition,
 		left: 10 + pcRightPosition,
 		strokeDashoffset: 848,
 	},
 	jeju: {
 		width: defaultWidth,
 		height: '91px',
-		top: 292,
+		top: 308,
 		right: 0,
 		left: 22,
 		strokeDashoffset: 978,

@@ -36,7 +36,7 @@ const Styled = {
 };
 
 interface PlantStatusTableInterface {
-	infos: any;
+	infos: Array<object>;
 }
 
 const PlantStatusTable = (props: PlantStatusTableInterface) => {

@@ -24,25 +24,22 @@ export interface TermCheckInterface extends CheckBoxInterface {
 }
 
 const TermCheck = (props: TermCheckInterface) => {
-	const { label, onChange, value, name, isCursor, url } = props;
+	const { label, isCursor, url } = props;
 
-	const handleOnChange = () => {
-		onChange({
-			target: {
-				name: name,
-				checked: !value,
-			},
-		});
-	};
+	// const handleOnChange = () => {
+	// 	onChange({
+	// 		target: {
+	// 			name: name,
+	// 			checked: !value,
+	// 		},
+	// 	});
+	// };
 
 	return (
 		<Styled.Wrapper>
-			<GlobalStyled.CenterCol width={12.5}>
-				<CheckBox {...props} />
+			<GlobalStyled.CenterCol width={90}>
+				<CheckBox {...props} label={label} />
 			</GlobalStyled.CenterCol>
-			<GlobalStyled.Col onClick={handleOnChange} width={77.5}>
-				{label}
-			</GlobalStyled.Col>
 			<GlobalStyled.CenterCol width={10}>
 				{isCursor ? (
 					<Styled.TermLink href={url} target="_blank">

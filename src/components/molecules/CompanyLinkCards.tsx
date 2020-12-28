@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 
 import GlobalStyled from 'style/GlobalStyled';
@@ -18,9 +17,7 @@ const Styled = {
 	`,
 };
 
-interface CompanyLinkCardCardsInterface {}
-
-const CompanyLinkCardCards = (props: CompanyLinkCardCardsInterface) => {
+const CompanyLinkCardCards = () => {
 	const infos = [
 		{
 			url: 'https://enerdot.co.kr/',
@@ -44,9 +41,6 @@ const CompanyLinkCardCards = (props: CompanyLinkCardCardsInterface) => {
 	});
 
 	return <Styled.Wrapper>{list}</Styled.Wrapper>;
-};
-CompanyLinkCardCards.defaultProps = {
-	children: '',
 };
 
 export default CompanyLinkCardCards;

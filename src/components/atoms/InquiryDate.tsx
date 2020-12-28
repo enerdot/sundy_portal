@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import moment from 'moment';
+import moment, { Moment } from 'moment';
 
 const Styled = {
 	Wrapper: styled.span`
@@ -10,7 +10,7 @@ const Styled = {
 };
 
 interface InquiryDateInterface {
-	date: any;
+	date: string | Date | Moment;
 }
 
 const InquiryDate = (props: InquiryDateInterface) => {

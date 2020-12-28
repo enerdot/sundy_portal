@@ -12,7 +12,7 @@ const Styled = {
 };
 
 interface ProcessBallListInterface {
-	infos: any;
+	infos: Array<object>;
 }
 
 const ProcessBallList = (props: ProcessBallListInterface) => {
@@ -29,7 +29,7 @@ const ProcessBallList = (props: ProcessBallListInterface) => {
 	return <Styled.Wrapper>{list}</Styled.Wrapper>;
 };
 ProcessBallList.defaultProps = {
-	infos: '',
+	infos: [],
 };
 
 export default ProcessBallList;

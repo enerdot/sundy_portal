@@ -16,7 +16,7 @@ const TableInfo = (props: TableInfoInterface) => {
 
 	const infoKey = Object.keys(info);
 
-	const row = infoKey.map(res => {
+	const row = infoKey.map((res: string) => {
 		return (
 			<GlobalStyled.Col width={100 / infoKey.length} key={res}>
 				{info[res]}
@@ -27,7 +27,7 @@ const TableInfo = (props: TableInfoInterface) => {
 	return <Styled.Wrapper>{row}</Styled.Wrapper>;
 };
 TableInfo.defaultProps = {
-	info: '',
+	info: {},
 };
 
 export default TableInfo;

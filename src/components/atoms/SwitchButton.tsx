@@ -31,7 +31,7 @@ const Styled = {
 
 interface SwitchButtonInterface {
 	value: boolean;
-	onChange: any;
+	onChange: Function;
 	onText: string;
 	offText: string;
 }

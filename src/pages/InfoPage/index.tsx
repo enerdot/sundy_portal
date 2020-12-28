@@ -8,9 +8,9 @@ import GlobalStyled from 'style/GlobalStyled';
 import useCurrentUser from 'hooks/useCurrentUser';
 import useAPI from 'hooks/useAPI';
 import { isDateUrl } from 'utils/url';
-import globalSwal from 'config/alert';
+import globalSwal from 'config/swal';
 import InquiryDate from 'components/atoms/InquiryDate';
-import PlantDetailInfo from 'components/organisms/PlantDetailInfo';
+import PlantDetailForm from 'components/organisms/PlantDetailForm';
 import PlantTimeContentList from 'components/molecules/PlantTimeContentList';
 import BarChart from 'components/atoms/BarChart';
 
@@ -222,7 +222,7 @@ const InfoPage = ({
 						</GlobalStyled.RightCol>
 					</GlobalStyled.FadeInUpRow>
 					<GlobalStyled.FadeInUpRow>
-						<PlantDetailInfo
+						<PlantDetailForm
 							info={{
 								plantName: exposureSecurity(
 									apiPlantInfo.plant_name,
