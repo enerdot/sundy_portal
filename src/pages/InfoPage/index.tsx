@@ -97,10 +97,8 @@ const InfoPage = ({
 			formatDate,
 		)
 			.add(-6, 'days')
-			.format('YYYY-MM-DD')}&endDate=${formatDate},
-		)}
+			.format('YYYY-MM-DD')}&endDate=${formatDate}
 		&date=${formatDate}
-		
 		`,
 	);
 
