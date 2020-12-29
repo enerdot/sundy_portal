@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import moment from 'moment';
+import moment, { Moment } from 'moment';
 import Swal from 'sweetalert2';
 import useAPI from 'hooks/useAPI';
 
@@ -39,8 +39,8 @@ const Styled = {
 };
 
 interface TokenPaymentModalInterface {
-	currentUser: any;
-	date: any;
+	currentUser: string;
+	date: Date | Moment | string;
 	token: number;
 	isModal: boolean;
 	onClickConfirm: () => void;

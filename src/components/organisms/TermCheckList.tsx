@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import GlobalStyled from 'style/GlobalStyled';
 
-import TermCheck from 'components/molecules/TermCheck';
+import TermCheck, { TermCheckInterface } from 'components/molecules/TermCheck';
 
 const Styled = {
 	Wrapper: styled(GlobalStyled.HeightRow)`
@@ -14,13 +14,13 @@ const Styled = {
 };
 
 interface TermCheckListInterface extends InputHTMLAttributes<HTMLInputElement> {
-	infos: any;
+	infos: Array<TermCheckInterface>;
 }
 
 const TermCheckList = (props: TermCheckListInterface) => {
 	const { infos, onChange } = props;
 
-	const list = infos.map((res: any, i: number) => {
+	const list = infos.map((res: TermCheckInterface, i: number) => {
 		return (
 			<GlobalStyled.Row bottom={1} key={i}>
 				<TermCheck {...res} onChange={onChange} />
@@ -31,7 +31,6 @@ const TermCheckList = (props: TermCheckListInterface) => {
 };
 TermCheckList.defaultProps = {
 	infos: [],
-	onChange: () => {},
 };
 
 export default TermCheckList;

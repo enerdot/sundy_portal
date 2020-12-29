@@ -19,7 +19,9 @@ const Styled = {
 };
 
 interface WeatherInterface {
-	info: any;
+	info:
+		| { PTY: string | number; SKY: string | number; T1H: string | number }
+		| undefined;
 	stroke: string;
 }
 

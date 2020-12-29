@@ -218,8 +218,13 @@ const jejuCardView = {
 	left: 46,
 	right: 46,
 };
+
+export interface MiniMapInfoInterface {
+	[Key: string]: number;
+}
+
 interface MiniMapInterface {
-	info: any;
+	info: MiniMapInfoInterface;
 	selectDate: any;
 }
 

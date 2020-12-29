@@ -17,11 +17,15 @@ const Styled = {
 	`,
 };
 
-interface ProcessBallInterface {
-	info: {
-		value: string;
-		status: 'beActive' | 'active' | 'compleat';
-	};
+export type statusType = 'beActive' | 'active' | 'compleat';
+
+export interface ProcessBallInfoInterface {
+	value: number | string;
+	status: statusType;
+}
+
+export interface ProcessBallInterface {
+	info: ProcessBallInfoInterface;
 }
 
 const processBallTheme: any = {
