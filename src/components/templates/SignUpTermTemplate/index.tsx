@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { InputHTMLAttributes } from 'react';
 import styled from 'styled-components';
 
 import GlobalStyled from 'style/GlobalStyled';
@@ -14,7 +14,8 @@ const Styled = {
 	`,
 };
 
-interface SignUpTermCheckInterface {
+interface SignUpTermCheckInterface
+	extends InputHTMLAttributes<HTMLInputElement> {
 	infos: any;
 	headerInfo: {
 		label: string;
@@ -22,7 +23,6 @@ interface SignUpTermCheckInterface {
 		name: string;
 		required?: boolean;
 	};
-	onChange: any;
 }
 
 const SignUpTermCheck = (props: SignUpTermCheckInterface) => {

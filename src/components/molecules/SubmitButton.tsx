@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 import styled from 'styled-components';
 
 import GlobalStyled from 'style/GlobalStyled';
-import CircleSpinner from 'components/atoms/Spinner';
+import Spinner from 'components/atoms/Spinner';
 
 const Styled = {
 	SubmitButton: styled(GlobalStyled.ActiveButton)`
@@ -15,25 +15,22 @@ const Styled = {
 interface SubmitButtonInterface {
 	children: any;
 	type: 'button' | 'submit' | 'reset' | undefined;
-	onClick: any;
-	isActive: any;
-	isLoading: boolean;
+	onClick?: MouseEventHandler<HTMLButtonElement>;
+	isActive?: boolean;
+	isLoading?: boolean;
 }
 
 const SubmitButton = (props: SubmitButtonInterface) => {
-	const { children, isLoading } = props;
+	const { children, isActive, isLoading, type } = props;
 	return (
-		<Styled.SubmitButton {...props}>
-			{isLoading ? <CircleSpinner size="1.5rem" /> : children}
+		<Styled.SubmitButton type={type} isActive={isActive}>
+			{isLoading ? <Spinner size="1.5rem" /> : children}
 		</Styled.SubmitButton>
 	);
 };
 SubmitButton.defaultProps = {
 	children: '',
 	type: 'button',
-	onClick: () => {},
-	isActive: false,
-	isLoading: false,
 };
 
 export default SubmitButton;

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import moment from 'moment';
+import moment, { Moment } from 'moment';
 import Swal from 'sweetalert2';
 import useAPI from 'hooks/useAPI';
 
-import globalSwal from 'config/alert';
+import globalSwal from 'config/swal';
 
 import GlobalStyled from 'style/GlobalStyled';
 import routerUrl from 'config/routerUrl';
@@ -39,8 +39,8 @@ const Styled = {
 };
 
 interface TokenPaymentModalInterface {
-	currentUser: any;
-	date: any;
+	currentUser: string;
+	date: Date | Moment | string;
 	token: number;
 	isModal: boolean;
 	onClickConfirm: () => void;
@@ -61,7 +61,7 @@ const TokenPaymentModal = (props: TokenPaymentModalInterface) => {
 					contents: 'plants_per_date',
 					date: moment(date).format('YYYY-MM-DD'),
 				});
-				window.location.reload();
+				// window.location.reload();
 			} catch (err) {
 				console.log('err : ', err);
 				await Swal.fire(globalSwal.apiErr);
@@ -98,7 +98,7 @@ const TokenPaymentModal = (props: TokenPaymentModalInterface) => {
 						'발전소 위치, 용량, 설비 정보와 발전량 그래프를\n확인해 볼 수 있습니다.',
 					buttonText: '로그인 하기',
 					onClickButton: () => {
-						window.location.href = routerUrl.login;
+						window.location.href = routerUrl.loginPage;
 					},
 					cancelButtonText: '돌아 가기',
 					onClickCancelButton: () => {

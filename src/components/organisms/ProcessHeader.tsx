@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import GlobalStyled from 'style/GlobalStyled';
 import ProcessBallList from 'components/molecules/ProcessBallList';
 import TextBrFormat from 'components/atoms/TextBrFormat';
+import { ProcessBallInfoInterface } from 'components/atoms/ProcessBall';
 
 const Styled = {
 	Wrapper: styled(GlobalStyled.Row)`
@@ -19,8 +20,13 @@ const Styled = {
 	`,
 };
 
+export interface ProcessHeaderInfoInterface extends ProcessBallInfoInterface {
+	title: string;
+	sub: string;
+}
+
 interface ProcessHeaderInterface {
-	infos: any;
+	infos: Array<ProcessHeaderInfoInterface>;
 }
 
 const ProcessHeader = (props: ProcessHeaderInterface) => {
@@ -29,8 +35,6 @@ const ProcessHeader = (props: ProcessHeaderInterface) => {
 	const [activeInfo, setActiveInfo] = useState({
 		title: '-',
 		sub: '-',
-		value: 1,
-		status: 'active',
 	});
 
 	useEffect(() => {

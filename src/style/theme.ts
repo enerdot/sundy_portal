@@ -1,21 +1,4 @@
-interface DefaultTheme {
-	white: any;
-	red: any;
-	ivory: any;
-	black: any;
-	lightBlack: any;
-	sky: any;
-	blue: any;
-	shadow: any;
-	gray: any;
-	lightGray: any;
-	darkSky: any;
-	darkGray: any;
-
-	levelBlue: any;
-}
-
-const theme: DefaultTheme = {
+const theme: { [key: string]: any } = {
 	white: '#ffffff',
 
 	red: '#EB4141',

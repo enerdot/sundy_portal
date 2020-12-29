@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 
 import GlobalStyled from 'style/GlobalStyled';
 
-import globalSwal from 'config/alert';
+import globalSwal from 'config/swal';
 
 import { reverseApiRegionLabel } from 'config/region';
 import { isRegionUrl, isDateUrl } from 'utils/url';

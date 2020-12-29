@@ -2,7 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 
 import GlobalStyled from 'style/GlobalStyled';
-import PlantTimeContent from 'components/atoms/PlantTimeContent';
+import PlantTimeContent, {
+	ValueLabelContentInterface,
+} from 'components/atoms/PlantTimeContent';
 
 const Styled = {
 	Wrapper: styled(GlobalStyled.FadeInUpRow)`
@@ -12,14 +14,14 @@ const Styled = {
 	`,
 };
 
-interface SwitchButtonInterface {
-	infos: Array<object>;
+export interface SwitchButtonInterface {
+	infos: Array<ValueLabelContentInterface>;
 }
 
 const PlantTimeContentList = (props: SwitchButtonInterface) => {
 	const { infos } = props;
 
-	const list = infos.map((res, i) => {
+	const list = infos.map((res: ValueLabelContentInterface, i: number) => {
 		return (
 			<GlobalStyled.Col key={i} width={100 / infos.length}>
 				<PlantTimeContent {...res} />

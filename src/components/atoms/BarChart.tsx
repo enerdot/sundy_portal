@@ -12,14 +12,14 @@ const Styled = {
 };
 
 interface BarChartInterface {
-	infos: any;
-	colors: any;
+	infos: Array<object>;
+	colors: Array<string>;
 	labelTextColor: string;
 	leftTickFormat: string;
 	tickPadding: number;
-	keys: any;
+	keys: Array<string>;
 	leftMargin: number;
-	axisBottomTickValues: any;
+	axisBottomTickValues: number | Array<number> | Array<string>;
 	maxValue?: number | 'auto';
 }
 

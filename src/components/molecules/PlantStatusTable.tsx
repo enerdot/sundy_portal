@@ -36,19 +36,14 @@ const Styled = {
 };
 
 interface PlantStatusTableInterface {
-	infos: any;
+	infos: Array<object>;
 }
 
 const PlantStatusTable = (props: PlantStatusTableInterface) => {
 	const { infos } = props;
 
 	const formatInfos = infos.map((res: any) => {
-		const { plant_name, plant_address, kwh_time } = res;
-		return {
-			plant_name: plant_name,
-			plant_address: plant_address,
-			kwh_time: kwh_time,
-		};
+		return res;
 	});
 
 	const list = formatInfos.map((res: any, i: number) => {

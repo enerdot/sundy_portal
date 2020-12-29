@@ -18,31 +18,27 @@ const Styled = {
 };
 
 export interface TermCheckInterface extends CheckBoxInterface {
-	label: any;
 	isCursor: boolean;
 	url: string;
 }
 
 const TermCheck = (props: TermCheckInterface) => {
-	const { label, onChange, value, name, isCursor, url } = props;
+	const { isCursor, url } = props;
 
-	const handleOnChange = () => {
-		onChange({
-			target: {
-				name: name,
-				checked: !value,
-			},
-		});
-	};
+	// const handleOnChange = () => {
+	// 	onChange({
+	// 		target: {
+	// 			name: name,
+	// 			checked: !value,
+	// 		},
+	// 	});
+	// };
 
 	return (
 		<Styled.Wrapper>
-			<GlobalStyled.CenterCol width={12.5}>
+			<GlobalStyled.CenterCol width={90}>
 				<CheckBox {...props} />
 			</GlobalStyled.CenterCol>
-			<GlobalStyled.Col onClick={handleOnChange} width={77.5}>
-				{label}
-			</GlobalStyled.Col>
 			<GlobalStyled.CenterCol width={10}>
 				{isCursor ? (
 					<Styled.TermLink href={url} target="_blank">
@@ -59,7 +55,6 @@ const TermCheck = (props: TermCheckInterface) => {
 	);
 };
 TermCheck.defaultProps = {
-	label: '',
 	isCursor: true,
 	url: '',
 };

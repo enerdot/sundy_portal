@@ -37,15 +37,17 @@ const Styled = {
 	`,
 };
 
-interface PlantRankingInfoInterface {
-	info: {
-		region: string;
-		ranking: any;
-		plantName: string;
-		address: string;
-		plantTime: string;
-		to: string;
-	};
+export interface PlantRankingInfoValueInterface {
+	region: string;
+	ranking: string | number;
+	plantName: string;
+	address: string;
+	plantTime: string | number;
+	to: string;
+}
+
+export interface PlantRankingInfoInterface {
+	info: PlantRankingInfoValueInterface;
 }
 
 const PlantRankingInfo = (props: PlantRankingInfoInterface) => {

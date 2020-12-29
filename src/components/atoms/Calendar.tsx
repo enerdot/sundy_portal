@@ -47,15 +47,23 @@ const Styled = {
 };
 
 interface CalendarInterface {
-	info: any;
+	info: {
+		startDate: Date;
+		endDate: Date;
+	};
 	type: string;
-	onChange: any;
+	onChange: Function;
 	required: boolean;
 	name: string;
-	minDate: any;
+	minDate: Date;
 	children: any;
 	css: any;
-	dateFormats: any;
+	dateFormats: {
+		time: string;
+		day: string;
+		month: string;
+		year: string;
+	};
 }
 
 const formatMaxDate = new Date(new Date().setDate(new Date().getDate() - 1));

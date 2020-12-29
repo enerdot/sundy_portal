@@ -2,7 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 
 import GlobalStyled from 'style/GlobalStyled';
-import ProcessBall from 'components/atoms/ProcessBall';
+import ProcessBall, {
+	ProcessBallInfoInterface,
+} from 'components/atoms/ProcessBall';
 
 const Styled = {
 	Wrapper: styled(GlobalStyled.CenterRow)``,
@@ -12,13 +14,13 @@ const Styled = {
 };
 
 interface ProcessBallListInterface {
-	infos: any;
+	infos: Array<ProcessBallInfoInterface>;
 }
 
 const ProcessBallList = (props: ProcessBallListInterface) => {
 	const { infos } = props;
 
-	const list = infos.map((res: any, i: number) => {
+	const list = infos.map((res: ProcessBallInfoInterface, i: number) => {
 		return (
 			<Styled.ProcessBallWrapper key={i}>
 				<ProcessBall info={res} />
@@ -29,7 +31,7 @@ const ProcessBallList = (props: ProcessBallListInterface) => {
 	return <Styled.Wrapper>{list}</Styled.Wrapper>;
 };
 ProcessBallList.defaultProps = {
-	infos: '',
+	infos: [],
 };
 
 export default ProcessBallList;

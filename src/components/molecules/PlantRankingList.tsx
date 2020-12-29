@@ -12,7 +12,7 @@ const Styled = {
 };
 
 interface PlantRankingListInterface {
-	infos: any;
+	infos: Array<{ [key in string]: any }>;
 }
 
 const PlantRankingList = (props: PlantRankingListInterface) => {
@@ -33,15 +33,7 @@ const PlantRankingList = (props: PlantRankingListInterface) => {
 	);
 };
 PlantRankingList.defaultProps = {
-	infos: [
-		{
-			region: '-',
-			ranking: '-',
-			plantName: '-',
-			address: '-',
-			plantTime: '-',
-		},
-	],
+	infos: [],
 };
 
 export default PlantRankingList;

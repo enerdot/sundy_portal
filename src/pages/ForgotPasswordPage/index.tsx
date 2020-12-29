@@ -15,6 +15,9 @@ import Compleat from 'pages/ForgotPasswordPage/Compleat';
 
 import { confirmPassword } from 'api/cognito';
 import SignUpCompleteSection from 'pages/SignUpPage/Compleat';
+
+import { statusType } from 'components/atoms/ProcessBall';
+
 const Styled = {
 	Wrapper: styled(GlobalStyled.HeightRow)`
 		height: 100%;
@@ -67,13 +70,13 @@ const ForgotPasswordPage = ({
 			title: '비밀번호 재설정',
 			sub: '등록된 계정의 휴대전화번호를 입력해주세요',
 			value: 1,
-			status: 'active',
+			status: 'active' as statusType,
 		},
 		{
 			title: '비밀번호 재설정',
 			sub: '비밀번호 재설정을 진행합니다.',
 			value: 2,
-			status: 'beActive',
+			status: 'beActive' as statusType,
 		},
 	]);
 

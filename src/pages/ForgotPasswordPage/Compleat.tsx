@@ -43,13 +43,7 @@ const Styled = {
 	`,
 };
 
-interface ForgotPasswordCompleatSectionInterface {
-	info: any;
-}
-
-const ForgotPasswordCompleatSection = (
-	props: ForgotPasswordCompleatSectionInterface,
-) => {
+const ForgotPasswordCompleatSection = () => {
 	return (
 		<Styled.Wrapper>
 			<Styled.Title>비밀번호가 재설정 되었습니다.</Styled.Title>
@@ -72,9 +66,6 @@ const ForgotPasswordCompleatSection = (
 			</GlobalStyled.FadeInUpRow>
 		</Styled.Wrapper>
 	);
-};
-ForgotPasswordCompleatSection.defaultProps = {
-	info: '',
 };
 
 export default ForgotPasswordCompleatSection;

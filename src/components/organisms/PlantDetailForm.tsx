@@ -23,17 +23,19 @@ const Styled = {
 	`,
 };
 
-interface PlantDetailInfoInterface {
-	info: {
-		plantName: string;
-		address: string;
-		capacity: string;
-		equipmentInfos: any;
-	};
+export interface PlantDetailInfoInterface {
+	plantName: string;
+	address: string;
+	capacity: string;
+	equipmentInfos: any;
+}
+
+export interface PlantDetailFormInterface {
+	info: PlantDetailInfoInterface;
 	weatherInfo: any;
 }
 
-const PlantDetailInfo = (props: PlantDetailInfoInterface) => {
+const PlantDetailInfo = (props: PlantDetailFormInterface) => {
 	const { info, weatherInfo } = props;
 
 	const { plantName, address, capacity, equipmentInfos } = info;

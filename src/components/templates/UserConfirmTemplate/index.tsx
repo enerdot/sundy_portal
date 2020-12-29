@@ -14,7 +14,7 @@ import regularExpression from 'config/regularExpression';
 import LabelInput from 'components/atoms/LabelInput';
 import { signUp, resendConfirmationCode, forgotPassword } from 'api/cognito';
 
-import globalSwal from 'config/alert';
+import globalSwal from 'config/swal';
 import CircleSpinner from 'components/atoms/Spinner';
 
 const Styled = {

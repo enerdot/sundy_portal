@@ -8,9 +8,9 @@ import GlobalStyled from 'style/GlobalStyled';
 import useCurrentUser from 'hooks/useCurrentUser';
 import useAPI from 'hooks/useAPI';
 import { isDateUrl } from 'utils/url';
-import globalSwal from 'config/alert';
+import globalSwal from 'config/swal';
 import InquiryDate from 'components/atoms/InquiryDate';
-import PlantDetailInfo from 'components/organisms/PlantDetailInfo';
+import PlantDetailForm from 'components/organisms/PlantDetailForm';
 import PlantTimeContentList from 'components/molecules/PlantTimeContentList';
 import BarChart from 'components/atoms/BarChart';
 
@@ -163,42 +163,9 @@ const InfoPage = ({
 			if (currentUser) {
 				if (apiPlantInfoErr?.response?.status === 403) {
 					setIsPaymentModal(true);
-					// Swal.fire({
-					// 	icon: 'warning',
-					// 	title: `${moment(formatDateUrl.value).format(
-					// 		'MM월DD일',
-					// 	)}의 \n지역발전소를 구경하시겠어요?`,
-					// 	text:
-					// 		'발전소 위치, 용량, 설비 정보와 발전량 그래프를 \n확인해 볼 수 있습니다.',
-					// 	showConfirmButton: true,
-					// 	showCancelButton: true,
-					// 	confirmButtonText: '결제하기',
-					// 	cancelButtonText: '돌아가기',
-					// 	preConfirm: async () => {
-					// 		try {
-					// 			await API.token.payment({
-					// 				contents: 'plants_per_date',
-					// 				date: moment(formatDateUrl.value).format(
-					// 					'YYYY-MM-DD',
-					// 				),
-					// 			});
-					// 		} catch (err) {
-					// 			await Swal.fire(globalSwal.apiErr);
-					// 		}
-					// 	},
-					// }).then(({ isConfirmed }: any) => {
-					// 	if (isConfirmed) {
-					// 		window.location.reload();
-					// 	} else {
-					// 		history.push('/');
-					// 	}
-					// });
 				}
 			} else {
 				setIsPaymentModal(true);
-				// Swal.fire(globalSwal.userErr).then(res =>
-				// 	history.push('/login'),
-				// );
 			}
 		} else {
 			Swal.fire(globalSwal.urlErr).then(res => history.push('/'));
@@ -222,7 +189,7 @@ const InfoPage = ({
 						</GlobalStyled.RightCol>
 					</GlobalStyled.FadeInUpRow>
 					<GlobalStyled.FadeInUpRow>
-						<PlantDetailInfo
+						<PlantDetailForm
 							info={{
 								plantName: exposureSecurity(
 									apiPlantInfo.plant_name,

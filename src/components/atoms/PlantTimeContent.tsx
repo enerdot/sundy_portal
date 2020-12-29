@@ -18,9 +18,9 @@ const Styled = {
 	`,
 };
 
-interface ValueLabelContentInterface {
-	value: string;
-	label: string;
+export interface ValueLabelContentInterface {
+	value: string | number;
+	label: string | number;
 }
 
 const PlantTimeContent = (props: ValueLabelContentInterface) => {

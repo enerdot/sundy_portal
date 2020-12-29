@@ -22,7 +22,7 @@ const Styled = {
 
 interface ValueLabelContentInterface {
 	width: string;
-	img: any;
+	img: string;
 	label: string;
 	url: string;
 }

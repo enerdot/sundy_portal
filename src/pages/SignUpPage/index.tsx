@@ -17,6 +17,8 @@ import UserConfirmTemplate from 'components/templates/UserConfirmTemplate';
 import { signUpConfirm } from 'api/cognito';
 import Compleat from 'pages/SignUpPage/Compleat';
 
+import { statusType } from 'components/atoms/ProcessBall';
+
 const Styled = {
 	Wrapper: styled(GlobalStyled.HeightRow)`
 		height: 100%;
@@ -69,20 +71,20 @@ const SignUpPage = ({
 			title: '약관동의',
 			sub: '약관 동의 후 회원가입을 진행합니다.',
 			value: 1,
-			status: 'active',
+			status: 'active' as statusType,
 		},
 		{
 			title: '비밀번호와 닉네임 설정',
 			sub: '비밀번호와 닉네임을 설정합니다.',
 			value: 2,
-			status: 'beActive',
+			status: 'beActive' as statusType,
 		},
 		{
 			title: '휴대전화 번호 인증',
 			sub:
 				'이제 마지막이에요. \n 휴대전화 번호를 입력해주세요.\n 휴대전화 번호는 로그인에 이용됩니다.',
 			value: 3,
-			status: 'beActive',
+			status: 'beActive' as statusType,
 		},
 	]);
 
