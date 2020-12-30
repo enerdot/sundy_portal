@@ -12,6 +12,7 @@ import useInput from 'hooks/useInput';
 
 import LabelInput from 'components/atoms/LabelInput';
 import SubmitButton from 'components/molecules/SubmitButton';
+import Heading from 'components/atoms/Heading';
 
 const Styled = {
 	Wrapper: styled(GlobalStyled.Card)`
@@ -90,6 +91,11 @@ const LoginPage = ({
 
 	return (
 		<GlobalStyled.Body>
+			<Heading
+				title="SUNDY PORTAL - 로그인 페이지"
+				ogTitle="SUNDY PORTAL - 로그인 페이지"
+				ogDescription="SUNDY PORTAL 로그인페이지 입니다."
+			/>
 			<GlobalStyled.Container>
 				<Styled.Wrapper>
 					<Styled.Logo>로그인</Styled.Logo>
