@@ -43,7 +43,12 @@ const PlantStatusTable = (props: PlantStatusTableInterface) => {
 	const { infos } = props;
 
 	const formatInfos = infos.map((res: any) => {
-		return res;
+		const { plant_name, plant_address, kwh_time } = res;
+		return {
+			plant_name,
+			plant_address,
+			kwh_time,
+		};
 	});
 
 	const list = formatInfos.map((res: any, i: number) => {

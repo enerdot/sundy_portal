@@ -76,13 +76,12 @@ const RegionPage = ({
 		).format('YYYY-MM-DD')}`,
 	);
 
-	console.log('apiPlantTimeInfo : ', apiPlantTimeInfo);
-
 	const { data: apiPlantList = { list: [], total: {} } } = useSWR(
 		`/region/plants-list?regionGroupId=${selectApiRegionId}&date=${moment(
 			inquiryDate,
 		).format('YYYY-MM-DD')}`,
 	);
+	console.log('apiPlantList : ', apiPlantList);
 
 	const { data: apiWeekPlantTimeChart = [0, 0, 0, 0, 0, 0, 0] } = useSWR(
 		`region/kwhtime-graph?regionGroupId=${selectApiRegionId}&startDate=${moment(
