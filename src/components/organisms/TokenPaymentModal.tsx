@@ -61,7 +61,7 @@ const TokenPaymentModal = (props: TokenPaymentModalInterface) => {
 					contents: 'plants_per_date',
 					date: moment(date).format('YYYY-MM-DD'),
 				});
-				// window.location.reload();
+				window.location.reload();
 			} catch (err) {
 				console.log('err : ', err);
 				await Swal.fire(globalSwal.apiErr);
