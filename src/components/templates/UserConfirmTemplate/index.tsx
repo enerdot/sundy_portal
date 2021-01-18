@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Swal from 'sweetalert2';
 
 import GlobalStyled from 'style/GlobalStyled';
@@ -35,12 +35,6 @@ const Styled = {
 	ButtonWrapper: styled(GlobalStyled.Row)`
 		height: 30%;
 		align-items: flex-end;
-	`,
-	NextButton: styled(SubmitButton)`
-		width: 100%;
-		height: 5rem;
-		font-size: 1.5rem;
-		border-radius: 0;
 	`,
 };
 
@@ -101,54 +95,52 @@ const UserConfirm = ({
 	};
 
 	const handleSendConfirmCode = async () => {
-		if (!isSendConfirmPhoneNumber) {
-			try {
-				const formatPhoneNumber = `+82${phoneNumber}`;
-				setIsSendConfirmPhoneNumberLoading(true);
-				if (type === 'signUp') {
-					if (isSendConfirmPhoneNumber) {
-						await resendConfirmationCode(cognitoUser);
-					} else {
-						const user = await signUp({
-							...userInfo,
-							phoneNumber: formatPhoneNumber,
-							nickname: userInfo.nickname
-								? userInfo.nickname
-								: '',
-						});
-						setCognitoUser(user as any);
+		try {
+			const formatPhoneNumber = `+82${phoneNumber}`;
+			setIsSendConfirmPhoneNumberLoading(true);
+			if (type === 'signUp') {
+				if (isSendConfirmPhoneNumber) {
+					console.log('resend');
+					await resendConfirmationCode(cognitoUser);
+				} else {
+					const user = await signUp({
+						...userInfo,
+						phoneNumber: formatPhoneNumber,
+						nickname: userInfo.nickname ? userInfo.nickname : '',
+					});
+					setCognitoUser(user as any);
+					setIsSendConfirmPhoneNumber(true);
+				}
+			} else if (type === 'forgotPassword') {
+				if (isSendConfirmPhoneNumber) {
+					await resendConfirmationCode(cognitoUser);
+				} else {
+					const signUpCheck = await API.user.signUpCheck({
+						userPhone: formatPhoneNumber,
+					});
+					const { user_check } = signUpCheck.data;
+					if (user_check) {
+						const user: any = await forgotPassword(
+							formatPhoneNumber,
+						);
+						setCognitoUser(user?.cognitoUser);
+						setCognitoUserObj(user?.obj);
 						setIsSendConfirmPhoneNumber(true);
-					}
-				} else if (type === 'forgotPassword') {
-					if (isSendConfirmPhoneNumber) {
-						await resendConfirmationCode(cognitoUser);
 					} else {
-						const { user_check } = await API.user.signUpCheck({
-							userPhone: formatPhoneNumber,
-						});
-						if (user_check) {
-							const user: any = await forgotPassword(
-								formatPhoneNumber,
-							);
-							setCognitoUser(user?.cognitoUser);
-							setCognitoUserObj(user?.obj);
-							setIsSendConfirmPhoneNumber(true);
-						} else {
-							Swal.fire(globalSwal.notSignUpPhoneNumber);
-						}
+						Swal.fire(globalSwal.notSignUpPhoneNumber);
 					}
 				}
-			} catch (err) {
-				console.log('confirm err : ', err);
-				if (err.code === 'UsernameExistsException') {
-					Swal.fire(globalSwal.overlapPhoneNumber);
-				} else if (err.code === 'LimitExceededException') {
-					Swal.fire(globalSwal.limitConfirmErr);
-				}
-				console.log('sign up err : ', err);
-			} finally {
-				setIsSendConfirmPhoneNumberLoading(false);
 			}
+		} catch (err) {
+			console.log('confirm err : ', err);
+			if (err.code === 'UsernameExistsException') {
+				Swal.fire(globalSwal.overlapPhoneNumber);
+			} else if (err.code === 'LimitExceededException') {
+				Swal.fire(globalSwal.limitConfirmErr);
+			}
+			console.log('sign up err : ', err);
+		} finally {
+			setIsSendConfirmPhoneNumberLoading(false);
 		}
 	};
 
@@ -213,7 +205,13 @@ const UserConfirm = ({
 				</GlobalStyled.FadeInUpRow>
 			</Styled.TermWrapper>
 			<Styled.ButtonWrapper>
-				<Styled.NextButton
+				<SubmitButton
+					css={css`
+						width: 100%;
+						height: 5rem;
+						font-size: 1.5rem;
+						border-radius: 0;
+					`}
 					isActive={isConfirm}
 					type="submit"
 					isLoading={isSubmitButtonLoading}
@@ -221,7 +219,7 @@ const UserConfirm = ({
 					<CircleSpinner size="1.5rem" isLoading={isSubmitLoading}>
 						{type === 'signUp' ? '회원가입' : '다음'}
 					</CircleSpinner>
-				</Styled.NextButton>
+				</SubmitButton>
 			</Styled.ButtonWrapper>
 		</Styled.Wrapper>
 	);

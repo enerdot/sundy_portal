@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import GlobalStyled from 'style/GlobalStyled';
 
@@ -28,12 +28,6 @@ const Styled = {
 	ButtonWrapper: styled(GlobalStyled.Row)`
 		height: 30%;
 		align-items: flex-end;
-	`,
-	NextButton: styled(SubmitButton)`
-		width: 100%;
-		height: 5rem;
-		font-size: 1.5rem;
-		border-radius: 0;
 	`,
 };
 
@@ -143,13 +137,16 @@ const SignUpForm = ({
 				</GlobalStyled.FadeInUpRow>
 			</Styled.TermWrapper>
 			<Styled.ButtonWrapper>
-				<Styled.NextButton
+				<SubmitButton
+					css={css`
+						border-radius: 0;
+					`}
 					isActive={isConfirm}
 					type="submit"
 					isLoading={isSubmitButtonLoading}
 				>
 					다음
-				</Styled.NextButton>
+				</SubmitButton>
 			</Styled.ButtonWrapper>
 		</Styled.Wrapper>
 	);

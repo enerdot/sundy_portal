@@ -14,7 +14,6 @@ import Form from 'pages/ForgotPasswordPage/Form';
 import Compleat from 'pages/ForgotPasswordPage/Compleat';
 
 import { confirmPassword } from 'api/cognito';
-import SignUpCompleteSection from 'pages/SignUpPage/Compleat';
 
 import { statusType } from 'components/atoms/ProcessBall';
 
@@ -42,17 +41,6 @@ const ForgotPasswordPage = ({
 	location,
 	history,
 }: ForgotPasswordPageInterface): JSX.Element => {
-	// const { data: customName, error } = useSWR('/get/all');
-
-	// const handleSubmit = async (): Promise<void> => {
-	// 	try {
-	// 		await API.APIs.getAll();
-	// 		console.log(API);
-	// 	} catch (err: any) {
-	// 		console.log('err : ', err);
-	// 	}
-	// };
-
 	const { createCurrentUser } = useCurrentUser();
 
 	const [submitLevel, setSubmitLevel] = useState(0);
@@ -172,7 +160,7 @@ const ForgotPasswordPage = ({
 							''
 						)}
 						{submitLevel === 2 ? <Compleat /> : ''}
-						{submitLevel === 3 ? <SignUpCompleteSection /> : ''}
+						{/* {submitLevel === 3 ? <SignUpCompleteSection /> : ''} */}
 					</Styled.ContentWrapper>
 				</Styled.Wrapper>
 			</GlobalStyled.Container>
