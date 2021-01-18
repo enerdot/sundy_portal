@@ -328,7 +328,11 @@ const SignUpInput = (props: SignUpInputInterface) => {
 			<Styled.RegularRow isHide={isHide}>
 				<GlobalStyled.Col width={100}>
 					<Styled.RegularMessage color={regularMessageColor}>
-						{regularMessage}
+						{isConfirmButton
+							? readOnly
+								? regularMessage
+								: ''
+							: regularMessage}
 					</Styled.RegularMessage>
 				</GlobalStyled.Col>
 			</Styled.RegularRow>

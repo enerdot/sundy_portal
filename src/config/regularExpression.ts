@@ -54,7 +54,7 @@ const regularExpression = {
 		maxLength: 11,
 		minLength: 11,
 		failMessage: '숫자만 입력하여 11자리를 채워주세요',
-		successMessage: '',
+		successMessage: '인증번호를 전송했습니다',
 	},
 	confirmPhoneNumber: {
 		expressionName: 'confirmPhoneNumber',
