@@ -5,10 +5,10 @@ import CompanyLinkCard from 'components/atoms/CompanyLinkCard';
 
 const Styled = {
 	Wrapper: styled(GlobalStyled.Card)`
-		box-shadow: 0px 6px 10px 0px ${props => props.theme.shadow};
+		box-shadow: 0px 6px 10px 0px ${props => props.theme.colors.shadow};
 		${GlobalStyled.Col} {
 			margin-right: 1rem;
-			border-right: 1px solid ${props => props.theme.lightGray};
+			border-right: 1px solid ${props => props.theme.colors.gray100};
 			:last-child {
 				border-right: 0;
 				margin-right: 0;

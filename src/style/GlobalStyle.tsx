@@ -10,11 +10,11 @@ const Body = createGlobalStyle`
         font-size : 12px;
     }
     body{
-        color : ${theme.black};
+        color : ${theme.colors.black};
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         font-family: 'Noto Sans KR', sans-serif ;
-        background-color : ${theme.white};
+        background-color : ${theme.colors.white};
         margin : 0;
     }
     img{

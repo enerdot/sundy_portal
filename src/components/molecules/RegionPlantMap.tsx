@@ -62,8 +62,8 @@ const Styled = {
 	AreaCardView: styled(GlobalStyled.Card)`
 		padding: 0.5rem 1rem;
 		border-radius: 0.5rem;
-		border: 0.1rem solid ${props => props.theme.darkGray};
-		background-color: ${props => props.theme.white};
+		border: 0.1rem solid ${props => props.theme.colors.gray600};
+		background-color: ${props => props.theme.colors.white};
 		flex-direction: column;
 		font-weight: bold;
 		margin-bottom: 1rem;

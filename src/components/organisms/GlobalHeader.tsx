@@ -8,7 +8,7 @@ import useCurrentUser from 'hooks/useCurrentUser';
 const Styled = {
 	Wrapper: styled(GlobalStyled.CenterRow)`
 		font-size: 2rem;
-		color: ${props => props.theme.sky};
+		color: ${props => props.theme.colors.sky};
 		font-weight: bold;
 		cursor: default;
 		text-align: center;

@@ -8,9 +8,9 @@ import MotionCounter from 'components/atoms/MotionCounter';
 const Styled = {
 	Wrapper: styled(GlobalStyled.Card)`
 		font-size: 1rem;
-		color: ${props => props.theme.black};
+		color: ${props => props.theme.colors.black};
 		flex-direction: column;
-		box-shadow: 0px 3px 10px 0px ${props => props.theme.shadow};
+		box-shadow: 0px 3px 10px 0px ${props => props.theme.colors.shadow};
 	`,
 	PlantTime: styled.span`
 		font-size: 1.25rem;

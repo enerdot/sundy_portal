@@ -10,7 +10,7 @@ const Styled = {
 	Wrapper: styled(GlobalStyled.FadeInUpRow)`
 		font-size: 1rem;
 		padding: 1rem;
-		background-color: ${props => props.theme.ivory};
+		background-color: ${props => props.theme.colors.ivory};
 	`,
 };
 

@@ -180,31 +180,25 @@ const RegionPage = ({
 		});
 	};
 
-	// const handleSubmit = async (): Promise<void> => {
-	// 	try {
-	// 		await API.APIs.getAll();
-	// 		console.log(API);
-	// 	} catch (err: any) {
-	// 		console.log('err : ', err);
-	// 	}
-	// };
-
 	return (
 		<GlobalStyled.Body>
 			<GlobalStyled.Container>
 				<GlobalStyled.HeightRow padding="1rem">
-					<GlobalStyled.FadeInUpRow bottom={5}>
-						<GlobalStyled.Col width={50}>
-							<Select
-								width={'16rem'}
-								options={regionOptions}
-								value={selectRegionValue}
-								onChange={handleOnChangeSelect}
-							/>
+					<GlobalStyled.FadeInUpRow bottom={1}>
+						<GlobalStyled.Col fontSize="1.333rem" width={50}>
+							<b>지역 발전량 비교분석</b>
 						</GlobalStyled.Col>
 						<GlobalStyled.RightCol width={50}>
 							<InquiryDate date={inquiryDate} />
 						</GlobalStyled.RightCol>
+					</GlobalStyled.FadeInUpRow>
+					<GlobalStyled.FadeInUpRow bottom={2}>
+						<Select
+							width={'14rem'}
+							options={regionOptions}
+							value={selectRegionValue}
+							onChange={handleOnChangeSelect}
+						/>
 					</GlobalStyled.FadeInUpRow>
 					<GlobalStyled.FadeInUpRow bottom={2}>
 						<GlobalStyled.CenterCol width={50}>
@@ -229,11 +223,11 @@ const RegionPage = ({
 						</GlobalStyled.Col>
 					</GlobalStyled.FadeInUpRow>
 				</GlobalStyled.HeightRow>
-				<GlobalStyled.HeightRow bottom={2}>
+				<GlobalStyled.HeightRow bottom={1}>
 					<PlantTimeContentList infos={plantTimeInfos} />
 				</GlobalStyled.HeightRow>
 				<GlobalStyled.HeightRow padding="1rem">
-					<GlobalStyled.Title bottom={1}>
+					<GlobalStyled.Title>
 						최근 일주일 {selectRegionValue.label} 발전시간 그래프
 					</GlobalStyled.Title>
 					<BarChart
@@ -246,7 +240,7 @@ const RegionPage = ({
 				</GlobalStyled.HeightRow>
 				<GlobalStyled.HeightRow padding="1rem">
 					<GlobalStyled.Title bottom={1}>
-						이웃 발전소 구경
+						지역 발전소 둘러보기
 					</GlobalStyled.Title>
 					<PlantRankingInfo
 						info={{

@@ -20,7 +20,7 @@ import Modal from 'components/atoms/Modal';
 const Styled = {
 	CalendarSmallInfo: styled.div`
 		font-size: 1rem;
-		color: ${props => props.theme.gray};
+		color: ${props => props.theme.colors.gray500};
 	`,
 	CalendarContent: styled(GlobalStyled.FadeInUpRow)``,
 };

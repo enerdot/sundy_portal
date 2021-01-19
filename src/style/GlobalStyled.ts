@@ -7,6 +7,7 @@ import {
 	color,
 	ColorProps,
 	layout,
+	LayoutProps,
 } from 'styled-system';
 import { Link } from 'react-router-dom';
 
@@ -24,20 +25,23 @@ const animation: any = {
 };
 
 const Parent = {
-	Card: styled.div<ColorProps & TypographyProps & SpaceProps>`
+	Card: styled.div<ColorProps & TypographyProps & SpaceProps & LayoutProps>`
 		display: flex;
 		width: 100%;
 		padding: 1rem;
-		background-color: ${props => props.theme.white};
+		background-color: ${props => props.theme.colors.white};
 		border-radius: 0.5rem;
-		box-shadow: ${props => props.theme.shadow} 0px 0px 10px 0px;
+		box-shadow: ${props => props.theme.colors.shadow} 0px 0px 10px 0px;
 		${typography}
 		${space}
         ${color}
         ${layout}
 	`,
 	Col: styled.div<
-		{ width?: number } & ColorProps & TypographyProps & SpaceProps
+		{ width?: number } & ColorProps &
+			TypographyProps &
+			SpaceProps &
+			LayoutProps
 	>`
 		display: flex;
 		width: ${props => props.width}%;
@@ -46,26 +50,31 @@ const Parent = {
 		${space}
         ${color}
 	`,
-	Button: styled.button<ColorProps & TypographyProps & SpaceProps>`
+	Button: styled.button<
+		ColorProps & TypographyProps & SpaceProps & LayoutProps
+	>`
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		outline: none;
-		color: ${props => props.theme.white};
+		color: ${props => props.theme.colors.white};
 		border: 0px;
 		border-radius: 0.25rem;
 		padding: 0;
 		cursor: pointer;
 		padding: 1rem;
 		font-weight: bold;
-		background-color: ${props => props.theme.sky};
+		background-color: ${props => props.theme.colors.sky};
 		${typography}
 		${space}
         ${color}
         ${layout}
 	`,
 	Row: styled.div<
-		{ bottom?: number } & ColorProps & TypographyProps & SpaceProps
+		{ bottom?: number } & ColorProps &
+			TypographyProps &
+			SpaceProps &
+			LayoutProps
 	>`
 		display: flex;
 		width: 100%;
@@ -75,9 +84,22 @@ const Parent = {
         ${color}
         ${layout}
 	`,
-	Link: styled(Link)<ColorProps & TypographyProps & SpaceProps>`
+	Link: styled(Link)<ColorProps & TypographyProps & SpaceProps & LayoutProps>`
 		display: flex;
 		color: inherit;
+		${typography}
+		${space}
+        ${color}
+        ${layout}
+	`,
+	PopupWrapper: styled.div<
+		ColorProps & TypographyProps & SpaceProps & LayoutProps
+	>`
+		border: 2px solid ${props => props.theme.colors.gray200};
+		border-radius: 0.5rem;
+		padding: 1rem;
+		color: ${props => props.theme.colors.lightBlack};
+		background-color: ${props => props.theme.colors.white};
 		${typography}
 		${space}
         ${color}
@@ -87,33 +109,33 @@ const Parent = {
 
 // const ButtonTheme = {
 //     blue: {
-//         backgroundColor: theme.color.blue,
-//         color: theme.color.white,
+//         backgroundColor: theme.colors.color.blue,
+//         color: theme.colors.color.white,
 //         hover: {
-//             backgroundColor: theme.color.deepBlue
+//             backgroundColor: theme.colors.color.deepBlue
 //         },
 //         active: {
-//             backgroundColor: theme.color.blackBlue
+//             backgroundColor: theme.colors.color.blackBlue
 //         }
 //     },
 //     indigo: {
-//         backgroundColor: theme.color.whiteIndigo,
-//         color: theme.color.white,
+//         backgroundColor: theme.colors.color.whiteIndigo,
+//         color: theme.colors.color.white,
 //         hover: {
-//             backgroundColor: theme.color.blueIndigo
+//             backgroundColor: theme.colors.color.blueIndigo
 //         },
 //         active: {
-//             backgroundColor: theme.color.realIndigo
+//             backgroundColor: theme.colors.color.realIndigo
 //         }
 //     },
-//     gray: {
-//         backgroundColor: theme.color.whiteBlue,
-//         color: theme.color.white,
+//     gray500: {
+//         backgroundColor: theme.colors.color.whiteBlue,
+//         color: theme.colors.color.white,
 //         hover: {
-//             backgroundColor: theme.color.realBlueGray
+//             backgroundColor: theme.colors.color.realBlueGray
 //         },
 //         active: {
-//             backgroundColor: theme.color.blackGray
+//             backgroundColor: theme.colors.color.blackGray
 //         }
 //     }
 // }
@@ -127,7 +149,9 @@ const GlobalStyled = {
 		height: 100%;
 	`,
 
-	Container: styled.div<ColorProps & TypographyProps & SpaceProps>`
+	Container: styled.div<
+		ColorProps & TypographyProps & SpaceProps & LayoutProps
+	>`
 		width: 100%;
 		max-width: 720px;
 		margin: 0 auto;
@@ -154,9 +178,9 @@ const GlobalStyled = {
 	ContentRow: styled(Parent.Row)`
 		padding: 1rem;
 		flex-direction: column;
-		border-bottom: 1px solid ${props => props.theme.lightGray};
+		border-bottom: 1px solid ${props => props.theme.colors.gray100};
 		:nth-child(even) {
-			background-color: ${props => props.theme.ivory};
+			background-color: ${props => props.theme.colors.ivory};
 		}
 		${typography}
 		${space}
@@ -185,7 +209,9 @@ const GlobalStyled = {
 	ActiveButton: styled(Parent.Button)<{ isActive: boolean | undefined }>`
 		width: 100%;
 		background-color: ${props =>
-			props.isActive ? props.theme.sky : props.theme.gray};
+			props.isActive
+				? props.theme.colors.sky
+				: props.theme.colors.gray500};
 	`,
 	TransparentButton: styled.button`
 		display: flex;
@@ -203,8 +229,10 @@ const GlobalStyled = {
 	Title: styled(Parent.Row)`
 		font-size: 1rem;
 		font-weight: bold;
-		color: ${props => props.theme.lightBlack};
+		color: ${props => props.theme.colors.lightBlack};
 	`,
+
+	PopupWrapper: styled(Parent.PopupWrapper)``,
 
 	// ButtonCard: styled(Parent.Card)`
 	//     width : 100%;
@@ -213,12 +241,12 @@ const GlobalStyled = {
 	//     flex-direction : column;
 	//     align-items : center;
 	//     justify-content : center;
-	//     border : 0.175rem solid ${props => props.theme.color.white};
+	//     border : 0.175rem solid ${props => props.theme.colors.color.white};
 	//     :hover {
-	//         background-color : ${props => props.theme.color.whiteSky};
+	//         background-color : ${props => props.theme.colors.color.whiteSky};
 	//     }
 	//     :active {
-	//         border : 0.175rem solid ${props => props.theme.color.sky};
+	//         border : 0.175rem solid ${props => props.theme.colors.color.sky};
 	//     }
 	// `,
 
@@ -262,8 +290,8 @@ const GlobalStyled = {
 	// `,
 
 	// BorderButton: styled.button`
-	//     border : 2px solid ${props => props.borderColor ? props.borderColor : props.theme.color.blue};
-	//     color : ${props => props.borderColor ? props.borderColor : props.theme.color.blue};
+	//     border : 2px solid ${props => props.borderColor ? props.borderColor : props.theme.colors.color.blue};
+	//     color : ${props => props.borderColor ? props.borderColor : props.theme.colors.color.blue};
 	//     border-radius : 0.5rem;
 	//     width : 100%;
 	//     padding : 0.5rem 0;

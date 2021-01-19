@@ -5,6 +5,7 @@ import useSWR from 'swr';
 import Swal from 'sweetalert2';
 
 import GlobalStyled from 'style/GlobalStyled';
+import theme from 'style/theme';
 
 import globalSwal from 'config/swal';
 
@@ -15,6 +16,8 @@ import PlantRankingList from 'components/molecules/PlantRankingList';
 import InquiryDate from 'components/atoms/InquiryDate';
 
 import { exposureSecurity } from 'utils/format';
+import Svg from 'components/atoms/Svg';
+import Popup from 'components/atoms/Popup';
 
 interface RankingPageInterface {
 	match: any;
@@ -24,16 +27,24 @@ interface RankingPageInterface {
 
 const Styled = {
 	Header: styled(GlobalStyled.HeightRow)`
-		padding: 0.5rem 1rem;
-		border-bottom: 1px solid ${props => props.theme.gray};
+		padding: 1rem;
+		border-bottom: 1px solid ${props => props.theme.colors.gray500};
 		margin-bottom: 1rem;
 	`,
 	Title: styled(GlobalStyled.Row)`
 		font-size: 1.5rem;
-		color: ${props => props.theme.lightBlack};
+		color: ${props => props.theme.colors.lightBlack};
 	`,
 	ContentWrapper: styled(GlobalStyled.HeightRow)`
 		padding: 0 1rem;
+	`,
+	TextAlignWrapper: styled(GlobalStyled.CenterRow)`
+		width: auto;
+	`,
+	PopupImgWrapper: styled(GlobalStyled.CenterRow)`
+		width: auto;
+		margin-left: 1rem;
+		padding-top: 0.3rem;
 	`,
 };
 
@@ -107,10 +118,44 @@ const RankingPage = ({
 		<GlobalStyled.Body>
 			<GlobalStyled.Container>
 				<Styled.Header>
-					<GlobalStyled.RightCol width={100}>
-						<InquiryDate date={inquiryDate} />
-					</GlobalStyled.RightCol>
-					<Styled.Title>{region} 발전량 상위 5위</Styled.Title>
+					<GlobalStyled.Row bottom={1}>
+						<GlobalStyled.RightCol width={100}>
+							<InquiryDate date={inquiryDate} />
+						</GlobalStyled.RightCol>
+					</GlobalStyled.Row>
+					<Styled.Title>
+						<Styled.TextAlignWrapper>
+							{region} 발전량 상위 5위
+						</Styled.TextAlignWrapper>
+						<Styled.PopupImgWrapper>
+							<Popup
+								trigger={
+									<div>
+										<Svg
+											name="infoPopup"
+											size="1.5rem"
+											fill={theme.colors.lightBlack}
+										/>
+									</div>
+								}
+								position="bottom center"
+								offsetX={-40}
+							>
+								<GlobalStyled.PopupWrapper
+									width="100%"
+									fontSize="0.75rem"
+								>
+									태양광 발전소의 하루 총 발전량을
+									설비용량으로 나눈 값으로
+									<br />
+									발전소의 전력 생산 상태를 판별할 수 있는
+									기준입니다.
+									<br />
+									발전시간이 높을 수록 우수한 발전소입니다.
+								</GlobalStyled.PopupWrapper>
+							</Popup>
+						</Styled.PopupImgWrapper>
+					</Styled.Title>
 				</Styled.Header>
 				<Styled.ContentWrapper>
 					<PlantRankingList

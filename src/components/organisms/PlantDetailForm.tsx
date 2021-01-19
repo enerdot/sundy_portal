@@ -15,11 +15,11 @@ const Styled = {
 	`,
 	TitleCol: styled(GlobalStyled.Col)`
 		width: 30%;
-		color: ${props => props.theme.gray};
+		color: ${props => props.theme.colors.gray500};
 	`,
 	ContentCol: styled(GlobalStyled.Col)`
 		width: 70%;
-		color: ${props => props.theme.lightBlack};
+		color: ${props => props.theme.colors.lightBlack};
 	`,
 };
 

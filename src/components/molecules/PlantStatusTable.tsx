@@ -7,13 +7,13 @@ import TableInfo from 'components/atoms/TableInfo';
 const Styled = {
 	Wrapper: styled(GlobalStyled.FadeInUpRow)`
 		font-size: 1rem;
-		color: ${props => props.theme.gray};
+		color: ${props => props.theme.colors.gray500};
 		flex-direction: column;
 	`,
 	Header: styled(GlobalStyled.FadeInUpRow)`
 		font-weight: bold;
 		padding: 0.5rem 0;
-		border-bottom: 1px solid ${props => props.theme.gray};
+		border-bottom: 1px solid ${props => props.theme.colors.gray500};
 	`,
 	TableRow: styled(GlobalStyled.FadeInUpRow)`
 		padding: 0.5rem 0;

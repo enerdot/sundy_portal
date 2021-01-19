@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import moment, { Moment } from 'moment';
 import Swal from 'sweetalert2';
 import useAPI from 'hooks/useAPI';
+import useSWR from 'swr';
 
 import globalSwal from 'config/swal';
 
@@ -11,34 +12,51 @@ import routerUrl from 'config/routerUrl';
 import TextBrFormat from 'components/atoms/TextBrFormat';
 import ModalMessage from 'components/molecules/ModalMessage';
 import Spinner from 'components/atoms/Spinner';
+import { modalPosition } from 'components/atoms/Modal';
 
 const Styled = {
-	Wrapper: styled(GlobalStyled.HeightRow)``,
-	TokenText: styled(GlobalStyled.CenterRow)`
-		font-size: 1.5rem;
+	Wrapper: styled(GlobalStyled.HeightRow)`
+		padding: 1rem 0;
+	`,
+	TokenText: styled(GlobalStyled.Row)`
+		font-size: 1.175rem;
 		font-weight: bold;
+		align-items: center;
+		margin-top: 2rem;
 		span {
-			color: ${props => props.theme.blue};
+			font-size: 1.5rem;
+			color: ${props => props.theme.colors.modalHighlightBlue};
 			margin-right: 0.5rem;
 		}
 	`,
+	GraySubText: styled(GlobalStyled.HeightRow)`
+		text-align: left;
+		font-size: 1rem;
+		color: ${props => props.theme.colors.white};
+		opacity: 0.6;
+	`,
+	Title: styled(GlobalStyled.HeightRow)`
+		text-align: left;
+		font-size: 1.5rem;
+		font-weight: bold;
+	`,
 	CancelButton: styled(GlobalStyled.Button)`
 		border-radius: 5rem;
-		padding: 1rem 2.5rem;
-		width: auto;
-		color: ${props => props.theme.sky};
-		border: 2px solid ${props => props.theme.sky};
-		background-color: ${props => props.theme.white};
+		padding: 0.875rem 0;
+		color: ${props => props.theme.colors.sky};
+		border: 2px solid ${props => props.theme.colors.sky};
+		background-color: ${props => props.theme.colors.white};
+		width: 90%;
 	`,
 	SubmitButton: styled(GlobalStyled.Button)`
-		border: 2px solid ${props => props.theme.sky};
+		border: 2px solid ${props => props.theme.colors.sky};
 		border-radius: 5rem;
-		width: auto;
-		padding: 1rem 2.5rem;
+		padding: 0.875rem 0;
+		width: 90%;
 	`,
 };
 
-interface TokenPaymentModalInterface {
+interface TokenPaymentModalInterface extends modalPosition {
 	currentUser: string;
 	date: Date | Moment | string;
 	token: number;
@@ -47,11 +65,13 @@ interface TokenPaymentModalInterface {
 }
 
 const TokenPaymentModal = (props: TokenPaymentModalInterface) => {
-	const { isModal, currentUser, date, token } = props;
+	const { isModal, currentUser, date, token, position } = props;
 
 	const [isButtonLoading, setIsButtonLoading] = useState(false);
 
 	const [API] = useAPI();
+
+	const { data: userInfo = { nickname: '' } } = useSWR('/users/info');
 
 	const handleOnClickPaymentToken = async () => {
 		if (!isButtonLoading) {
@@ -74,17 +94,16 @@ const TokenPaymentModal = (props: TokenPaymentModalInterface) => {
 	const messageInfo =
 		currentUser !== null
 			? {
-					subTopTitle: `안녕하세요 ${'user'}님`,
+					subTopTitle: `안녕하세요 ${userInfo.nickname}님`,
 					title: `${moment(date).format(
 						'MM월 DD일의',
-					)}\n지역 발전소를 구경하시겠어요?`,
-					subBottomTitle:
-						'발전소 위치, 용량, 설비 정보와 발전량 그래프를\n확인해 볼 수 있습니다.',
-					buttonText: '결제',
+					)} 지역 발전소 둘러보기`,
+
+					buttonText: '사용하기',
 					onClickButton: () => {
 						handleOnClickPaymentToken();
 					},
-					cancelButtonText: '취소',
+					cancelButtonText: '뒤로가기',
 					onClickCancelButton: () => {
 						window.location.href = '/';
 					},
@@ -93,9 +112,8 @@ const TokenPaymentModal = (props: TokenPaymentModalInterface) => {
 			  }
 			: {
 					subTopTitle: '지금 바로 로그인하고',
-					title: '우리 지역\n발전량 상위 발전소를 구경해보세요!',
-					subBottomTitle:
-						'발전소 위치, 용량, 설비 정보와 발전량 그래프를\n확인해 볼 수 있습니다.',
+					title: '우리 지역발전량 상위 발전소를\n 구경해보세요!',
+
 					buttonText: '로그인 하기',
 					onClickButton: () => {
 						window.location.href = routerUrl.loginPage;
@@ -107,36 +125,52 @@ const TokenPaymentModal = (props: TokenPaymentModalInterface) => {
 					subText: '',
 			  };
 
+	const {
+		subTopTitle,
+		title,
+		onClickButton,
+		buttonText,
+		onClickCancelButton,
+		cancelButtonText,
+		subText,
+	} = messageInfo;
+
 	return (
-		<ModalMessage {...messageInfo} isModal={isModal}>
+		<ModalMessage {...messageInfo} isModal={isModal} position={position}>
 			<Styled.Wrapper>
+				<Styled.GraySubText>{subTopTitle}</Styled.GraySubText>
 				{currentUser ? (
-					<Styled.TokenText bottom={2}>
-						<span>{`${token}REDi`}</span>를 사용합니다
-					</Styled.TokenText>
+					<>
+						<Styled.TokenText>
+							<span>{`${token}REDi`}</span> <div>결제하고</div>
+						</Styled.TokenText>
+					</>
 				) : (
-					''
+					<GlobalStyled.Row bottom={2} />
 				)}
+				<Styled.Title bottom={3}>
+					<TextBrFormat value={title} />
+				</Styled.Title>
+
 				<GlobalStyled.CenterRow bottom={2}>
-					<GlobalStyled.CenterCol width={50}>
-						<Styled.SubmitButton
-							onClick={messageInfo.onClickButton}
-						>
-							<Spinner isLoading={isButtonLoading}>
-								{messageInfo.buttonText}
+					<GlobalStyled.Col width={50}>
+						<Styled.SubmitButton onClick={onClickButton}>
+							<Spinner
+								isLoading={isButtonLoading}
+								size="0.875rem"
+							>
+								{buttonText}
 							</Spinner>
 						</Styled.SubmitButton>
-					</GlobalStyled.CenterCol>
-					<GlobalStyled.CenterCol width={50}>
-						<Styled.CancelButton
-							onClick={messageInfo.onClickCancelButton}
-						>
-							{messageInfo.cancelButtonText}
+					</GlobalStyled.Col>
+					<GlobalStyled.RightCol width={50}>
+						<Styled.CancelButton onClick={onClickCancelButton}>
+							{cancelButtonText}
 						</Styled.CancelButton>
-					</GlobalStyled.CenterCol>
+					</GlobalStyled.RightCol>
 				</GlobalStyled.CenterRow>
 				<GlobalStyled.HeightRow>
-					<TextBrFormat value={messageInfo.subText} />
+					<TextBrFormat value={subText} />
 				</GlobalStyled.HeightRow>
 			</Styled.Wrapper>
 		</ModalMessage>
@@ -147,6 +181,7 @@ TokenPaymentModal.defaultProps = {
 	currentUser: false,
 	date: new Date(),
 	token: 0,
+	position: 'middle',
 	onClickConfirm: () => {},
 };
 

@@ -7,22 +7,26 @@ const Styled = {
 	Wrapper: styled(GlobalStyled.Col)`
 		font-size: 1rem;
 		width: 10rem;
-		box-shadow: ${props => props.theme.shadow} 10px 5px 7px 0px;
+		box-shadow: ${props => props.theme.colors.shadow} 10px 5px 7px 0px;
 		border-radius: 3rem;
 	`,
 	Button: styled(GlobalStyled.Button)<{ isActive: boolean }>`
 		font-weight: bold;
 		padding: 0.35rem;
 		width: 50%;
-		border: 0.2rem solid ${props => props.theme.blue};
+		border: 0.2rem solid ${props => props.theme.colors.blue};
 		border-right: 0;
 		background-color: ${props =>
-			props.isActive ? props.theme.blue : props.theme.white};
+			props.isActive
+				? props.theme.colors.blue
+				: props.theme.colors.white};
 		color: ${props =>
-			props.isActive ? props.theme.white : props.theme.blue};
+			props.isActive
+				? props.theme.colors.white
+				: props.theme.colors.blue};
 		border-radius: 3rem 0 0 3rem;
 		:last-child {
-			border-right: 0.2rem solid ${props => props.theme.blue};
+			border-right: 0.2rem solid ${props => props.theme.colors.blue};
 			border-left: 0;
 			border-radius: 0 3rem 3rem 0;
 		}

@@ -5,7 +5,7 @@ import moment, { Moment } from 'moment';
 const Styled = {
 	Wrapper: styled.span`
 		font-size: 1rem;
-		color: ${props => props.theme.gray};
+		color: ${props => props.theme.colors.gray500};
 	`,
 };
 

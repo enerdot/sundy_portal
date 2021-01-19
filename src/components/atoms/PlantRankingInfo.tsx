@@ -7,7 +7,7 @@ const Styled = {
 	Wrapper: styled(GlobalStyled.Card)`
 		font-size: 1rem;
 		box-shadow: none;
-		border: 1px solid ${props => props.theme.sky};
+		border: 1px solid ${props => props.theme.colors.sky};
 	`,
 	Section: styled(GlobalStyled.Col)`
 		margin-right: 2rem;
@@ -18,20 +18,20 @@ const Styled = {
 		margin-right: 1rem;
 	`,
 	PlantRegion: styled.div`
-		color: ${props => props.theme.sky};
+		color: ${props => props.theme.colors.sky};
 	`,
 	PlantRanking: styled(GlobalStyled.CenterRow)`
 		font-size: 1.25rem;
 		font-weight: bold;
-		color: ${props => props.theme.sky};
+		color: ${props => props.theme.colors.sky};
 	`,
 	PlantName: styled.div``,
 	Address: styled.div`
 		font-size: 0.875rem;
-		color: ${props => props.theme.gray};
+		color: ${props => props.theme.colors.gray500};
 	`,
 	PlantTime: styled.span`
-		color: ${props => props.theme.sky};
+		color: ${props => props.theme.colors.sky};
 		font-size: 1.25rem;
 		font-weight: bold;
 	`,

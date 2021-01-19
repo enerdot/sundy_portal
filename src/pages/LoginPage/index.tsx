@@ -22,7 +22,7 @@ const Styled = {
 		box-shadow: none;
 		margin: 0 auto;
 		margin-top: 1rem;
-		color: ${props => props.theme.gray};
+		color: ${props => props.theme.colors.gray500};
 		font-size: 1.25rem;
 	`,
 	ContentWrapper: styled.form`
@@ -31,7 +31,7 @@ const Styled = {
 	Logo: styled(GlobalStyled.CenterRow)`
 		font-size: 2rem;
 		font-weight: bold;
-		color: ${props => props.theme.lightBlack};
+		color: ${props => props.theme.colors.lightBlack};
 	`,
 	SubmitButton: styled(GlobalStyled.ActiveButton)`
 		border-radius: 3rem;
@@ -40,7 +40,7 @@ const Styled = {
 	`,
 	ErrMessageRow: styled(GlobalStyled.Row)`
 		font-size: 1rem;
-		color: ${props => props.theme.red};
+		color: ${props => props.theme.colors.red};
 	`,
 };
 
@@ -141,11 +141,22 @@ const LoginPage = ({
 								비밀번호 재설정
 							</GlobalStyled.Link>
 						</GlobalStyled.CenterRow>
-						<GlobalStyled.CenterRow>
-							<GlobalStyled.Link to={routerUrl.signUpPage}>
-								<b>회원가입</b>
-							</GlobalStyled.Link>
-						</GlobalStyled.CenterRow>
+						<GlobalStyled.HeightRow>
+							<GlobalStyled.CenterRow
+								color="lightBlack"
+								bottom={1.5}
+							>
+								<b>아직 회원이 아니신가요?</b>
+							</GlobalStyled.CenterRow>
+							<GlobalStyled.CenterRow>
+								<GlobalStyled.Link
+									color="blue"
+									to={routerUrl.signUpPage}
+								>
+									<b>회원가입</b>
+								</GlobalStyled.Link>
+							</GlobalStyled.CenterRow>
+						</GlobalStyled.HeightRow>
 					</Styled.ContentWrapper>
 				</Styled.Wrapper>
 			</GlobalStyled.Container>
