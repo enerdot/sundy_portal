@@ -10,7 +10,7 @@ const Styled = {
 
 	ContentWrapper: styled(GlobalStyled.HeightRow)`
 		padding: 1rem 0;
-		border-top: 1px solid ${props => props.theme.lightGray};
+		border-top: 1px solid ${props => props.theme.colors.gray100};
 	`,
 };
 

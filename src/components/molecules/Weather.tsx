@@ -11,7 +11,7 @@ const Styled = {
 	`,
 	WeatherName: styled(GlobalStyled.CenterRow)`
 		font-size: 1rem;
-		color: ${props => props.theme.gray};
+		color: ${props => props.theme.colors.gray500};
 	`,
 	Temperature: styled(GlobalStyled.CenterRow)`
 		font-size: 1rem;

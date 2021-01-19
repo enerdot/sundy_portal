@@ -9,12 +9,12 @@ const Styled = {
 	`,
 	Value: styled.div`
 		font-size: 1.5rem;
-		color: ${props => props.theme.blue};
+		color: ${props => props.theme.colors.blue};
 		margin-bottom: 0.5rem;
 	`,
 	Label: styled.div`
 		font-size: 1rem;
-		color: ${props => props.theme.darkGray};
+		color: ${props => props.theme.colors.gray600};
 	`,
 };
 

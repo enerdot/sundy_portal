@@ -15,7 +15,7 @@ const Styled = {
 	Label: styled.div`
 		display: inline-block;
 		font-size: 1rem;
-		color: ${props => props.theme.gray};
+		color: ${props => props.theme.colors.gray500};
 		word-break: keep-all;
 	`,
 };

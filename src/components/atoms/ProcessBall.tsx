@@ -28,24 +28,24 @@ export interface ProcessBallInterface {
 	info: ProcessBallInfoInterface;
 }
 
-const processBallTheme: any = {
+const processBallTheme: { [key: string]: object } = {
 	beActive: {
 		width: '1rem',
 		height: '1rem',
-		color: theme.white,
-		themeColor: theme.lightGray,
+		color: theme.colors.white,
+		themeColor: theme.colors.gray100,
 	},
 	active: {
 		width: '1.25rem',
 		height: '1.25rem',
-		color: theme.white,
-		themeColor: theme.sky,
+		color: theme.colors.white,
+		themeColor: theme.colors.sky,
 	},
 	compleat: {
 		width: '1rem',
 		height: '1rem',
-		color: theme.white,
-		themeColor: theme.gray,
+		color: theme.colors.white,
+		themeColor: theme.colors.gray500,
 	},
 };
 

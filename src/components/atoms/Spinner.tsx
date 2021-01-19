@@ -24,9 +24,9 @@ const Styled = {
 		margin: 0 auto;
 		width: ${props => props.size};
 		height: ${props => props.size};
-		border: 0.75rem solid ${props => props.theme.lightGray};
+		border: 0.75rem solid ${props => props.theme.colors.gray100};
 		border-radius: 50%;
-		border-top-color: ${props => props.theme.sky};
+		border-top-color: ${props => props.theme.colors.sky};
 		animation: ${Keyframes.spinnerSpin} 1s ease-in-out infinite;
 	`,
 };

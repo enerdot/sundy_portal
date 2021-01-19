@@ -109,8 +109,8 @@ const SignUpInput = (props: SignUpInputInterface) => {
 	const [isHide, setIsHide] = useState(true);
 	const [regularMessageColor, setRegularMessageColor] = useState('');
 
-	const successColor = theme.blue;
-	const failColor = theme.red;
+	const successColor = theme.colors.blue;
+	const failColor = theme.colors.red;
 
 	const checkOverlapUserId = (info: any, checkValue: any) => {
 		let isOverlapUserId = false;

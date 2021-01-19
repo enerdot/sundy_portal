@@ -15,11 +15,11 @@ const Styled = {
 		width: 100%;
 		height: 100%;
 		z-index: 100;
-		color: ${props => props.theme.lightBlack};
+		color: ${props => props.theme.colors.lightBlack};
 		font-size: 1rem;
 	`,
 	Header: styled(GlobalStyled.HeightRow)`
-		background-color: ${props => props.theme.lightGray};
+		background-color: ${props => props.theme.colors.gray100};
 		padding: 2rem;
 		height: 30%;
 	`,
@@ -33,12 +33,12 @@ const Styled = {
 		font-weight: bold;
 	`,
 	ContentWrapper: styled(GlobalStyled.HeightRow)`
-		background-color: ${props => props.theme.white};
+		background-color: ${props => props.theme.colors.white};
 		padding: 2rem;
 		height: 70%;
 	`,
 	GrayText: styled.span`
-		color: ${props => props.theme.gary};
+		color: ${props => props.theme.colors.gary};
 	`,
 	ButtonRow: styled(GlobalStyled.Row)`
 		cursor: pointer;

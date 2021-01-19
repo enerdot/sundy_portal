@@ -8,35 +8,40 @@ const Styled = {
 		svg {
 			#region_plant_map {
 				#seoul {
-					fill: ${props => props.theme.levelBlue[props.info.seoul]};
+					fill: ${props =>
+						props.theme.colors.levelBlue[props.info.seoul]};
 				}
 				#chungnam {
 					fill: ${props =>
-						props.theme.levelBlue[props.info.chungnam]};
+						props.theme.colors.levelBlue[props.info.chungnam]};
 				}
 				#jeonbuk {
-					fill: ${props => props.theme.levelBlue[props.info.jeonbuk]};
+					fill: ${props =>
+						props.theme.colors.levelBlue[props.info.jeonbuk]};
 				}
 				#jeonnam {
-					fill: ${props => props.theme.levelBlue[props.info.jeonnam]};
+					fill: ${props =>
+						props.theme.colors.levelBlue[props.info.jeonnam]};
 				}
 				#gangwon {
-					fill: ${props => props.theme.levelBlue[props.info.gangwon]};
+					fill: ${props =>
+						props.theme.colors.levelBlue[props.info.gangwon]};
 				}
 				#chungbuk {
 					fill: ${props =>
-						props.theme.levelBlue[props.info.chungbuk]};
+						props.theme.colors.levelBlue[props.info.chungbuk]};
 				}
 				#gyeongbuk {
 					fill: ${props =>
-						props.theme.levelBlue[props.info.gyeongbuk]};
+						props.theme.colors.levelBlue[props.info.gyeongbuk]};
 				}
 				#gyeongnam {
 					fill: ${props =>
-						props.theme.levelBlue[props.info.gyeongnam]};
+						props.theme.colors.levelBlue[props.info.gyeongnam]};
 				}
 				#jeju {
-					fill: ${props => props.theme.levelBlue[props.info.jeju]};
+					fill: ${props =>
+						props.theme.colors.levelBlue[props.info.jeju]};
 				}
 			}
 		}

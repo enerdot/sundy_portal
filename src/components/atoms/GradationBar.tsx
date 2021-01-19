@@ -9,7 +9,7 @@ const Styled = {
 		font-size: 1rem;
 		flex-direction: column;
 		width: ${props => props.width};
-		color: ${props => props.theme.gray};
+		color: ${props => props.theme.colors.gray500};
 	`,
 	GradationBar: styled.div<{ startColor: string; endColor: string }>`
 		width: 100%;
@@ -44,8 +44,8 @@ const GradationBar = (props: GradationBarInterface) => {
 };
 GradationBar.defaultProps = {
 	width: '100%',
-	startColor: theme.white,
-	endColor: theme.darkSky,
+	startColor: theme.colors.white,
+	endColor: theme.colors.darkSky,
 	children: '',
 };
 

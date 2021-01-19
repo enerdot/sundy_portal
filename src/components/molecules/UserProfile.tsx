@@ -32,8 +32,12 @@ const UserProfile = (props: UserProfileInterface) => {
 				<GlobalStyled.TransparentButton onClick={handleClickProfile}>
 					<Svg
 						name="userProfile"
-						stroke={currentUser ? theme.blue : theme.gray}
-						fill={theme.white}
+						stroke={
+							currentUser
+								? theme.colors.blue
+								: theme.colors.gray500
+						}
+						fill={theme.colors.white}
 						size="2rem"
 					/>
 				</GlobalStyled.TransparentButton>

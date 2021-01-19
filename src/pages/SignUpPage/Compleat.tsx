@@ -21,7 +21,7 @@ const Styled = {
 	`,
 	CoinText: styled(GlobalStyled.FadeInUpRow)`
 		font-size: 1.667rem;
-		color: ${props => props.theme.sky};
+		color: ${props => props.theme.colors.sky};
 		font-weight: bold;
 		justify-content: center;
 	`,

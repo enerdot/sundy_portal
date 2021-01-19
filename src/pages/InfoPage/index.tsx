@@ -113,50 +113,6 @@ const InfoPage = ({
 		},
 	);
 
-	// const handleSubmit = async (): Promise<void> => {
-	// 	try {
-	// 		await API.APIs.getAll();
-	// 		console.log(API);
-	// 	} catch (err: any) {
-	// 		console.log('err : ', err);
-	// 	}
-	// };
-
-	// const [plantInfo, setPlantTimeInfos] = useState({
-	// 	plantName: '-',
-	// 	address: '-',
-	// 	capacity: '-',
-	// 	equipmentInfos: [{ name: '-', value: '-' }],
-	// });
-
-	// const [inquiryDate, setInquiryDate] = useState(moment());
-
-	// useEffect(() => {
-	// 	if (urlDate.isUrl) {
-	// 		const {
-	// 			inverter,
-	// 			module: moduleName,
-	// 			module_bearing,
-	// 			plant_kwatt,
-	// 			plant_loc,
-	// 			plant_name,
-	// 		} = apiPlantInfo;
-	// 		setInquiryDate(urlDate.value);
-	// 		setPlantTimeInfos({
-	// 			plantName: plant_name,
-	// 			address: plant_loc,
-	// 			capacity: plant_kwatt,
-	// 			equipmentInfos: [
-	// 				{ name: '인버터', value: inverter },
-	// 				{ name: '모듈', value: moduleName },
-	// 				{ name: '모듈방향', value: module_bearing },
-	// 			],
-	// 		});
-	// 	} else {
-	// 		Swal.fire(globalSwal.urlErr).then(res => history.push('/'));
-	// 	}
-	// }, [match, history, apiPlantInfo]);
-
 	useEffect(() => {
 		const formatDateUrl = isDateUrl(match);
 		if (formatDateUrl.isUrl) {
@@ -181,6 +137,7 @@ const InfoPage = ({
 					currentUser={currentUser}
 					token={100}
 					date={moment(formatDate)}
+					position="bottom"
 				/>
 				<GlobalStyled.HeightRow padding="1rem">
 					<GlobalStyled.FadeInUpRow>

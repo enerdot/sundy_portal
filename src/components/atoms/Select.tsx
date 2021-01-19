@@ -96,11 +96,11 @@ Select.defaultProps = {
 	customStyles: {
 		control: (provided: selectType, state: selectType) => ({
 			...provided,
-			// border: `1px solid ${theme.color.realWhiteBlue}`,
+			// border: `1px solid ${theme.colors.color.realWhiteBlue}`,
 		}),
 		indicatorContainer: (provided: selectType, state: selectType) => ({
 			...provided,
-			// color: theme.color.whiteBlue,
+			// color: theme.colors.color.whiteBlue,
 		}),
 	},
 	level: 2,
