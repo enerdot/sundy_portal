@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 import moment from 'moment';
 import Swal from 'sweetalert2';
 import useSWR from 'swr';
@@ -22,6 +23,14 @@ interface InfoPageInterface {
 	location: any;
 	history: any;
 }
+
+const Styled = {
+	AnotherPlantButton: styled(GlobalStyled.Button)`
+		font-size: 1.5rem;
+		border-radius: 3rem;
+		padding: 1.25rem 0;
+	`,
+};
 
 const InfoPage = ({
 	match,
@@ -222,7 +231,7 @@ const InfoPage = ({
 							}
 						/>
 					</GlobalStyled.HeightRow>
-					<GlobalStyled.HeightRow padding="1rem">
+					<GlobalStyled.HeightRow padding="1rem" bottom={1}>
 						<GlobalStyled.Title bottom={1}>
 							최근 7일 발전 그래프
 						</GlobalStyled.Title>
@@ -238,6 +247,15 @@ const InfoPage = ({
 							}
 						/>
 					</GlobalStyled.HeightRow>
+					<GlobalStyled.Row bottom={1}>
+						<Styled.AnotherPlantButton
+							onClick={() => {
+								history.goBack();
+							}}
+						>
+							다른 발전소 구경가기
+						</Styled.AnotherPlantButton>
+					</GlobalStyled.Row>
 				</GlobalStyled.HeightRow>
 			</GlobalStyled.Container>
 		</GlobalStyled.Body>

@@ -143,7 +143,7 @@ const RankingPage = ({
 							>
 								<GlobalStyled.PopupWrapper
 									width="100%"
-									fontSize="0.75rem"
+									fontSize="1rem"
 								>
 									태양광 발전소의 하루 총 발전량을
 									설비용량으로 나눈 값으로

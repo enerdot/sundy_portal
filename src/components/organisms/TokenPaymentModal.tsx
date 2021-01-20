@@ -31,7 +31,7 @@ const Styled = {
 	`,
 	GraySubText: styled(GlobalStyled.HeightRow)`
 		text-align: left;
-		font-size: 1rem;
+		font-size: 1.167rem;
 		color: ${props => props.theme.colors.white};
 		opacity: 0.6;
 	`,
@@ -46,12 +46,14 @@ const Styled = {
 		color: ${props => props.theme.colors.sky};
 		border: 2px solid ${props => props.theme.colors.sky};
 		background-color: ${props => props.theme.colors.white};
+		font-size: 1.5rem;
 		width: 90%;
 	`,
 	SubmitButton: styled(GlobalStyled.Button)`
 		border: 2px solid ${props => props.theme.colors.sky};
 		border-radius: 5rem;
 		padding: 0.875rem 0;
+		font-size: 1.5rem;
 		width: 90%;
 	`,
 };
