@@ -191,7 +191,7 @@ const signOut = () => {
 
 const getSession = () => {
 	return new Promise((resolve, reject) => {
-		const cognitoUser = cognitoInfo.currentUser();
+		const cognitoUser = cognitoInfo.currentUser() as any;
 
 		if (cognitoUser === null) {
 			reject(null);

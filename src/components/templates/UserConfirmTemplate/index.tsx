@@ -103,13 +103,68 @@ const UserConfirm = ({
 					console.log('resend');
 					await resendConfirmationCode(cognitoUser);
 				} else {
-					const user = await signUp({
-						...userInfo,
-						phoneNumber: formatPhoneNumber,
-						nickname: userInfo.nickname ? userInfo.nickname : '',
+					const {
+						data: { checkStatus },
+					} = await API.user.isConfirm({
+						userPhone: formatPhoneNumber,
 					});
-					setCognitoUser(user as any);
-					setIsSendConfirmPhoneNumber(true);
+
+					let user = undefined;
+
+					console.log('checkStatus : ', checkStatus);
+
+					switch (checkStatus) {
+						case 1:
+							Swal.fire(globalSwal.overlapPhoneNumber);
+							break;
+						case 2:
+							await API.user.notConfirmUserDelete({
+								userPhone: formatPhoneNumber,
+							});
+							await API.user.tempUserInsert({
+								userPhone: formatPhoneNumber,
+								nickname: userInfo.nickname
+									? userInfo.nickname
+									: '',
+								password: userInfo.password,
+							});
+							user = await signUp({
+								...userInfo,
+								phoneNumber: formatPhoneNumber,
+								nickname: userInfo.nickname
+									? userInfo.nickname
+									: '',
+							});
+
+							setCognitoUser(user as any);
+							setIsSendConfirmPhoneNumber(true);
+							Swal.fire(globalSwal.overlapPhoneNumber);
+							break;
+						case 3:
+							Swal.fire(globalSwal.overlapPhoneNumber);
+							break;
+						default:
+							console.log('tempUserInsert1');
+							await API.user.tempUserInsert({
+								userPhone: formatPhoneNumber,
+								nickname: userInfo.nickname
+									? userInfo.nickname
+									: '',
+								password: userInfo.password,
+							});
+							console.log('tempUserInsert2');
+							user = await signUp({
+								...userInfo,
+								phoneNumber: formatPhoneNumber,
+								nickname: userInfo.nickname
+									? userInfo.nickname
+									: '',
+							});
+
+							setCognitoUser(user as any);
+							setIsSendConfirmPhoneNumber(true);
+							break;
+					}
 				}
 			} else if (type === 'forgotPassword') {
 				if (isSendConfirmPhoneNumber) {

@@ -100,10 +100,12 @@ const SignUpPage = ({
 
 				const formatPhoneNumber = `+82${info.phoneNumber}`;
 
-				await API.user.create({
-					user_phone: formatPhoneNumber,
-					nickname: userInfo.nickname,
-					password: userInfo.password,
+				await API.user.confirmUserUpdate({
+					userPhone: formatPhoneNumber,
+				});
+
+				await API.user.confirmUserCreateWallet({
+					userPhone: formatPhoneNumber,
 				});
 
 				const idToken = await createCurrentUser({
