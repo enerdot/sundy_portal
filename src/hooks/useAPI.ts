@@ -23,6 +23,19 @@ function useAPI(): any {
 			nickname: string;
 			password: string;
 		}) => API.post('/users/insert', params),
+		isSignUp: (params: { userPhone: string }) =>
+			API.post('/sp/users/check-status', params),
+		notConfirmUserDelete: (params: { userPhone: string }) =>
+			API.post('/sp/users/delete-noauth', params),
+		tempUserInsert: (params: {
+			userPhone: string;
+			nickname: string;
+			password: string;
+		}) => API.post('/sp/users/insert-noauth', params),
+		confirmUserUpdate: (params: { userPhone: string }) =>
+			API.post('/sp/users/update-status', params),
+		confirmUserCreateWallet: (params: { userPhone: string }) =>
+			API.post('/sp/create-wallet', params),
 		forgotPassword: (params: { new_password: string }) =>
 			API.post('/users/change-pwd', params),
 		signUpCheck: (params: { userPhone: string }) =>
