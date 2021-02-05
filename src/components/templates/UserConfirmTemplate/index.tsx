@@ -138,7 +138,7 @@ const UserConfirm = ({
 
 							setCognitoUser(user as any);
 							setIsSendConfirmPhoneNumber(true);
-							Swal.fire(globalSwal.overlapPhoneNumber);
+
 							break;
 						case 3:
 							Swal.fire(globalSwal.overlapPhoneNumber);

@@ -104,10 +104,6 @@ const SignUpPage = ({
 					userPhone: formatPhoneNumber,
 				});
 
-				await API.user.confirmUserCreateWallet({
-					userPhone: formatPhoneNumber,
-				});
-
 				const idToken = await createCurrentUser({
 					userId: formatPhoneNumber,
 					password: userInfo.password,
@@ -118,6 +114,10 @@ const SignUpPage = ({
 					headers: {
 						Authorization: idToken,
 					},
+				});
+
+				await formatAPI.post('/users/create-wallet', {
+					userPhone: formatPhoneNumber,
 				});
 
 				await formatAPI.post('/users/get-token', {

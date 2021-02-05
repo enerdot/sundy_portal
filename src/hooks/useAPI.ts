@@ -30,7 +30,7 @@ function useAPI(): any {
 		confirmUserUpdate: (params: { userPhone: string }) =>
 			API.post('/users/update-status', params),
 		confirmUserCreateWallet: (params: { userPhone: string }) =>
-			API.post('/create-wallet', params),
+			API.post('/users/create-wallet', params),
 		forgotPassword: (params: { new_password: string }) =>
 			API.post('/users/change-pwd', params),
 		signUpCheck: (params: { userPhone: string }) =>
