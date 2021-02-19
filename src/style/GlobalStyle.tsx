@@ -23,6 +23,8 @@ const Body = createGlobalStyle`
     }
     img{
         max-width: 100%;
+        height: auto;
+        align-self: flex-start;
         vertical-align: middle;
         border-style: none;
     }
