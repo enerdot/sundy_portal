@@ -229,6 +229,7 @@ const GlobalStyled = {
 		background-color: inherit;
 		border: 0px;
 		cursor: pointer;
+		padding: 0;
 	`,
 	RowLink: styled(Parent.Link)`
 		width: 100%;
