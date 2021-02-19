@@ -32,7 +32,8 @@ const Styled = {
 		justify-content: center;
 		margin-bottom: 3rem;
 	`,
-	HomeLink: styled(GlobalStyled.Link)`
+	HomeLink: styled.a`
+		color: ${props => props.theme.colors.white};
 		margin: auto;
 		width: 80%;
 	`,
@@ -61,7 +62,7 @@ const SignUpCompleteSection = (props: SignUpCompleteSectionInterface) => {
 				</Styled.CoinAnimationWrapper>
 			</GlobalStyled.CenterRow>
 			<GlobalStyled.FadeInUpRow>
-				<Styled.HomeLink to="/">
+				<Styled.HomeLink href="/">
 					<Styled.HomeButton>홈으로 돌아가기</Styled.HomeButton>
 				</Styled.HomeLink>
 			</GlobalStyled.FadeInUpRow>
