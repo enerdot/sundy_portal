@@ -19,6 +19,7 @@ const Body = createGlobalStyle`
     }
     button {
         font-family: 'Noto Sans KR', sans-serif ;
+        font-size : 1em;
     }
     img{
         max-width: 100%;

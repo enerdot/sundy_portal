@@ -18,7 +18,7 @@ const Styled = {
 	`,
 	Button: styled(GlobalStyled.Button)`
 		border-radius: 10rem;
-		font-size: 2rem;
+		font-size: 1.25rem;
 		background-color: ${props => props.theme.colors.orange};
 	`,
 };
@@ -38,7 +38,7 @@ const IntroPage = ({
 							src={require('images/background-intro.png').default}
 						/>
 					</GlobalStyled.Row>
-					<GlobalStyled.Row padding="5% 20%">
+					<GlobalStyled.Row padding="5% 15%">
 						<GlobalStyled.RowA href={routerUrl.mainPage}>
 							<Styled.Button>SUNDY PORTAL 시작하기</Styled.Button>
 						</GlobalStyled.RowA>

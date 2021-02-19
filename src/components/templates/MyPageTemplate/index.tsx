@@ -9,6 +9,7 @@ import Svg from 'components/atoms/Svg';
 
 const Styled = {
 	Wrapper: styled(GlobalStyled.HeightRow)<{ isShow: boolean }>`
+		font-size: 1.25rem;
 		display: ${props => (props.isShow ? 'flex' : 'none')};
 		flex-direction: column;
 		position: fixed;
@@ -18,7 +19,6 @@ const Styled = {
 		height: 100%;
 		z-index: 100;
 		color: ${props => props.theme.colors.lightBlack};
-		font-size: 1rem;
 	`,
 	Header: styled(GlobalStyled.HeightRow)`
 		background-color: ${props => props.theme.colors.gray100};
@@ -50,12 +50,12 @@ const Styled = {
 		margin-bottom: 0.5rem;
 		margin-left: 0.5rem;
 	`,
-	IntroPageHref : styled.a`
-		display : flex;
-		align-items : center;
-		color : ${props => props.theme.colors.blue};
-
-	`
+	IntroPageHref: styled.a`
+		display: flex;
+		align-items: center;
+		color: ${props => props.theme.colors.blue};
+		font-weight: bold;
+	`,
 };
 
 interface MyPageTemplateInterface {
@@ -124,18 +124,12 @@ const MyPageTemplate = (props: MyPageTemplateInterface) => {
 					</Styled.Button>
 				</GlobalStyled.Row>
 				<GlobalStyled.Row>
-					<Styled.Button>
-						<Styled.IntroPageHref href={routerUrl.introPage}>
-							<GlobalStyled.Col>썬디포털 소개서</GlobalStyled.Col>
-							<Styled.IntroSvgWrapper>
-								<Svg
-									name="linkMarker"
-									fill="blue"
-									size="1rem"
-								/>
-							</Styled.IntroSvgWrapper>
-						</Styled.IntroPageHref >
-					</Styled.Button>
+					<Styled.IntroPageHref href={routerUrl.introPage}>
+						<GlobalStyled.Col>썬디포털 소개서</GlobalStyled.Col>
+						<Styled.IntroSvgWrapper>
+							<Svg name="linkMarker" fill="blue" size="1rem" />
+						</Styled.IntroSvgWrapper>
+					</Styled.IntroPageHref>
 				</GlobalStyled.Row>
 			</Styled.ContentWrapper>
 		</Styled.Wrapper>
