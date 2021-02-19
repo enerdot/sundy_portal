@@ -9,6 +9,7 @@ const routerUrl: { [Key: string]: string } = {
 	forgotPasswordPage: '/forgot',
 	termPage: '/term',
 	privacyPage: '/privacy',
+	introPage: '/intro',
 };
 
 export default routerUrl;

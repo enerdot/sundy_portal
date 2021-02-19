@@ -5,7 +5,6 @@ import useSWR from 'swr';
 import Swal from 'sweetalert2';
 
 import GlobalStyled from 'style/GlobalStyled';
-import theme from 'style/theme';
 
 import globalSwal from 'config/swal';
 
@@ -134,7 +133,7 @@ const RankingPage = ({
 										<Svg
 											name="infoPopup"
 											size="1.5rem"
-											fill={theme.colors.lightBlack}
+											fill={'lightBlack'}
 										/>
 									</div>
 								}

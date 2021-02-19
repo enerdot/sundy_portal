@@ -3,17 +3,18 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import { CurrentUserProvider } from './contexts/CurrentUserContext';
 import reportWebVitals from './reportWebVitals';
+import 'style/font.css';
 
 import GlobalStyle from './style/GlobalStyle';
 
 ReactDOM.render(
-    <React.StrictMode>
-        <GlobalStyle />
-        <CurrentUserProvider>
-            <App />
-        </CurrentUserProvider>
-    </React.StrictMode>,
-    document.getElementById('root')
+	<React.StrictMode>
+		<GlobalStyle />
+		<CurrentUserProvider>
+			<App />
+		</CurrentUserProvider>
+	</React.StrictMode>,
+	document.getElementById('root'),
 );
 
 // If you want to start measuring performance in your app, pass a function

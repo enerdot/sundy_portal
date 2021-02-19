@@ -17,6 +17,9 @@ const Body = createGlobalStyle`
         background-color : ${theme.colors.white};
         margin : 0;
     }
+    button {
+        font-family: 'Noto Sans KR', sans-serif ;
+    }
     img{
         max-width: 100%;
         vertical-align: middle;

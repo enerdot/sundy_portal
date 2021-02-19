@@ -92,6 +92,14 @@ const Parent = {
         ${color}
         ${layout}
 	`,
+	A: styled.a<ColorProps & TypographyProps & SpaceProps & LayoutProps>`
+		display: flex;
+		color: inherit;
+		${typography}
+		${space}
+		${color}
+		${layout}
+	`,
 	PopupWrapper: styled.div<
 		ColorProps & TypographyProps & SpaceProps & LayoutProps
 	>`
@@ -225,7 +233,11 @@ const GlobalStyled = {
 	RowLink: styled(Parent.Link)`
 		width: 100%;
 	`,
+	RowA: styled(Parent.A)`
+		width: 100%;
+	`,
 	Link: styled(Parent.Link)``,
+	A: styled(Parent.A)``,
 	Title: styled(Parent.Row)`
 		font-size: 1rem;
 		font-weight: bold;
