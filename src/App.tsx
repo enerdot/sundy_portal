@@ -22,6 +22,7 @@ const MainPage = lazy(() => import('pages/MainPage'));
 const RegionPage = lazy(() => import('pages/RegionPage'));
 const InfoPage = lazy(() => import('pages/InfoPage'));
 const RankingPage = lazy(() => import('pages/RankingPage'));
+const IntroPage = lazy(() => import('pages/IntroPage'));
 const LoginPage = lazy(() => import('pages/LoginPage'));
 const SignUpPage = lazy(() => import('pages/SignUpPage'));
 const ForgotPasswordPage = lazy(() => import('pages/ForgotPasswordPage'));
@@ -99,6 +100,10 @@ function App() {
 									component={InfoPage}
 								/>
 								<Route
+									path={`${routerUrl.introPage}`}
+									component={IntroPage}
+								/>
+								<Route
 									path={`${routerUrl.loginPage}`}
 									component={LoginPage}
 								/>
@@ -106,6 +111,7 @@ function App() {
 									path={`${routerUrl.signUpPage}`}
 									component={SignUpPage}
 								/>
+
 								<Route
 									path={`${routerUrl.forgotPasswordPage}`}
 									component={ForgotPasswordPage}

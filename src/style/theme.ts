@@ -19,6 +19,7 @@ const theme: { [key: string]: any } = {
 		modalHighlightBlue: '#00F1F7',
 
 		shadow: 'rgba(0, 0, 0, 0.18)',
+		orange: '#FA8D00',
 
 		gray100: '#F0F0F0',
 		gray200: '#DCDCDC',

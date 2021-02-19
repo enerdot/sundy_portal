@@ -37,7 +37,7 @@ const UserProfile = (props: UserProfileInterface) => {
 								? theme.colors.blue
 								: theme.colors.gray500
 						}
-						fill={theme.colors.white}
+						fill={'white'}
 						size="2rem"
 					/>
 				</GlobalStyled.TransparentButton>

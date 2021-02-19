@@ -9,7 +9,7 @@ import SwitchButton from 'components/atoms/SwitchButton';
 import Calendar from 'components/atoms/Calendar';
 import GradationBar from 'components/atoms/GradationBar';
 import PlantTimeContentList from 'components/molecules/PlantTimeContentList';
-import CompanyLinkCards from 'components/molecules/CompanyLinkCards';
+// import CompanyLinkCards from 'components/molecules/CompanyLinkCards';
 import RegionPlantMap from 'components/molecules/RegionPlantMap';
 import useCurrentUser from 'hooks/useCurrentUser';
 // import useAPI from 'hooks/useAPI';
@@ -143,7 +143,7 @@ const MainPage = (): JSX.Element => {
 					</GlobalStyled.FadeInUpRow>
 				</GlobalStyled.HeightRow>
 				<GlobalStyled.HeightRow padding="1rem">
-					<CompanyLinkCards />
+					{/* <CompanyLinkCards /> */}
 				</GlobalStyled.HeightRow>
 			</GlobalStyled.Container>
 			<Modal />

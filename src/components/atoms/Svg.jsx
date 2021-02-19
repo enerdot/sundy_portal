@@ -1,3 +1,5 @@
+import theme from 'style/theme';
+
 const Svg = props => {
 	const svgInfo = {
 		map: {
@@ -188,6 +190,11 @@ const Svg = props => {
 				'S15,11.6,15,7.5S11.6,0,7.5,0z M7.5,13.5c-3.3,0-6-2.7-6-6s2.7-6,6-6s6,2.7,6,6C13.5,10.8,10.8,13.5,7.5,13.5z M6.8,5.3h1.5V3.8H6.8' +
 				'V5.3z',
 		},
+		linkMarker: {
+			viewBox: '0 0 20.775 15.582',
+			path:
+				'M20.775,10a1.83,1.83,0,0,1-1.818,1.778H14.906a2,2,0,0,1-.256,2.879,1.859,1.859,0,0,1-.667,2.529c.364,1.994-.891,2.892-2.946,2.892-.111,0-.539-.008-.649-.008-2.515.007-3.12-1.261-5.021-1.555a.973.973,0,0,1-.822-.962V10.6h0A1.948,1.948,0,0,1,5.7,8.818c1.172-.527,3.872-1.99,4.363-3.138A1.73,1.73,0,0,1,11.686,4.5a1.949,1.949,0,0,1,1.79,2.715A5.515,5.515,0,0,1,12.9,8.226h6.055A1.859,1.859,0,0,1,20.775,10ZM3.9,10.018v7.791a.974.974,0,0,1-.974.974H.974A.974.974,0,0,1,0,17.809V10.018a.974.974,0,0,1,.974-.974H2.922A.974.974,0,0,1,3.9,10.018ZM2.759,16.835a.812.812,0,1,0-.812.812A.812.812,0,0,0,2.759,16.835Z',
+		},
 	};
 
 	const { name, size, fill, stroke, strokeWidth, strokeMiterlimit } = props;
@@ -197,7 +204,7 @@ const Svg = props => {
 	return (
 		<svg width={size} height={size} viewBox={formatSvgInfo.viewBox}>
 			<path
-				fill={fill ? fill : formatSvgInfo.fill}
+				fill={fill ? theme.colors[fill] : formatSvgInfo.fill}
 				stroke={stroke ? stroke : formatSvgInfo.stroke}
 				strokeWidth={
 					strokeWidth ? strokeWidth : formatSvgInfo.strokeWidth
