@@ -36,6 +36,9 @@ const Styled = {
 		height: 30%;
 		align-items: flex-end;
 	`,
+	HideInput: styled.input`
+		display: none;
+	`,
 };
 
 interface UserConfirmInterface {
@@ -246,6 +249,11 @@ const UserConfirm = ({
 								: '인증번호 발송'
 						}
 						isConfirmButtonLoading={isSendConfirmPhoneNumberLoading}
+					/>
+					<Styled.HideInput name="userId" value={phoneNumber} />
+					<Styled.HideInput
+						name="password"
+						value={userInfo.password}
 					/>
 				</GlobalStyled.FadeInUpRow>
 				<GlobalStyled.FadeInUpRow bottom={2.5}>
