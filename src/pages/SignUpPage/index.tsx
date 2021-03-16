@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 // import useSWR from 'swr';
 
 import GlobalStyled from 'style/GlobalStyled';
@@ -93,6 +94,7 @@ const SignUpPage = ({
 	const [API] = useAPI();
 
 	const handleSubmit = async (e: number, info: any) => {
+		let errNum = 0;
 		try {
 			if (e === processHeaderInfos.length) {
 				setIsSubmitLoading(true);
@@ -108,6 +110,7 @@ const SignUpPage = ({
 					userId: formatPhoneNumber,
 					password: userInfo.password,
 				});
+				errNum += 1;
 
 				const formatAPI = axios.create({
 					baseURL: process.env.REACT_APP_API_URL,
@@ -115,14 +118,19 @@ const SignUpPage = ({
 						Authorization: idToken,
 					},
 				});
+				errNum += 1;
 
 				await formatAPI.post('/users/create-wallet', {
 					userPhone: formatPhoneNumber,
 				});
+				errNum += 1;
 
 				await formatAPI.post('/users/get-token', {
 					contents: 'create_wallet',
 				});
+
+				errNum += 1;
+
 				setSubmitLevel(e);
 			} else {
 				setProcessHeaderInfos((prevState: Array<object>) => {
@@ -144,7 +152,12 @@ const SignUpPage = ({
 				setSubmitLevel(e);
 			}
 		} catch (err) {
-			console.log('signUp err : ', err);
+			Swal.fire({
+				icon: 'error',
+				title: `통신에러가 발생했습니다`,
+				text: `에러카운트 ${errNum} 에러코드 : ${err?.response?.data?.error}`,
+				confirmButtonText: '확인',
+			});
 		} finally {
 			setUserInfo((prevState: object) => {
 				return {

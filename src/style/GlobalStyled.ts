@@ -50,9 +50,20 @@ const Parent = {
 		${space}
         ${color}
 	`,
+	CustomCol: styled.div<
+		ColorProps & TypographyProps & SpaceProps & LayoutProps
+	>`
+		display: flex;
+		align-items: center;
+		${typography}
+		${space}
+        ${color}
+        ${layout}
+	`,
 	Button: styled.button<
 		ColorProps & TypographyProps & SpaceProps & LayoutProps
 	>`
+		width: 100%;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -201,6 +212,7 @@ const GlobalStyled = {
 	`,
 
 	Col: styled(Parent.Col)``,
+	CustomCol: styled(Parent.CustomCol)``,
 
 	CenterCol: styled(Parent.Col)`
 		align-items: center;
@@ -211,9 +223,7 @@ const GlobalStyled = {
 		align-items: center;
 		justify-content: flex-end;
 	`,
-	Button: styled(Parent.Button)`
-		width: 100%;
-	`,
+	Button: styled(Parent.Button)``,
 	ActiveButton: styled(Parent.Button)<{ isActive: boolean | undefined }>`
 		width: 100%;
 		background-color: ${props =>
