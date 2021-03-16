@@ -152,11 +152,10 @@ const SignUpPage = ({
 				setSubmitLevel(e);
 			}
 		} catch (err) {
-			console.log('signUp err : ', err.response);
 			Swal.fire({
 				icon: 'error',
 				title: `통신에러가 발생했습니다`,
-				text: `에러카운트 ${errNum} 에러코드 : ${err.response.code}`,
+				text: `에러카운트 ${errNum} 에러코드 : ${err?.response?.data?.error}`,
 				confirmButtonText: '확인',
 			});
 		} finally {
