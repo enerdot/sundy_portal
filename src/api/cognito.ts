@@ -196,6 +196,7 @@ const getSession = () => {
 		if (cognitoUser === null) {
 			reject(null);
 		} else {
+			console.log('cognitoUser : ', cognitoUser);
 			cognitoUser.getSession((err: any, result: any) => {
 				if (err) {
 					reject(null);
