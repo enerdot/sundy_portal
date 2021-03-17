@@ -48,7 +48,17 @@ function useAPI(): any {
 		insert: (params: { userId: string; password: string }) =>
 			signIn(params),
 		get: () => getSession(),
-		delete: () => signOut(),
+		delete: () => {
+			signOut();
+			removeCookie('id_token', { path: '/' });
+			Object.keys(cookies).map(res => {
+				removeCookie(res, { path: '/' });
+				removeCookie(res, { path: '/main' });
+				return res;
+			});
+			localStorage.clear();
+			sessionStorage.clear();
+		},
 	};
 
 	const cookie = {

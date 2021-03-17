@@ -37,7 +37,7 @@ function useCurrentUser() {
 			return idToken;
 		} catch (error) {
 			setCurrentUser(null);
-			API.cookie.delete();
+			API.session.delete();
 			throw error;
 		}
 		// eslint-disable-next-line
@@ -47,7 +47,6 @@ function useCurrentUser() {
 		try {
 			await API.session.delete();
 		} finally {
-			API.cookie.delete();
 			window.location.href = '/login';
 		}
 	}, [API]);
