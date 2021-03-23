@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 import Swal from 'sweetalert2';
+import moment from 'moment';
 
 import GlobalStyled from 'style/GlobalStyled';
 
@@ -82,6 +83,10 @@ const UserConfirm = ({
 
 	const [cognitoUserObj, setCognitoUserObj] = useState('');
 
+	const [confirmTime, setConfirmTime] = useState(
+		moment('2020-01-01 16:05:00'),
+	);
+
 	const [
 		isStateRegularExpressionInfo,
 		setIsStateRegularExpressionInfo,
@@ -101,6 +106,7 @@ const UserConfirm = ({
 		try {
 			const formatPhoneNumber = `+82${phoneNumber}`;
 			setIsSendConfirmPhoneNumberLoading(true);
+			setConfirmTime(moment('2020-01-01 16:05:00'));
 			if (type === 'signUp') {
 				if (isSendConfirmPhoneNumber) {
 					console.log('resend');
@@ -249,6 +255,7 @@ const UserConfirm = ({
 								: '인증번호 발송'
 						}
 						isConfirmButtonLoading={isSendConfirmPhoneNumberLoading}
+						confirmTime={confirmTime}
 					/>
 					<Styled.HideInput name="userId" value={phoneNumber} />
 					<Styled.HideInput

@@ -1,11 +1,13 @@
 import React, { InputHTMLAttributes, useState, useEffect } from 'react';
 import styled from 'styled-components';
+import moment from 'moment';
 
 import GlobalStyled from 'style/GlobalStyled';
 import theme from 'style/theme';
 
 import LabelInput from 'components/atoms/LabelInput';
 import Spinner from 'components/atoms/Spinner';
+import TimeCount from 'components/atoms/TimeCount';
 
 const Styled = {
 	Body: styled(GlobalStyled.Row)`
@@ -61,7 +63,7 @@ interface SignUpInputInterface extends InputHTMLAttributes<HTMLInputElement> {
 	};
 	isConfirmButtonLoading?: boolean;
 	label?: string;
-
+	confirmTime?: moment.Moment;
 	// type: string;
 	// name: string;
 	// onChange: Function;
@@ -89,6 +91,7 @@ const SignUpInput = (props: SignUpInputInterface) => {
 		required,
 		isConfirmButtonLoading,
 		readOnly,
+		confirmTime,
 	} = props;
 
 	const {
@@ -108,6 +111,7 @@ const SignUpInput = (props: SignUpInputInterface) => {
 	const [regularMessage, setRegularMessage] = useState('');
 	const [isHide, setIsHide] = useState(true);
 	const [regularMessageColor, setRegularMessageColor] = useState('');
+	const [isConfirmButtonClick, setIsConfirmButtonClick] = useState(false);
 
 	const successColor = theme.colors.blue;
 	const failColor = theme.colors.red;
@@ -304,6 +308,7 @@ const SignUpInput = (props: SignUpInputInterface) => {
 						<Styled.ConfirmButton
 							onClick={(e: any) => {
 								e.preventDefault();
+								setIsConfirmButtonClick(true);
 								onClickConfirmButton();
 							}}
 							isActive={
@@ -317,6 +322,10 @@ const SignUpInput = (props: SignUpInputInterface) => {
 								size={'1.25rem'}
 							>
 								{confirmButtonText}
+								<TimeCount
+									isStart={isConfirmButtonClick}
+									time={confirmTime}
+								/>
 							</Spinner>
 						</Styled.ConfirmButton>
 					</Styled.ButtonCol>
