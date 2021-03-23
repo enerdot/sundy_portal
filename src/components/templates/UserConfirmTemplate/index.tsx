@@ -83,6 +83,8 @@ const UserConfirm = ({
 
 	const [cognitoUserObj, setCognitoUserObj] = useState('');
 
+	const [isClickConfirmButton, setIsClickConfirmButton] = useState(false);
+
 	const [confirmTime, setConfirmTime] = useState(
 		moment('2020-01-01 16:05:00'),
 	);
@@ -106,6 +108,7 @@ const UserConfirm = ({
 		try {
 			const formatPhoneNumber = `+82${phoneNumber}`;
 			setIsSendConfirmPhoneNumberLoading(true);
+			setIsClickConfirmButton(true);
 			setConfirmTime(moment('2020-01-01 16:05:00'));
 			if (type === 'signUp') {
 				if (isSendConfirmPhoneNumber) {
@@ -119,8 +122,6 @@ const UserConfirm = ({
 					});
 
 					let user = undefined;
-
-					console.log('checkStatus : ', checkStatus);
 
 					switch (checkStatus) {
 						case 1:
@@ -212,7 +213,11 @@ const UserConfirm = ({
 		setIsSubmitButtonLoading(true);
 		e.preventDefault();
 		try {
-			if (isConfirm) {
+			if (
+				confirmTime.diff(moment('2020-01-01 16:05:00'), 'second') < -300
+			) {
+				Swal.fire(globalSwal.confirmTimeOut);
+			} else if (isConfirm) {
 				onSubmit(submitLevel, {
 					confirmCode: confirmCode,
 					cognitoUser: cognitoUser,
@@ -256,6 +261,7 @@ const UserConfirm = ({
 						}
 						isConfirmButtonLoading={isSendConfirmPhoneNumberLoading}
 						confirmTime={confirmTime}
+						isClickConfirmButton={isClickConfirmButton}
 					/>
 					<Styled.HideInput name="userId" value={phoneNumber} />
 					<Styled.HideInput

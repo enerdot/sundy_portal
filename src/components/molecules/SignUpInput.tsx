@@ -64,6 +64,7 @@ interface SignUpInputInterface extends InputHTMLAttributes<HTMLInputElement> {
 	isConfirmButtonLoading?: boolean;
 	label?: string;
 	confirmTime?: moment.Moment;
+	isClickConfirmButton?: boolean;
 	// type: string;
 	// name: string;
 	// onChange: Function;
@@ -92,6 +93,7 @@ const SignUpInput = (props: SignUpInputInterface) => {
 		isConfirmButtonLoading,
 		readOnly,
 		confirmTime,
+		isClickConfirmButton,
 	} = props;
 
 	const {
@@ -111,7 +113,6 @@ const SignUpInput = (props: SignUpInputInterface) => {
 	const [regularMessage, setRegularMessage] = useState('');
 	const [isHide, setIsHide] = useState(true);
 	const [regularMessageColor, setRegularMessageColor] = useState('');
-	const [isConfirmButtonClick, setIsConfirmButtonClick] = useState(false);
 
 	const successColor = theme.colors.blue;
 	const failColor = theme.colors.red;
@@ -308,7 +309,6 @@ const SignUpInput = (props: SignUpInputInterface) => {
 						<Styled.ConfirmButton
 							onClick={(e: any) => {
 								e.preventDefault();
-								setIsConfirmButtonClick(true);
 								onClickConfirmButton();
 							}}
 							isActive={
@@ -323,7 +323,7 @@ const SignUpInput = (props: SignUpInputInterface) => {
 							>
 								{confirmButtonText}
 								<TimeCount
-									isStart={isConfirmButtonClick}
+									isStart={isClickConfirmButton}
 									time={confirmTime}
 								/>
 							</Spinner>

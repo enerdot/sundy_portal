@@ -21,6 +21,11 @@ const globalSwal: { [key: string]: SweetAlertOptions } = {
 		title: '잘못된 URL 접속입니다.',
 		confirmButtonText: '확인',
 	},
+	confirmTimeOut: {
+		icon: 'error',
+		title: '인증시간을 초과하였습니다.',
+		confirmButtonText: '확인',
+	},
 	overlapPhoneNumber: {
 		icon: 'error',
 		title: '해당 전화번호는 이미 계정이 있는 전화번호입니다!',
