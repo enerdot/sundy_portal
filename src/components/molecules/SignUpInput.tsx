@@ -1,11 +1,13 @@
 import React, { InputHTMLAttributes, useState, useEffect } from 'react';
 import styled from 'styled-components';
+import moment from 'moment';
 
 import GlobalStyled from 'style/GlobalStyled';
 import theme from 'style/theme';
 
 import LabelInput from 'components/atoms/LabelInput';
 import Spinner from 'components/atoms/Spinner';
+import TimeCount from 'components/atoms/TimeCount';
 
 const Styled = {
 	Body: styled(GlobalStyled.Row)`
@@ -61,7 +63,8 @@ interface SignUpInputInterface extends InputHTMLAttributes<HTMLInputElement> {
 	};
 	isConfirmButtonLoading?: boolean;
 	label?: string;
-
+	confirmTime?: moment.Moment;
+	isClickConfirmButton?: boolean;
 	// type: string;
 	// name: string;
 	// onChange: Function;
@@ -89,6 +92,8 @@ const SignUpInput = (props: SignUpInputInterface) => {
 		required,
 		isConfirmButtonLoading,
 		readOnly,
+		confirmTime,
+		isClickConfirmButton,
 	} = props;
 
 	const {
@@ -317,6 +322,10 @@ const SignUpInput = (props: SignUpInputInterface) => {
 								size={'1.25rem'}
 							>
 								{confirmButtonText}
+								<TimeCount
+									isStart={isClickConfirmButton}
+									time={confirmTime}
+								/>
 							</Spinner>
 						</Styled.ConfirmButton>
 					</Styled.ButtonCol>

@@ -30,7 +30,7 @@ const regularExpression = {
 	},
 	nickname: {
 		expressionName: 'expressionName',
-		expression: /^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|a-z|A-Z]*$/,
+		expression: /^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|a-z|A-Z|0-9]*$/,
 		isRequired: true,
 		maxLength: 6,
 		minLength: 1,
