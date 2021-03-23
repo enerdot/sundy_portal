@@ -40,8 +40,8 @@
     "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "start": "REACT_ENV=production && react-scripts start",
-    "build": "REACT_ENV=production react-scripts build",
+    "start": "REACT_ENV=development && react-scripts start",
+    "build": "REACT_ENV=development react-scripts build",
     "serve": "serve -s build",
     "test": "node scripts/test.js",
     "deploy": "aws s3 sync ./build s3://web.s3.sundy-portal --profile=example-bob-s3",
