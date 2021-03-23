@@ -103,20 +103,28 @@ const SignUpPage = ({
 
 				const formatPhoneNumber = `+82${info.phoneNumber}`;
 
+				console.log('hi1');
+
 				await API.user.confirmUser({
 					userPhone: `+82${info.phoneNumber}`,
 					authNumber: info.confirmCode,
 				});
+				console.log('hi2');
 
 				await API.user.confirmUserUpdate({
 					userPhone: formatPhoneNumber,
 				});
+				console.log('hi3');
+
+				console.log('formatPhoneNumber : ', formatPhoneNumber);
+				console.log('password : ', userInfo.password);
 
 				const idToken = await createCurrentUser({
 					userId: formatPhoneNumber,
 					password: userInfo.password,
 				});
 				errNum += 1;
+				console.log('hi4');
 
 				const formatAPI = axios.create({
 					baseURL: process.env.REACT_APP_API_URL,
@@ -125,15 +133,18 @@ const SignUpPage = ({
 					},
 				});
 				errNum += 1;
+				console.log('hi4');
 
 				await formatAPI.post('/users/create-wallet', {
 					userPhone: formatPhoneNumber,
 				});
 				errNum += 1;
+				console.log('hi5');
 
 				await formatAPI.post('/users/get-token', {
 					contents: 'create_wallet',
 				});
+				console.log('hi6');
 
 				errNum += 1;
 
