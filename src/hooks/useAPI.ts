@@ -27,6 +27,9 @@ function useAPI(): any {
 			nickname: string;
 			password: string;
 		}) => API.post('/users/insert-noauth', params),
+		confirmUser: (params: { userPhone: string; authNumber: string }) => {
+			API.post('/users/confirmsms-noauth', params);
+		},
 		confirmUserUpdate: (params: { userPhone: string }) =>
 			API.post('/users/update-status', params),
 		confirmUserCreateWallet: (params: { userPhone: string }) =>

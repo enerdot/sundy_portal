@@ -15,7 +15,7 @@ import Form from 'pages/SignUpPage/Form';
 import Term from 'pages/SignUpPage/Term';
 import UserConfirmTemplate from 'components/templates/UserConfirmTemplate';
 
-import { signUpConfirm } from 'api/cognito';
+// import { signUpConfirm } from 'api/cognito';
 import Compleat from 'pages/SignUpPage/Compleat';
 
 import { statusType } from 'components/atoms/ProcessBall';
@@ -98,9 +98,15 @@ const SignUpPage = ({
 		try {
 			if (e === processHeaderInfos.length) {
 				setIsSubmitLoading(true);
-				await signUpConfirm(info.cognitoUser, info.confirmCode);
+
+				// await signUpConfirm(info.cognitoUser, info.confirmCode);
 
 				const formatPhoneNumber = `+82${info.phoneNumber}`;
+
+				await API.user.confirmUser({
+					userPhone: `+82${info.phoneNumber}`,
+					authNumber: info.confirmCode,
+				});
 
 				await API.user.confirmUserUpdate({
 					userPhone: formatPhoneNumber,
