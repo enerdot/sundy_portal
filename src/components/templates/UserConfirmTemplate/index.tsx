@@ -108,12 +108,12 @@ const UserConfirm = ({
 		try {
 			const formatPhoneNumber = `+82${phoneNumber}`;
 			setIsSendConfirmPhoneNumberLoading(true);
-			setIsClickConfirmButton(true);
-			setConfirmTime(moment('2020-01-01 16:05:00'));
+
 			if (type === 'signUp') {
 				if (isSendConfirmPhoneNumber) {
 					console.log('resend');
 					await resendConfirmationCode(cognitoUser);
+					setConfirmTime(moment('2020-01-01 16:05:00'));
 				} else {
 					const {
 						data: { checkStatus },
@@ -175,15 +175,20 @@ const UserConfirm = ({
 							setIsSendConfirmPhoneNumber(true);
 							break;
 					}
+					setIsClickConfirmButton(true);
+					setConfirmTime(moment('2020-01-01 16:05:00'));
 				}
 			} else if (type === 'forgotPassword') {
 				if (isSendConfirmPhoneNumber) {
 					await resendConfirmationCode(cognitoUser);
+					setConfirmTime(moment('2020-01-01 16:05:00'));
 				} else {
 					const signUpCheck = await API.user.signUpCheck({
 						userPhone: formatPhoneNumber,
 					});
 					const { user_check } = signUpCheck.data;
+					setIsClickConfirmButton(true);
+					setConfirmTime(moment('2020-01-01 16:05:00'));
 					if (user_check) {
 						const user: any = await forgotPassword(
 							formatPhoneNumber,
