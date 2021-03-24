@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
-import useSWR from 'swr';
+// import useSWR from 'swr';
 import jwt from 'jsonwebtoken';
 
 import GlobalStyled from 'style/GlobalStyled';
@@ -77,14 +77,16 @@ const MyPageTemplate = (props: MyPageTemplateInterface) => {
 	const [userInfo, setUserInfo] = useState({
 		nickname: '',
 		wallet_balance: '-',
-		error: '-',
 	});
+
+	const [userInfoErr, setUserInfoErr] = useState('');
 
 	const [isCreateWalletLoading, setIsCreateWalletLoading] = useState(false);
 	const [isGetTokenLoading, setIsGetTokenLoading] = useState(false);
 	const [isSendToken, setIsSendToken] = useState(false);
 
-	const [API] = useAPI();
+	// eslint-disable-next-line
+	const [API] = useCallback(useAPI(), []);
 
 	const sendToken = useCallback(async () => {
 		try {
@@ -109,6 +111,8 @@ const MyPageTemplate = (props: MyPageTemplateInterface) => {
 	useEffect(() => {
 		if (userInfo.wallet_balance !== '0') {
 			setIsSendToken(true);
+		} else {
+			sendToken();
 		}
 	}, [sendToken, userInfo.wallet_balance]);
 
@@ -119,18 +123,14 @@ const MyPageTemplate = (props: MyPageTemplateInterface) => {
 				console.log('result : ', result);
 				setUserInfo({ ...result.data, error: '' });
 			} catch (err) {
-				// console.log('err : ', err);
-				// setUserInfo({
-				// 	nickname: '',
-				// 	wallet_balance: '-',
-				// 	error: err?.response?.error,
-				// });
+				setUserInfoErr(err?.response?.data?.error);
 			}
 		};
 		if (currentUser) {
 			getInfo();
+			sendToken();
 		}
-	}, [API.user]);
+	}, [currentUser, API.user, sendToken]);
 
 	const handleClickSignCheck = async () => {
 		if (currentUser) {
@@ -151,6 +151,7 @@ const MyPageTemplate = (props: MyPageTemplateInterface) => {
 			await API.user.getInfo();
 		} catch (err) {
 			console.log(err.response);
+			setUserInfoErr(err?.response?.data?.error);
 		}
 		setIsCreateWalletLoading(false);
 	};
@@ -182,7 +183,7 @@ const MyPageTemplate = (props: MyPageTemplateInterface) => {
 						</GlobalStyled.ImgRow>
 						<GlobalStyled.Row>
 							<Styled.CoinText>
-								{userInfo.error === 'error03' ? (
+								{userInfoErr === 'error03' ? (
 									<GlobalStyled.CustomCol width="10rem">
 										<CircleSpinner
 											size="2.5rem"
@@ -203,7 +204,7 @@ const MyPageTemplate = (props: MyPageTemplateInterface) => {
 								) : (
 									userInfo.wallet_balance
 								)}
-								{userInfo.error === 'error03' ? (
+								{userInfoErr === 'error03' ? (
 									''
 								) : isSendToken ? (
 									''

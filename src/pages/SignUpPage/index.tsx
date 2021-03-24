@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import axios from 'axios';
 import Swal from 'sweetalert2';
 // import useSWR from 'swr';
 
@@ -8,7 +7,6 @@ import GlobalStyled from 'style/GlobalStyled';
 
 import globalSwal from 'config/swal';
 
-import useCurrentUser from 'hooks/useCurrentUser';
 import useAPI from 'hooks/useAPI';
 
 import ProcessHeader from 'components/organisms/ProcessHeader';
@@ -57,8 +55,6 @@ const SignUpPage = ({
 	// 	}
 	// };
 
-	const { createCurrentUser } = useCurrentUser();
-
 	const [submitLevel, setSubmitLevel] = useState(0);
 
 	const [userInfo, setUserInfo] = useState({
@@ -96,7 +92,6 @@ const SignUpPage = ({
 	const [API] = useAPI();
 
 	const handleSubmit = async (e: number, info: any) => {
-		let errNum = 0;
 		try {
 			if (e === processHeaderInfos.length) {
 				setIsSubmitLoading(true);
@@ -160,23 +155,18 @@ const SignUpPage = ({
 				setSubmitLevel(e);
 			}
 		} catch (err) {
-			if (err?.response?.error === 'error01') {
+			const formatErr = err?.response?.data?.error;
+			if (formatErr === 'error01') {
 				Swal.fire(globalSwal.overlapPhoneNumber);
-			} else if (err?.response?.error === 'error02') {
+			} else if (formatErr === 'error02') {
 				Swal.fire(globalSwal.confirmTimeOver);
-			} else if (err?.response?.error === 'error03') {
+			} else if (formatErr === 'error03') {
 				Swal.fire(globalSwal.confirmErr);
-			} else if (err?.response?.error === 'error04') {
+			} else if (formatErr === 'error04') {
 				Swal.fire(globalSwal.DBErr);
-				console.log('sign up : ', err?.response);
+				console.log('err : ', err?.response);
 			} else {
-				Swal.fire({
-					icon: 'error',
-					title: `통신에러가 발생했습니다`,
-					text: `에러카운트 ${errNum} 에러코드 : ${err?.response?.data?.error}`,
-					confirmButtonText: '확인',
-				});
-				console.log('sign up : ', err?.response);
+				console.log('err : ', err?.response);
 				// Swal.fire(globalSwal.limitConfirmErr);
 			}
 		} finally {
@@ -217,7 +207,9 @@ const SignUpPage = ({
 							<UserConfirmTemplate
 								type="signUp"
 								userInfo={userInfo}
-								onSubmit={handleSubmit}
+								onSubmit={
+									isSubmitLoading ? () => {} : handleSubmit
+								}
 								isSubmitLoading={isSubmitLoading}
 							/>
 						) : (

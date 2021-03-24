@@ -13,7 +13,7 @@ import useAPI from 'hooks/useAPI';
 
 import regularExpression from 'config/regularExpression';
 import LabelInput from 'components/atoms/LabelInput';
-import { signUp, resendConfirmationCode, forgotPassword } from 'api/cognito';
+import { resendConfirmationCode, forgotPassword } from 'api/cognito';
 
 import globalSwal from 'config/swal';
 import CircleSpinner from 'components/atoms/Spinner';
@@ -112,8 +112,12 @@ const UserConfirm = ({
 			if (type === 'signUp') {
 				if (isSendConfirmPhoneNumber) {
 					console.log('resend');
-					await resendConfirmationCode(cognitoUser);
-					setConfirmTime(moment('2020-01-01 16:00:05'));
+					await API.user.sendConfirmCode({
+						userPhone: formatPhoneNumber,
+						password: userInfo.password,
+						nickname: userInfo.nickname,
+					});
+					setConfirmTime(moment('2020-01-01 16:05:00'));
 				} else {
 					const {
 						data: { checkStatus },
@@ -140,15 +144,11 @@ const UserConfirm = ({
 									: '',
 								password: userInfo.password,
 							});
-							await signUp({
-								phoneNumber: formatPhoneNumber,
+							await API.user.sendConfirmCode({
+								userPhone: formatPhoneNumber,
 								password: userInfo.password,
 								nickname: userInfo.nickname,
 							});
-
-							// await API.user.sendConfirmCode({
-							// 	userPhone: formatPhoneNumber,
-							// });
 
 							setCognitoUser(user as any);
 							setIsSendConfirmPhoneNumber(true);
@@ -166,8 +166,8 @@ const UserConfirm = ({
 								password: userInfo.password,
 							});
 							console.log('tempUserInsert1');
-							await signUp({
-								phoneNumber: formatPhoneNumber,
+							await API.user.sendConfirmCode({
+								userPhone: formatPhoneNumber,
 								password: userInfo.password,
 								nickname: userInfo.nickname,
 							});
@@ -175,7 +175,6 @@ const UserConfirm = ({
 							// await API.user.sendConfirmCode({
 							// 	userPhone: formatPhoneNumber,
 							// });
-							console.log('tempUserInsert3');
 							// user = await signUp({
 							// 	...userInfo,
 							// 	phoneNumber: formatPhoneNumber,
@@ -222,13 +221,14 @@ const UserConfirm = ({
 			// } else if (err.code === 'LimitExceededException') {
 			// 	Swal.fire(globalSwal.limitConfirmErr);
 			// }
-			if (err?.response?.error === 'error01') {
+			const formatErr = err?.data?.error;
+			if (formatErr === 'error01') {
 				Swal.fire(globalSwal.overlapPhoneNumber);
-			} else if (err?.response?.error === 'error02') {
+			} else if (formatErr === 'error02') {
 				Swal.fire(globalSwal.confirmTimeOver);
-			} else if (err?.response?.error === 'error03') {
+			} else if (formatErr === 'error03') {
 				Swal.fire(globalSwal.confirmErr);
-			} else if (err?.response?.error === 'error04') {
+			} else if (formatErr === 'error04') {
 				Swal.fire(globalSwal.DBErr);
 				console.log('err : ', err?.response);
 			} else {
@@ -245,24 +245,25 @@ const UserConfirm = ({
 		setIsSubmitButtonLoading(true);
 		e.preventDefault();
 		console.log(confirmTime.diff(moment('2020-01-01 16:05:00'), 'second'));
-		// try {
-		// 	if (
-		// 		confirmTime.diff(moment('2020-01-01 16:05:00'), 'second') < -300
-		// 	) {
-		// 		Swal.fire(globalSwal.confirmTimeOut);
-		// 	} else if (isConfirm) {
-		// 		onSubmit(submitLevel, {
-		// 			confirmCode: confirmCode,
-		// 			cognitoUser: cognitoUser,
-		// 			phoneNumber: phoneNumber,
-		// 			cognitoUserObj: cognitoUserObj,
-		// 		});
-		// 	}
-		// } catch (err: any) {
-		// 	console.log('err : ', err);
-		// } finally {
-		// 	setIsSubmitButtonLoading(false);
-		// }
+		try {
+			if (
+				confirmTime.diff(moment('2020-01-01 16:05:00'), 'second') <=
+				-300
+			) {
+				Swal.fire(globalSwal.confirmTimeOut);
+			} else if (isConfirm) {
+				onSubmit(submitLevel, {
+					confirmCode: confirmCode,
+					cognitoUser: cognitoUser,
+					phoneNumber: phoneNumber,
+					cognitoUserObj: cognitoUserObj,
+				});
+			}
+		} catch (err: any) {
+			console.log('err : ', err);
+		} finally {
+			setIsSubmitButtonLoading(false);
+		}
 	};
 
 	return (
