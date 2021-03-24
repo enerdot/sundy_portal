@@ -31,6 +31,21 @@ const globalSwal: { [key: string]: SweetAlertOptions } = {
 		title: '해당 전화번호는 이미 계정이 있는 전화번호입니다!',
 		confirmButtonText: '확인',
 	},
+	confirmTimeOver: {
+		icon: 'error',
+		title: '인증 시간이 초과되었습니다',
+		confirmButtonText: '확인',
+	},
+	confirmErr: {
+		icon: 'error',
+		title: '인증 번호가 잘못 입력되었습니다',
+		confirmButtonText: '확인',
+	},
+	DBErr: {
+		icon: 'error',
+		title: 'DB 에러',
+		confirmButtonText: '확인',
+	},
 	notSignUpPhoneNumber: {
 		icon: 'error',
 		title: '해당 전화번호는 없는 \n 계정입니다!',

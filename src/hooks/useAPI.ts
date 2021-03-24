@@ -18,6 +18,7 @@ function useAPI(): any {
 	};
 
 	const user = {
+		getInfo: () => API.get('/users/info'),
 		isConfirm: (params: { userPhone: string }) =>
 			API.post('/users/check-status', params),
 		notConfirmUserDelete: (params: { userPhone: string }) =>
@@ -27,9 +28,13 @@ function useAPI(): any {
 			nickname: string;
 			password: string;
 		}) => API.post('/users/insert-noauth', params),
-		confirmUser: (params: { userPhone: string; authNumber: string }) => {
-			API.post('/users/confirmsms-noauth', params);
-		},
+		sendConfirmCode: (params: {
+			userPhone: string;
+			password: string;
+			nickname: string;
+		}) => API.post('/users/sendsms-noauth', params),
+		confirmUser: (params: { userPhone: string; authNumber: string }) =>
+			API.post('/users/confirmsms-noauth', params),
 		confirmUserUpdate: (params: { userPhone: string }) =>
 			API.post('/users/update-status', params),
 		confirmUserCreateWallet: (params: { userPhone: string }) =>

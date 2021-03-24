@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import axios from 'axios';
 import Swal from 'sweetalert2';
 // import useSWR from 'swr';
 
 import GlobalStyled from 'style/GlobalStyled';
 
-import useCurrentUser from 'hooks/useCurrentUser';
+import globalSwal from 'config/swal';
+
 import useAPI from 'hooks/useAPI';
 
 import ProcessHeader from 'components/organisms/ProcessHeader';
@@ -55,8 +55,6 @@ const SignUpPage = ({
 	// 	}
 	// };
 
-	const { createCurrentUser } = useCurrentUser();
-
 	const [submitLevel, setSubmitLevel] = useState(0);
 
 	const [userInfo, setUserInfo] = useState({
@@ -94,7 +92,6 @@ const SignUpPage = ({
 	const [API] = useAPI();
 
 	const handleSubmit = async (e: number, info: any) => {
-		let errNum = 0;
 		try {
 			if (e === processHeaderInfos.length) {
 				setIsSubmitLoading(true);
@@ -106,7 +103,7 @@ const SignUpPage = ({
 				console.log('hi1');
 
 				await API.user.confirmUser({
-					userPhone: `+82${info.phoneNumber}`,
+					userPhone: formatPhoneNumber,
 					authNumber: info.confirmCode,
 				});
 				console.log('hi2');
@@ -119,34 +116,30 @@ const SignUpPage = ({
 				console.log('formatPhoneNumber : ', formatPhoneNumber);
 				console.log('password : ', userInfo.password);
 
-				const idToken = await createCurrentUser({
-					userId: formatPhoneNumber,
-					password: userInfo.password,
-				});
-				errNum += 1;
-				console.log('hi4');
+				// const idToken = await createCurrentUser({
+				// 	userId: formatPhoneNumber,
+				// 	password: userInfo.password,
+				// });
+				// errNum += 1;
 
-				const formatAPI = axios.create({
-					baseURL: process.env.REACT_APP_API_URL,
-					headers: {
-						Authorization: idToken,
-					},
-				});
-				errNum += 1;
-				console.log('hi4');
+				// const formatAPI = axios.create({
+				// 	baseURL: process.env.REACT_APP_API_URL,
+				// 	headers: {
+				// 		Authorization: idToken,
+				// 	},
+				// });
+				// errNum += 1;
 
-				await formatAPI.post('/users/create-wallet', {
-					userPhone: formatPhoneNumber,
-				});
-				errNum += 1;
-				console.log('hi5');
+				// await formatAPI.post('/users/create-wallet', {
+				// 	userPhone: formatPhoneNumber,
+				// });
+				// errNum += 1;
 
-				await formatAPI.post('/users/get-token', {
-					contents: 'create_wallet',
-				});
-				console.log('hi6');
+				// await formatAPI.post('/users/get-token', {
+				// 	contents: 'create_wallet',
+				// });
 
-				errNum += 1;
+				// errNum += 1;
 
 				setSubmitLevel(e);
 			} else {
@@ -169,12 +162,20 @@ const SignUpPage = ({
 				setSubmitLevel(e);
 			}
 		} catch (err) {
-			Swal.fire({
-				icon: 'error',
-				title: `통신에러가 발생했습니다`,
-				text: `에러카운트 ${errNum} 에러코드 : ${err?.response?.data?.error}`,
-				confirmButtonText: '확인',
-			});
+			const formatErr = err?.response?.data?.error;
+			if (formatErr === 'error01') {
+				Swal.fire(globalSwal.overlapPhoneNumber);
+			} else if (formatErr === 'error02') {
+				Swal.fire(globalSwal.confirmTimeOver);
+			} else if (formatErr === 'error03') {
+				Swal.fire(globalSwal.confirmErr);
+			} else if (formatErr === 'error04') {
+				Swal.fire(globalSwal.DBErr);
+				console.log('err : ', err?.response);
+			} else {
+				console.log('err : ', err?.response);
+				// Swal.fire(globalSwal.limitConfirmErr);
+			}
 		} finally {
 			setUserInfo((prevState: object) => {
 				return {
@@ -213,7 +214,9 @@ const SignUpPage = ({
 							<UserConfirmTemplate
 								type="signUp"
 								userInfo={userInfo}
-								onSubmit={handleSubmit}
+								onSubmit={
+									isSubmitLoading ? () => {} : handleSubmit
+								}
 								isSubmitLoading={isSubmitLoading}
 							/>
 						) : (
