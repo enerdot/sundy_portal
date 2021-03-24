@@ -6,6 +6,8 @@ import Swal from 'sweetalert2';
 
 import GlobalStyled from 'style/GlobalStyled';
 
+import globalSwal from 'config/swal';
+
 import useCurrentUser from 'hooks/useCurrentUser';
 import useAPI from 'hooks/useAPI';
 
@@ -104,7 +106,7 @@ const SignUpPage = ({
 				const formatPhoneNumber = `+82${info.phoneNumber}`;
 
 				await API.user.confirmUser({
-					userPhone: `+82${info.phoneNumber}`,
+					userPhone: formatPhoneNumber,
 					authNumber: info.confirmCode,
 				});
 
@@ -112,30 +114,30 @@ const SignUpPage = ({
 					userPhone: formatPhoneNumber,
 				});
 
-				const idToken = await createCurrentUser({
-					userId: formatPhoneNumber,
-					password: userInfo.password,
-				});
-				errNum += 1;
+				// const idToken = await createCurrentUser({
+				// 	userId: formatPhoneNumber,
+				// 	password: userInfo.password,
+				// });
+				// errNum += 1;
 
-				const formatAPI = axios.create({
-					baseURL: process.env.REACT_APP_API_URL,
-					headers: {
-						Authorization: idToken,
-					},
-				});
-				errNum += 1;
+				// const formatAPI = axios.create({
+				// 	baseURL: process.env.REACT_APP_API_URL,
+				// 	headers: {
+				// 		Authorization: idToken,
+				// 	},
+				// });
+				// errNum += 1;
 
-				await formatAPI.post('/users/create-wallet', {
-					userPhone: formatPhoneNumber,
-				});
-				errNum += 1;
+				// await formatAPI.post('/users/create-wallet', {
+				// 	userPhone: formatPhoneNumber,
+				// });
+				// errNum += 1;
 
-				await formatAPI.post('/users/get-token', {
-					contents: 'create_wallet',
-				});
+				// await formatAPI.post('/users/get-token', {
+				// 	contents: 'create_wallet',
+				// });
 
-				errNum += 1;
+				// errNum += 1;
 
 				setSubmitLevel(e);
 			} else {
@@ -158,12 +160,25 @@ const SignUpPage = ({
 				setSubmitLevel(e);
 			}
 		} catch (err) {
-			Swal.fire({
-				icon: 'error',
-				title: `통신에러가 발생했습니다`,
-				text: `에러카운트 ${errNum} 에러코드 : ${err?.response?.data?.error}`,
-				confirmButtonText: '확인',
-			});
+			if (err?.response?.error === 'error01') {
+				Swal.fire(globalSwal.overlapPhoneNumber);
+			} else if (err?.response?.error === 'error02') {
+				Swal.fire(globalSwal.confirmTimeOver);
+			} else if (err?.response?.error === 'error03') {
+				Swal.fire(globalSwal.confirmErr);
+			} else if (err?.response?.error === 'error04') {
+				Swal.fire(globalSwal.DBErr);
+				console.log('sign up : ', err?.response);
+			} else {
+				Swal.fire({
+					icon: 'error',
+					title: `통신에러가 발생했습니다`,
+					text: `에러카운트 ${errNum} 에러코드 : ${err?.response?.data?.error}`,
+					confirmButtonText: '확인',
+				});
+				console.log('sign up : ', err?.response);
+				// Swal.fire(globalSwal.limitConfirmErr);
+			}
 		} finally {
 			setUserInfo((prevState: object) => {
 				return {

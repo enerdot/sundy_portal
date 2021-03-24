@@ -74,21 +74,22 @@ const MyPageTemplate = (props: MyPageTemplateInterface) => {
 
 	const { currentUser, deleteSession } = useCurrentUser();
 
+	const [userInfo, setUserInfo] = useState({
+		nickname: '',
+		wallet_balance: '-',
+		error: '-',
+	});
+
 	const [isCreateWalletLoading, setIsCreateWalletLoading] = useState(false);
+	const [isGetTokenLoading, setIsGetTokenLoading] = useState(false);
 	const [isSendToken, setIsSendToken] = useState(false);
 
 	const [API] = useAPI();
 
-	const {
-		data: userInfo = { nickname: '', wallet_balance: '-' },
-		error,
-		mutate,
-	} = useSWR('/users/info');
-
 	const sendToken = useCallback(async () => {
 		try {
+			setIsGetTokenLoading(true);
 			await API.token.insert({ contents: 'create_wallet' });
-			await mutate();
 		} catch (err) {
 			if (err?.response?.data?.error === 'error04') {
 				setIsSendToken(true);
@@ -100,16 +101,36 @@ const MyPageTemplate = (props: MyPageTemplateInterface) => {
 					confirmButtonText: '확인',
 				});
 			}
+		} finally {
+			setIsGetTokenLoading(false);
 		}
-	}, [API.token, mutate]);
+	}, [API.token]);
 
 	useEffect(() => {
-		if (userInfo.wallet_balance === '0' || userInfo.wallet_balance === 0) {
-			sendToken();
-		} else {
+		if (userInfo.wallet_balance !== '0') {
 			setIsSendToken(true);
 		}
 	}, [sendToken, userInfo.wallet_balance]);
+
+	useEffect(() => {
+		const getInfo = async () => {
+			try {
+				const result = await API.user.getInfo();
+				console.log('result : ', result);
+				setUserInfo({ ...result.data, error: '' });
+			} catch (err) {
+				// console.log('err : ', err);
+				// setUserInfo({
+				// 	nickname: '',
+				// 	wallet_balance: '-',
+				// 	error: err?.response?.error,
+				// });
+			}
+		};
+		if (currentUser) {
+			getInfo();
+		}
+	}, [API.user]);
 
 	const handleClickSignCheck = async () => {
 		if (currentUser) {
@@ -127,7 +148,7 @@ const MyPageTemplate = (props: MyPageTemplateInterface) => {
 				userPhone: decodeUser?.phone_number,
 			});
 			await API.user.insert({ contents: 'create_wallet' });
-			await mutate();
+			await API.user.getInfo();
 		} catch (err) {
 			console.log(err.response);
 		}
@@ -161,7 +182,7 @@ const MyPageTemplate = (props: MyPageTemplateInterface) => {
 						</GlobalStyled.ImgRow>
 						<GlobalStyled.Row>
 							<Styled.CoinText>
-								{error?.response?.data?.error === 'error03' ? (
+								{userInfo.error === 'error03' ? (
 									<GlobalStyled.CustomCol width="10rem">
 										<CircleSpinner
 											size="2.5rem"
@@ -182,7 +203,9 @@ const MyPageTemplate = (props: MyPageTemplateInterface) => {
 								) : (
 									userInfo.wallet_balance
 								)}
-								{isSendToken ? (
+								{userInfo.error === 'error03' ? (
+									''
+								) : isSendToken ? (
 									''
 								) : (
 									<GlobalStyled.CustomCol
@@ -191,7 +214,7 @@ const MyPageTemplate = (props: MyPageTemplateInterface) => {
 									>
 										<CircleSpinner
 											size="2.5rem"
-											isLoading={isCreateWalletLoading}
+											isLoading={isGetTokenLoading}
 										>
 											<GlobalStyled.Button
 												width="100%"
