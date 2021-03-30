@@ -19,30 +19,37 @@ function useAPI(): any {
 
 	const user = {
 		getInfo: () => API.get('/users/info'),
-		isConfirm: (params: { userPhone: string }) =>
-			API.post('/users/check-status', params),
-		notConfirmUserDelete: (params: { userPhone: string }) =>
-			API.post('/users/delete-noauth', params),
-		tempUserInsert: (params: {
-			userPhone: string;
-			nickname: string;
-			password: string;
-		}) => API.post('/users/insert-noauth', params),
-		sendConfirmCode: (params: {
-			userPhone: string;
-			password: string;
-			nickname: string;
-		}) => API.post('/users/sendsms-noauth', params),
-		confirmUser: (params: { userPhone: string; authNumber: string }) =>
-			API.post('/users/confirmsms-noauth', params),
-		confirmUserUpdate: (params: { userPhone: string }) =>
-			API.post('/users/update-status', params),
-		confirmUserCreateWallet: (params: { userPhone: string }) =>
-			API.post('/users/create-wallet', params),
 		forgotPassword: (params: { new_password: string }) =>
 			API.post('/users/change-pwd', params),
+		sendConfirmCode: (params: {
+			userPhone: string;
+			nickname: string;
+			password: string;
+		}) => API.post('/users/join-noauth', params),
+		confirmUser: (params: { userPhone: string; authNumber: string }) =>
+			API.post('/users/join-auth-v1', params),
 		signUpCheck: (params: { userPhone: string }) =>
 			API.get('/users/check', { params }),
+		// isConfirm: (params: { userPhone: string }) =>
+		// 	API.post('/users/check-status', params),
+		// notConfirmUserDelete: (params: { userPhone: string }) =>
+		// 	API.post('/users/delete-noauth', params),
+		// tempUserInsert: (params: {
+		// 	userPhone: string;
+		// 	nickname: string;
+		// 	password: string;
+		// }) => API.post('/users/insert-noauth', params),
+		// sendConfirmCode: (params: {
+		// 	userPhone: string;
+		// 	password: string;
+		// 	nickname: string;
+		// }) => API.post('/users/sendsms-noauth', params),
+		// confirmUser: (params: { userPhone: string; authNumber: string }) =>
+		// 	API.post('/users/confirmsms-noauth', params),
+		// confirmUserUpdate: (params: { userPhone: string }) =>
+		// 	API.post('/users/update-status', params),
+		// confirmUserCreateWallet: (params: { userPhone: string }) =>
+		// 	API.post('/users/create-wallet', params),
 	};
 
 	const token = {

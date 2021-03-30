@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 import GlobalStyled from 'style/GlobalStyled';
-import routerUrl from 'config/routerUrl';
 
 const Styled = {
 	Wrapper: styled(GlobalStyled.HeightRow)`
@@ -52,9 +51,8 @@ const SignUpCompleteSection = (props: SignUpCompleteSectionInterface) => {
 	return (
 		<Styled.Wrapper>
 			<Styled.Title>회원가입을 축하합니다</Styled.Title>
-			<Styled.CoinText>
-				로그인 후 지갑생성시 토큰을 받을 수 있어요!
-			</Styled.CoinText>
+			{/* <Styled.Content>회원가입 축하 포인트를 받았어요 !</Styled.Content>
+			<Styled.CoinText>10000 REDi</Styled.CoinText> */}
 			<GlobalStyled.CenterRow>
 				<Styled.CoinAnimationWrapper>
 					<video
@@ -64,8 +62,8 @@ const SignUpCompleteSection = (props: SignUpCompleteSectionInterface) => {
 				</Styled.CoinAnimationWrapper>
 			</GlobalStyled.CenterRow>
 			<GlobalStyled.FadeInUpRow>
-				<Styled.HomeLink href={routerUrl.loginPage}>
-					<Styled.HomeButton>로그인 하러가기</Styled.HomeButton>
+				<Styled.HomeLink href="/">
+					<Styled.HomeButton>홈으로 돌아가기</Styled.HomeButton>
 				</Styled.HomeLink>
 			</GlobalStyled.FadeInUpRow>
 		</Styled.Wrapper>

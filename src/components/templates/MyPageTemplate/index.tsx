@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-// import useSWR from 'swr';
-import jwt from 'jsonwebtoken';
+import useSWR from 'swr';
+// import jwt from 'jsonwebtoken';
 
 import GlobalStyled from 'style/GlobalStyled';
 
@@ -9,9 +9,9 @@ import useCurrentUser from 'hooks/useCurrentUser';
 import routerUrl from 'config/routerUrl';
 import Svg from 'components/atoms/Svg';
 
-import useAPI from 'hooks/useAPI';
-import CircleSpinner from 'components/atoms/Spinner';
-import Swal from 'sweetalert2';
+// import useAPI from 'hooks/useAPI';
+// import CircleSpinner from 'components/atoms/Spinner';
+// import Swal from 'sweetalert2';
 
 const Styled = {
 	Wrapper: styled(GlobalStyled.HeightRow)<{ isShow: boolean }>`
@@ -74,63 +74,14 @@ const MyPageTemplate = (props: MyPageTemplateInterface) => {
 
 	const { currentUser, deleteSession } = useCurrentUser();
 
-	const [userInfo, setUserInfo] = useState({
-		nickname: '',
-		wallet_balance: '-',
-	});
+	// const [isCreateWalletLoading, setIsCreateWalletLoading] = useState(false);
 
-	const [userInfoErr, setUserInfoErr] = useState('');
+	// const [API] = useAPI();
 
-	const [isCreateWalletLoading, setIsCreateWalletLoading] = useState(false);
-	const [isGetTokenLoading, setIsGetTokenLoading] = useState(false);
-	const [isSendToken, setIsSendToken] = useState(false);
-
-	// eslint-disable-next-line
-	const [API] = useCallback(useAPI(), []);
-
-	const sendToken = useCallback(async () => {
-		try {
-			setIsGetTokenLoading(true);
-			await API.token.insert({ contents: 'create_wallet' });
-		} catch (err) {
-			if (err?.response?.data?.error === 'error04') {
-				setIsSendToken(true);
-			} else {
-				Swal.fire({
-					icon: 'error',
-					title: `통신에러가 발생했습니다`,
-					text: `에러코드 : token insert ${err?.response?.data?.error}`,
-					confirmButtonText: '확인',
-				});
-			}
-		} finally {
-			setIsGetTokenLoading(false);
-		}
-	}, [API.token]);
-
-	useEffect(() => {
-		if (userInfo.wallet_balance !== '0') {
-			setIsSendToken(true);
-		} else {
-			sendToken();
-		}
-	}, [sendToken, userInfo.wallet_balance]);
-
-	useEffect(() => {
-		const getInfo = async () => {
-			try {
-				const result = await API.user.getInfo();
-				console.log('result : ', result);
-				setUserInfo({ ...result.data, error: '' });
-			} catch (err) {
-				setUserInfoErr(err?.response?.data?.error);
-			}
-		};
-		if (currentUser) {
-			getInfo();
-			sendToken();
-		}
-	}, [currentUser, API.user, sendToken]);
+	const {
+		data: userInfo = { nickname: '', wallet_balance: '-' },
+		// error,
+	} = useSWR('/users/info');
 
 	const handleClickSignCheck = async () => {
 		if (currentUser) {
@@ -140,21 +91,29 @@ const MyPageTemplate = (props: MyPageTemplateInterface) => {
 		}
 	};
 
-	const handleClickCreateWallet = async () => {
-		setIsCreateWalletLoading(true);
-		const decodeUser = jwt.decode(currentUser) as { phone_number: string };
-		try {
-			await API.user.confirmUserCreateWallet({
-				userPhone: decodeUser?.phone_number,
-			});
-			await API.user.insert({ contents: 'create_wallet' });
-			await API.user.getInfo();
-		} catch (err) {
-			console.log(err.response);
-			setUserInfoErr(err?.response?.data?.error);
-		}
-		setIsCreateWalletLoading(false);
-	};
+	// const handleClickCreateWallet = async () => {
+	// 	setIsCreateWalletLoading(true);
+	// 	const decodeUser = jwt.decode(currentUser) as { phone_number: string };
+	// 	try {
+	// 		await API.user.confirmUserCreateWallet({
+	// 			userPhone: decodeUser?.phone_number,
+	// 		});
+	// 		await API.token.insert({ contents: 'create_wallet' });
+	// 		window.location.reload();
+	// 	} catch (err) {
+	// 		console.log(err.response);
+	// 		if (err?.response?.data?.error === 'error04') {
+	// 		} else {
+	// 			Swal.fire({
+	// 				icon: 'error',
+	// 				title: `통신에러가 발생했습니다`,
+	// 				text: `에러코드 : token insert ${err?.response?.data?.error}`,
+	// 				confirmButtonText: '확인',
+	// 			});
+	// 		}
+	// 	}
+	// 	setIsCreateWalletLoading(false);
+	// };
 
 	return (
 		<Styled.Wrapper isShow={isShow}>
@@ -183,7 +142,8 @@ const MyPageTemplate = (props: MyPageTemplateInterface) => {
 						</GlobalStyled.ImgRow>
 						<GlobalStyled.Row>
 							<Styled.CoinText>
-								{userInfoErr === 'error03' ? (
+								{userInfo.wallet_balance}
+								{/* {error?.response?.data?.error === 'error03' ? (
 									<GlobalStyled.CustomCol width="10rem">
 										<CircleSpinner
 											size="2.5rem"
@@ -203,31 +163,7 @@ const MyPageTemplate = (props: MyPageTemplateInterface) => {
 									</GlobalStyled.CustomCol>
 								) : (
 									userInfo.wallet_balance
-								)}
-								{userInfoErr === 'error03' ? (
-									''
-								) : isSendToken ? (
-									''
-								) : (
-									<GlobalStyled.CustomCol
-										width="14rem"
-										marginLeft="1rem"
-									>
-										<CircleSpinner
-											size="2.5rem"
-											isLoading={isGetTokenLoading}
-										>
-											<GlobalStyled.Button
-												width="100%"
-												fontSize="1.5rem"
-												padding="0.5rem"
-												onClick={sendToken}
-											>
-												가입축하 토큰 받기
-											</GlobalStyled.Button>
-										</CircleSpinner>
-									</GlobalStyled.CustomCol>
-								)}
+								)} */}
 							</Styled.CoinText>
 						</GlobalStyled.Row>
 					</>

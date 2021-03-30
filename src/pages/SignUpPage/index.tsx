@@ -96,43 +96,12 @@ const SignUpPage = ({
 			if (e === processHeaderInfos.length) {
 				setIsSubmitLoading(true);
 
-				// await signUpConfirm(info.cognitoUser, info.confirmCode);
-
 				const formatPhoneNumber = `+82${info.phoneNumber}`;
 
 				await API.user.confirmUser({
 					userPhone: formatPhoneNumber,
 					authNumber: info.confirmCode,
 				});
-
-				await API.user.confirmUserUpdate({
-					userPhone: formatPhoneNumber,
-				});
-
-				// const idToken = await createCurrentUser({
-				// 	userId: formatPhoneNumber,
-				// 	password: userInfo.password,
-				// });
-				// errNum += 1;
-
-				// const formatAPI = axios.create({
-				// 	baseURL: process.env.REACT_APP_API_URL,
-				// 	headers: {
-				// 		Authorization: idToken,
-				// 	},
-				// });
-				// errNum += 1;
-
-				// await formatAPI.post('/users/create-wallet', {
-				// 	userPhone: formatPhoneNumber,
-				// });
-				// errNum += 1;
-
-				// await formatAPI.post('/users/get-token', {
-				// 	contents: 'create_wallet',
-				// });
-
-				// errNum += 1;
 
 				setSubmitLevel(e);
 			} else {
@@ -156,17 +125,19 @@ const SignUpPage = ({
 			}
 		} catch (err) {
 			const formatErr = err?.response?.data?.error;
+			console.log('sendConfirm err : ', err);
 			if (formatErr === 'error01') {
-				Swal.fire(globalSwal.overlapPhoneNumber);
+				Swal.fire(globalSwal.needAccountInfo);
 			} else if (formatErr === 'error02') {
-				Swal.fire(globalSwal.confirmTimeOver);
+				Swal.fire(globalSwal.confirmTimeOut);
 			} else if (formatErr === 'error03') {
 				Swal.fire(globalSwal.confirmErr);
-			} else if (formatErr === 'error04') {
-				Swal.fire(globalSwal.DBErr);
-				console.log('err : ', err?.response);
 			} else {
-				console.log('err : ', err?.response);
+				Swal.fire({
+					icon: 'error',
+					title: `에러 ${formatErr}`,
+					confirmButtonText: '확인',
+				});
 				// Swal.fire(globalSwal.limitConfirmErr);
 			}
 		} finally {
