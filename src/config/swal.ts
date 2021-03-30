@@ -57,6 +57,33 @@ const globalSwal: { [key: string]: SweetAlertOptions } = {
 		text: '잠시후에 다시 시도해주세요.',
 		confirmButtonText: '확인',
 	},
+	alreadySignUser: {
+		icon: 'error',
+		title: '이미 회원가입된 회원입니다.',
+		confirmButtonText: '확인',
+	},
+	bannedUser: {
+		icon: 'error',
+		title: '차단된 회원입니다.',
+		confirmButtonText: '확인',
+	},
+	needAccountInfo: {
+		icon: 'warning',
+		title: '입력되지 않은 정보가 있습니다.',
+		confirmButtonText: '확인',
+	},
+
+	needNickName: {
+		icon: 'warning',
+		title: '닉네임의 가입 조건이 일치하지 않습니다.',
+		confirmButtonText: '확인',
+	},
+	needPassword: {
+		icon: 'warning',
+		title: '비밀번호의 가입 조건이 일치하지 않습니다.',
+		confirmButtonText: '확인',
+	},
+
 	isPaymentToken: {
 		icon: 'warning',
 		title: '',

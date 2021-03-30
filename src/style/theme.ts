@@ -26,6 +26,8 @@ const theme: { [key: string]: any } = {
 		gray600: '#575757',
 		gray500: '#747474',
 
+		popupBlue: '#22436e',
+
 		levelBlue: {
 			1: '#E5F2FB',
 			2: '#B0D7F4',

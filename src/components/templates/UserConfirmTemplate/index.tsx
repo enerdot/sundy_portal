@@ -119,77 +119,15 @@ const UserConfirm = ({
 					});
 					setConfirmTime(moment('2020-01-01 16:05:00'));
 				} else {
-					const {
-						data: { checkStatus },
-					} = await API.user.isConfirm({
+					await API.user.sendConfirmCode({
 						userPhone: formatPhoneNumber,
+						password: userInfo.password,
+						nickname: userInfo.nickname,
 					});
-
-					let user = undefined;
-
-					console.log('checkStatus : ', checkStatus);
-
-					switch (checkStatus) {
-						case 1:
-							await Swal.fire(globalSwal.overlapPhoneNumber);
-							break;
-						case 2:
-							await API.user.notConfirmUserDelete({
-								userPhone: formatPhoneNumber,
-							});
-							await API.user.tempUserInsert({
-								userPhone: formatPhoneNumber,
-								nickname: userInfo.nickname
-									? userInfo.nickname
-									: '',
-								password: userInfo.password,
-							});
-							await API.user.sendConfirmCode({
-								userPhone: formatPhoneNumber,
-								password: userInfo.password,
-								nickname: userInfo.nickname,
-							});
-
-							setCognitoUser(user as any);
-							setIsSendConfirmPhoneNumber(true);
-							setIsClickConfirmButton(true);
-							break;
-						case 3:
-							Swal.fire(globalSwal.overlapPhoneNumber);
-							break;
-						default:
-							await API.user.tempUserInsert({
-								userPhone: formatPhoneNumber,
-								nickname: userInfo.nickname
-									? userInfo.nickname
-									: '',
-								password: userInfo.password,
-							});
-							console.log('tempUserInsert1');
-							await API.user.sendConfirmCode({
-								userPhone: formatPhoneNumber,
-								password: userInfo.password,
-								nickname: userInfo.nickname,
-							});
-							console.log('tempUserInsert2');
-							// await API.user.sendConfirmCode({
-							// 	userPhone: formatPhoneNumber,
-							// });
-							// user = await signUp({
-							// 	...userInfo,
-							// 	phoneNumber: formatPhoneNumber,
-							// 	nickname: userInfo.nickname
-							// 		? userInfo.nickname
-							// 		: '',
-							// });
-
-							setCognitoUser(user as any);
-							setIsSendConfirmPhoneNumber(true);
-							setIsClickConfirmButton(true);
-							break;
-					}
-
 					setConfirmTime(moment('2020-01-01 16:05:00'));
+					setIsSendConfirmPhoneNumber(true);
+					setIsClickConfirmButton(true);
+					// setCognitoUser(user as any);
 				}
 			} else if (type === 'forgotPassword') {
 				if (isSendConfirmPhoneNumber) {
@@ -215,27 +153,29 @@ const UserConfirm = ({
 				}
 			}
 		} catch (err) {
-			console.log('confirm err : ', err);
-			// if (err.code === 'UsernameExistsException') {
-			// 	Swal.fire(globalSwal.overlapPhoneNumber);
-			// } else if (err.code === 'LimitExceededException') {
-			// 	Swal.fire(globalSwal.limitConfirmErr);
-			// }
+			console.log('sendConfirm err : ', err);
+
 			const formatErr = err?.data?.error;
 			if (formatErr === 'error01') {
 				Swal.fire(globalSwal.overlapPhoneNumber);
 			} else if (formatErr === 'error02') {
-				Swal.fire(globalSwal.confirmTimeOver);
+				Swal.fire(globalSwal.bannedUser);
 			} else if (formatErr === 'error03') {
 				Swal.fire(globalSwal.confirmErr);
-			} else if (formatErr === 'error04') {
-				Swal.fire(globalSwal.DBErr);
-				console.log('err : ', err?.response);
+			} else if (formatErr === 'error06') {
+				Swal.fire(globalSwal.needAccountInfo);
+			} else if (formatErr === 'error07') {
+				Swal.fire(globalSwal.needNickName);
+			} else if (formatErr === 'error08') {
+				Swal.fire(globalSwal.needPassword);
 			} else {
-				console.log('err : ', err?.response);
-				// Swal.fire(globalSwal.limitConfirmErr);
+				console.log(err?.data);
+				Swal.fire({
+					icon: 'error',
+					title: `에러 ${formatErr}`,
+					confirmButtonText: '확인',
+				});
 			}
-			console.log('sign up err : ', err);
 		} finally {
 			setIsSendConfirmPhoneNumberLoading(false);
 		}
@@ -244,7 +184,6 @@ const UserConfirm = ({
 	const handleSubmit = async (e: any): Promise<void> => {
 		setIsSubmitButtonLoading(true);
 		e.preventDefault();
-		console.log(confirmTime.diff(moment('2020-01-01 16:05:00'), 'second'));
 		try {
 			if (
 				confirmTime.diff(moment('2020-01-01 16:05:00'), 'second') <=
