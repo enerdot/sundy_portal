@@ -24,14 +24,25 @@ const TimeCount = (props: TimeCountProps) => {
 
 	const [nowMomentTime, setNowMomentTime] = useState(time);
 	const [nowTime, setNowTime] = useState('');
+	const [isTimeEnd, setIsTimeEnd] = useState(false);
 
 	useInterval(() => {
-		const result = nowMomentTime.add(-1, 'second');
-		setNowMomentTime(result);
-		setNowTime(result.format('mm:ss'));
+		if (nowMomentTime.format('mm:ss') !== '00:00') {
+			const result = nowMomentTime.add(-1, 'second');
+			setNowMomentTime(result);
+			setNowTime(result.format('mm:ss'));
+		} else {
+			setIsTimeEnd(true);
+		}
 	}, 1000);
 
-	return isStart ? <Styled.Wrapper>{nowTime}</Styled.Wrapper> : <></>;
+	return isStart ? (
+		<Styled.Wrapper color={isTimeEnd ? '' : 'lightGray'}>
+			{nowTime}
+		</Styled.Wrapper>
+	) : (
+		<></>
+	);
 };
 TimeCount.defaultProps = {
 	time: moment(),

@@ -31,6 +31,21 @@ const globalSwal: { [key: string]: SweetAlertOptions } = {
 		title: '해당 전화번호는 이미 계정이 있는 전화번호입니다!',
 		confirmButtonText: '확인',
 	},
+	confirmTimeOver: {
+		icon: 'error',
+		title: '인증 시간이 초과되었습니다',
+		confirmButtonText: '확인',
+	},
+	confirmErr: {
+		icon: 'error',
+		title: '인증 번호가 잘못 입력되었습니다',
+		confirmButtonText: '확인',
+	},
+	DBErr: {
+		icon: 'error',
+		title: 'DB 에러',
+		confirmButtonText: '확인',
+	},
 	notSignUpPhoneNumber: {
 		icon: 'error',
 		title: '해당 전화번호는 없는 \n 계정입니다!',
@@ -42,6 +57,33 @@ const globalSwal: { [key: string]: SweetAlertOptions } = {
 		text: '잠시후에 다시 시도해주세요.',
 		confirmButtonText: '확인',
 	},
+	alreadySignUser: {
+		icon: 'error',
+		title: '이미 회원가입된 회원입니다.',
+		confirmButtonText: '확인',
+	},
+	bannedUser: {
+		icon: 'error',
+		title: '차단된 회원입니다.',
+		confirmButtonText: '확인',
+	},
+	needAccountInfo: {
+		icon: 'warning',
+		title: '입력되지 않은 정보가 있습니다.',
+		confirmButtonText: '확인',
+	},
+
+	needNickName: {
+		icon: 'warning',
+		title: '닉네임의 가입 조건이 일치하지 않습니다.',
+		confirmButtonText: '확인',
+	},
+	needPassword: {
+		icon: 'warning',
+		title: '비밀번호의 가입 조건이 일치하지 않습니다.',
+		confirmButtonText: '확인',
+	},
+
 	isPaymentToken: {
 		icon: 'warning',
 		title: '',

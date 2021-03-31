@@ -13,7 +13,7 @@ import useAPI from 'hooks/useAPI';
 
 import regularExpression from 'config/regularExpression';
 import LabelInput from 'components/atoms/LabelInput';
-import { signUp, resendConfirmationCode, forgotPassword } from 'api/cognito';
+import { resendConfirmationCode, forgotPassword } from 'api/cognito';
 
 import globalSwal from 'config/swal';
 import CircleSpinner from 'components/atoms/Spinner';
@@ -108,82 +108,37 @@ const UserConfirm = ({
 		try {
 			const formatPhoneNumber = `+82${phoneNumber}`;
 			setIsSendConfirmPhoneNumberLoading(true);
-			setIsClickConfirmButton(true);
-			setConfirmTime(moment('2020-01-01 16:05:00'));
+
 			if (type === 'signUp') {
 				if (isSendConfirmPhoneNumber) {
 					console.log('resend');
-					await resendConfirmationCode(cognitoUser);
-				} else {
-					const {
-						data: { checkStatus },
-					} = await API.user.isConfirm({
+					await API.user.sendConfirmCode({
 						userPhone: formatPhoneNumber,
+						password: userInfo.password,
+						nickname: userInfo.nickname,
 					});
-
-					let user = undefined;
-
-					switch (checkStatus) {
-						case 1:
-							Swal.fire(globalSwal.overlapPhoneNumber);
-							break;
-						case 2:
-							await API.user.notConfirmUserDelete({
-								userPhone: formatPhoneNumber,
-							});
-							await API.user.tempUserInsert({
-								userPhone: formatPhoneNumber,
-								nickname: userInfo.nickname
-									? userInfo.nickname
-									: '',
-								password: userInfo.password,
-							});
-							user = await signUp({
-								...userInfo,
-								phoneNumber: formatPhoneNumber,
-								nickname: userInfo.nickname
-									? userInfo.nickname
-									: '',
-							});
-
-							setCognitoUser(user as any);
-							setIsSendConfirmPhoneNumber(true);
-
-							break;
-						case 3:
-							Swal.fire(globalSwal.overlapPhoneNumber);
-							break;
-						default:
-							console.log('tempUserInsert1');
-							await API.user.tempUserInsert({
-								userPhone: formatPhoneNumber,
-								nickname: userInfo.nickname
-									? userInfo.nickname
-									: '',
-								password: userInfo.password,
-							});
-							console.log('tempUserInsert2');
-							user = await signUp({
-								...userInfo,
-								phoneNumber: formatPhoneNumber,
-								nickname: userInfo.nickname
-									? userInfo.nickname
-									: '',
-							});
-
-							setCognitoUser(user as any);
-							setIsSendConfirmPhoneNumber(true);
-							break;
-					}
+					setConfirmTime(moment('2020-01-01 16:05:00'));
+				} else {
+					await API.user.sendConfirmCode({
+						userPhone: formatPhoneNumber,
+						password: userInfo.password,
+						nickname: userInfo.nickname,
+					});
+					setConfirmTime(moment('2020-01-01 16:05:00'));
+					setIsSendConfirmPhoneNumber(true);
+					setIsClickConfirmButton(true);
+					// setCognitoUser(user as any);
 				}
 			} else if (type === 'forgotPassword') {
 				if (isSendConfirmPhoneNumber) {
 					await resendConfirmationCode(cognitoUser);
+					setConfirmTime(moment('2020-01-01 16:05:00'));
 				} else {
 					const signUpCheck = await API.user.signUpCheck({
 						userPhone: formatPhoneNumber,
 					});
 					const { user_check } = signUpCheck.data;
+					setConfirmTime(moment('2020-01-01 16:05:00'));
 					if (user_check) {
 						const user: any = await forgotPassword(
 							formatPhoneNumber,
@@ -191,19 +146,36 @@ const UserConfirm = ({
 						setCognitoUser(user?.cognitoUser);
 						setCognitoUserObj(user?.obj);
 						setIsSendConfirmPhoneNumber(true);
+						setIsClickConfirmButton(true);
 					} else {
 						Swal.fire(globalSwal.notSignUpPhoneNumber);
 					}
 				}
 			}
 		} catch (err) {
-			console.log('confirm err : ', err);
-			if (err.code === 'UsernameExistsException') {
+			console.log('sendConfirm err : ', err);
+
+			const formatErr = err?.data?.error;
+			if (formatErr === 'error01') {
 				Swal.fire(globalSwal.overlapPhoneNumber);
-			} else if (err.code === 'LimitExceededException') {
-				Swal.fire(globalSwal.limitConfirmErr);
+			} else if (formatErr === 'error02') {
+				Swal.fire(globalSwal.bannedUser);
+			} else if (formatErr === 'error03') {
+				Swal.fire(globalSwal.confirmErr);
+			} else if (formatErr === 'error06') {
+				Swal.fire(globalSwal.needAccountInfo);
+			} else if (formatErr === 'error07') {
+				Swal.fire(globalSwal.needNickName);
+			} else if (formatErr === 'error08') {
+				Swal.fire(globalSwal.needPassword);
+			} else {
+				console.log(err?.data);
+				Swal.fire({
+					icon: 'error',
+					title: `에러 ${formatErr}`,
+					confirmButtonText: '확인',
+				});
 			}
-			console.log('sign up err : ', err);
 		} finally {
 			setIsSendConfirmPhoneNumberLoading(false);
 		}
@@ -214,7 +186,8 @@ const UserConfirm = ({
 		e.preventDefault();
 		try {
 			if (
-				confirmTime.diff(moment('2020-01-01 16:05:00'), 'second') < -300
+				confirmTime.diff(moment('2020-01-01 16:05:00'), 'second') <=
+				-300
 			) {
 				Swal.fire(globalSwal.confirmTimeOut);
 			} else if (isConfirm) {

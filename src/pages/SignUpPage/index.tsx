@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import axios from 'axios';
 import Swal from 'sweetalert2';
 // import useSWR from 'swr';
 
 import GlobalStyled from 'style/GlobalStyled';
 
-import useCurrentUser from 'hooks/useCurrentUser';
+import globalSwal from 'config/swal';
+
 import useAPI from 'hooks/useAPI';
 
 import ProcessHeader from 'components/organisms/ProcessHeader';
@@ -15,7 +15,7 @@ import Form from 'pages/SignUpPage/Form';
 import Term from 'pages/SignUpPage/Term';
 import UserConfirmTemplate from 'components/templates/UserConfirmTemplate';
 
-import { signUpConfirm } from 'api/cognito';
+// import { signUpConfirm } from 'api/cognito';
 import Compleat from 'pages/SignUpPage/Compleat';
 
 import { statusType } from 'components/atoms/ProcessBall';
@@ -55,8 +55,6 @@ const SignUpPage = ({
 	// 	}
 	// };
 
-	const { createCurrentUser } = useCurrentUser();
-
 	const [submitLevel, setSubmitLevel] = useState(0);
 
 	const [userInfo, setUserInfo] = useState({
@@ -94,42 +92,16 @@ const SignUpPage = ({
 	const [API] = useAPI();
 
 	const handleSubmit = async (e: number, info: any) => {
-		let errNum = 0;
 		try {
 			if (e === processHeaderInfos.length) {
 				setIsSubmitLoading(true);
-				await signUpConfirm(info.cognitoUser, info.confirmCode);
 
 				const formatPhoneNumber = `+82${info.phoneNumber}`;
 
-				await API.user.confirmUserUpdate({
+				await API.user.confirmUser({
 					userPhone: formatPhoneNumber,
+					authNumber: info.confirmCode,
 				});
-
-				const idToken = await createCurrentUser({
-					userId: formatPhoneNumber,
-					password: userInfo.password,
-				});
-				errNum += 1;
-
-				const formatAPI = axios.create({
-					baseURL: process.env.REACT_APP_API_URL,
-					headers: {
-						Authorization: idToken,
-					},
-				});
-				errNum += 1;
-
-				await formatAPI.post('/users/create-wallet', {
-					userPhone: formatPhoneNumber,
-				});
-				errNum += 1;
-
-				await formatAPI.post('/users/get-token', {
-					contents: 'create_wallet',
-				});
-
-				errNum += 1;
 
 				setSubmitLevel(e);
 			} else {
@@ -152,12 +124,22 @@ const SignUpPage = ({
 				setSubmitLevel(e);
 			}
 		} catch (err) {
-			Swal.fire({
-				icon: 'error',
-				title: `통신에러가 발생했습니다`,
-				text: `에러카운트 ${errNum} 에러코드 : ${err?.response?.data?.error}`,
-				confirmButtonText: '확인',
-			});
+			const formatErr = err?.response?.data?.error;
+			console.log('sendConfirm err : ', err);
+			if (formatErr === 'error01') {
+				Swal.fire(globalSwal.needAccountInfo);
+			} else if (formatErr === 'error02') {
+				Swal.fire(globalSwal.confirmTimeOut);
+			} else if (formatErr === 'error03') {
+				Swal.fire(globalSwal.confirmErr);
+			} else {
+				Swal.fire({
+					icon: 'error',
+					title: `에러 ${formatErr}`,
+					confirmButtonText: '확인',
+				});
+				// Swal.fire(globalSwal.limitConfirmErr);
+			}
 		} finally {
 			setUserInfo((prevState: object) => {
 				return {
@@ -196,7 +178,9 @@ const SignUpPage = ({
 							<UserConfirmTemplate
 								type="signUp"
 								userInfo={userInfo}
-								onSubmit={handleSubmit}
+								onSubmit={
+									isSubmitLoading ? () => {} : handleSubmit
+								}
 								isSubmitLoading={isSubmitLoading}
 							/>
 						) : (

@@ -51,8 +51,8 @@ const SignUpCompleteSection = (props: SignUpCompleteSectionInterface) => {
 	return (
 		<Styled.Wrapper>
 			<Styled.Title>회원가입을 축하합니다</Styled.Title>
-			<Styled.Content>회원가입 축하 포인트를 받았어요 !</Styled.Content>
-			<Styled.CoinText>10000 REDi</Styled.CoinText>
+			{/* <Styled.Content>회원가입 축하 포인트를 받았어요 !</Styled.Content>
+			<Styled.CoinText>10000 REDi</Styled.CoinText> */}
 			<GlobalStyled.CenterRow>
 				<Styled.CoinAnimationWrapper>
 					<video
