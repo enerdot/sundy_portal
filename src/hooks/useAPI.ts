@@ -66,11 +66,11 @@ function useAPI(): any {
 		delete: () => {
 			signOut();
 			removeCookie('id_token', { path: '/' });
-			Object.keys(cookies).map(res => {
-				removeCookie(res, { path: '/' });
-				removeCookie(res, { path: '/main' });
-				return res;
-			});
+			// Object.keys(cookies).map(res => {
+			// 	removeCookie(res, { path: '/' });
+			// 	removeCookie(res, { path: '/main' });
+			// 	return res;
+			// });
 			localStorage.clear();
 			sessionStorage.clear();
 		},
