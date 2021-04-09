@@ -46,18 +46,18 @@ const GlobalHeader = () => {
 	const [isPopup, setIsPopup] = useState(false);
 
 	useEffect(() => {
-		console.log('popupTime1 : ', cookies?.popupTime1);
-		if (cookies?.popupTime1) {
-			if (moment().diff(moment(cookies?.popupTime1), 'days') > 7) {
+		console.log('popupTime2 : ', cookies?.popupTime2);
+		if (cookies?.popupTime2) {
+			if (moment().diff(moment(cookies?.popupTime2), 'days') > 7) {
 				setIsPopup(true);
 			}
 		} else {
 			setIsPopup(true);
 		}
-	}, [cookies?.popupTime1]);
+	}, [cookies?.popupTime2]);
 
 	const handleClickCancelPopup = () => {
-		setCookies('popupTime1', moment().format('YYYY-MM-DD HH:mm'));
+		setCookies('popupTime2', moment().format('YYYY-MM-DD HH:mm'));
 		setIsPopup(false);
 	};
 
@@ -84,35 +84,24 @@ const GlobalHeader = () => {
 						안녕하세요 고객님,
 					</GlobalStyled.Row>
 					<GlobalStyled.Row bottom={1.5}>
-						일부 유저 대상으로 포인트가 정상 조회 안되는 오류는 현재
-						정상 복구 중에 있습니다.
+						‘레디포인트 조회’ 정상 복구 작업에 지연이 발생되어 해당
+						상황을 안내드립니다.
 					</GlobalStyled.Row>
 					<GlobalStyled.Row bottom={1.5}>
 						<div>
-							빠른 시일 내 정상화하기 위해 서비스 점검 및
-							업데이트를 아래 기간에 실시할 예정이오니, 점검 시간
-							중 일부 접속이 원할하지 못할 수 있어 이용 시 참고
-							바랍니다.
+							모든 이용자에게 정확한 정보가 표기될 수 있도록
+							단계적으로 수정 중에 있으나, 최근 회원가입자 수가
+							급히 증가되며 복구 작업이 지연되고 있습니다.
 						</div>
 					</GlobalStyled.Row>
 					<GlobalStyled.Row bottom={1.5}>
-						이용에 불편을 드린 점 양해 부탁드립니다.
+						현재 서비스 이용 또는 프로모션 기간 내 받은 리워드에
+						대한 이상은 없음을 알려드리며, 최대한 빠르게 조치하도록
+						하겠습니다.
 					</GlobalStyled.Row>
-					<GlobalStyled.HeightRow bottom={1.5} fontSize="1rem">
-						<GlobalStyled.Row bottom={1.5}>
-							점검 시기: 2021년 04월 05일 (월) 오전 9시 ~ 04월
-							10일 (금)
-						</GlobalStyled.Row>
-						<GlobalStyled.Row>
-							점검 사유: 포인트 조회 기능 정상화 및 서버 점검
-							<br />
-						</GlobalStyled.Row>
-						<GlobalStyled.Row>
-							비고: 이벤트를 통한 포인트 지급과 무관한
-							오류사항으로 시스템 정상화 후 정상 표기될 예정
-						</GlobalStyled.Row>
-					</GlobalStyled.HeightRow>
-
+					<GlobalStyled.Row bottom={1.5}>
+						이용에 불편을 드려 대단히 죄송합니다. 감사합니다.
+					</GlobalStyled.Row>
 					<GlobalStyled.Row>
 						<Styled.PopupCancelButton
 							onClick={handleClickCancelPopup}
