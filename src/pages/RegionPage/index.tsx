@@ -97,7 +97,7 @@ const RegionPage = ({
 		(res: any, i: number) => {
 			return {
 				id: moment(inquiryDate)
-					.add(-7 + i, 'days')
+					.add(-6 + i, 'days')
 					.format('MM-DD'),
 				발전시간: res,
 			};
