@@ -142,7 +142,7 @@ const MyPageTemplate = (props: MyPageTemplateInterface) => {
 						</GlobalStyled.ImgRow>
 						<GlobalStyled.Row>
 							<Styled.CoinText>
-								-{/* {userInfo.wallet_balance} */}
+								{userInfo.wallet_balance}
 								{/* {error?.response?.data?.error === 'error03' ? (
 									<GlobalStyled.CustomCol width="10rem">
 										<CircleSpinner
