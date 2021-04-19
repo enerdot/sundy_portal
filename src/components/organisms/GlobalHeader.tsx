@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { useCookies } from 'react-cookie';
-import moment from 'moment';
+// import { useCookies } from 'react-cookie';
+// import moment from 'moment';
 
 import GlobalStyled from 'style/GlobalStyled';
 import UserProfile from 'components/molecules/UserProfile';
 
 import useCurrentUser from 'hooks/useCurrentUser';
 
-import Popup from 'components/atoms/Popup';
+// import Popup from 'components/atoms/Popup';
 
 const Styled = {
 	Wrapper: styled(GlobalStyled.CenterRow)`
@@ -41,25 +41,25 @@ const Styled = {
 const GlobalHeader = () => {
 	const { currentUser } = useCurrentUser();
 
-	const [cookies, setCookies] = useCookies();
+	// const [cookies, setCookies] = useCookies();
 
-	const [isPopup, setIsPopup] = useState(false);
+	// const [isPopup, setIsPopup] = useState(false);
 
-	useEffect(() => {
-		console.log('popupTime2 : ', cookies?.popupTime2);
-		if (cookies?.popupTime2) {
-			if (moment().diff(moment(cookies?.popupTime2), 'days') > 7) {
-				setIsPopup(true);
-			}
-		} else {
-			setIsPopup(true);
-		}
-	}, [cookies?.popupTime2]);
+	// useEffect(() => {
+	// 	console.log('popupTime2 : ', cookies?.popupTime2);
+	// 	if (cookies?.popupTime2) {
+	// 		if (moment().diff(moment(cookies?.popupTime2), 'days') > 7) {
+	// 			setIsPopup(true);
+	// 		}
+	// 	} else {
+	// 		setIsPopup(true);
+	// 	}
+	// }, [cookies?.popupTime2]);
 
-	const handleClickCancelPopup = () => {
-		setCookies('popupTime2', moment().format('YYYY-MM-DD HH:mm'));
-		setIsPopup(false);
-	};
+	// const handleClickCancelPopup = () => {
+	// 	setCookies('popupTime2', moment().format('YYYY-MM-DD HH:mm'));
+	// 	setIsPopup(false);
+	// };
 
 	return (
 		<GlobalStyled.Body>
@@ -78,7 +78,7 @@ const GlobalHeader = () => {
 					</Styled.Wrapper>
 				</GlobalStyled.ContentRow>
 			</GlobalStyled.Container>
-			<Popup open={isPopup}>
+			{/* <Popup open={isPopup}>
 				<Styled.PopupWrapper>
 					<GlobalStyled.Row bottom={1.5}>
 						안녕하세요 고객님,
@@ -110,7 +110,7 @@ const GlobalHeader = () => {
 						</Styled.PopupCancelButton>
 					</GlobalStyled.Row>
 				</Styled.PopupWrapper>
-			</Popup>
+			</Popup> */}
 		</GlobalStyled.Body>
 	);
 };
