@@ -115,7 +115,7 @@ const InfoPage = ({
 		(res: any, i: number) => {
 			return {
 				id: moment(match.params.date)
-					.add(-7 + i, 'days')
+					.add(-6 + i, 'days')
 					.format('MM-DD'),
 				발전량: res,
 			};
